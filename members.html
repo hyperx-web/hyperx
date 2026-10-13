@@ -31,7 +31,7 @@ eyebrow: Who's in HyperX?
               {% for it in g.items %}
                 {% assign hit = false %}
                 {% for n in p.pub_names %}{% if it.authors contains n %}{% assign hit = true %}{% endif %}{% endfor %}
-                {% if hit %}{% assign count = count | plus: 1 %}{% assign venue = it.venue | remove_first: "submitted to " %}
+                {% if hit %}{% assign count = count | plus: 1 %}{% assign venue = it.venue %}
                   {% capture li %}<li><b>{{ it.title }}</b><span class="muted">{{ venue }}</span></li>{% endcapture %}
                   {% assign mine = mine | append: li %}
                 {% endif %}
