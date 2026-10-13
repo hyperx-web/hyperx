@@ -331,3 +331,16 @@
   box.addEventListener("click", function () { box.hidden = true; });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") box.hidden = true; });
 })();
+
+// publications: bold the journal / conference name inside each venue line
+(function () {
+  var re = /^((?:submitted to|accepted to)\s+)?(.+?)(?=,\s*(?:vol\.|pp\.|no\.|(?:Jan|Feb|Mar|Apr|May|June?|July?|Aug|Sep|Oct|Nov|Dec)\b|\d{4})|$)/i;
+  document.querySelectorAll(".pub-venue").forEach(function (el) {
+    var t = el.textContent.trim();
+    if (/^in preparation$/i.test(t)) return;
+    var m = t.match(re);
+    if (!m || !m[2]) return;
+    var esc = function (s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;"); };
+    el.innerHTML = esc(m[1] || "") + '<span class="venue-name">' + esc(m[2]) + "</span>" + esc(t.slice((m[1] || "").length + m[2].length));
+  });
+})();

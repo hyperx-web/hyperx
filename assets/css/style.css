@@ -413,3 +413,4 @@ mark { background: rgba(76,201,240,.3); color: #fff; border-radius: 3px; }
 .fig-lightbox[hidden] { display: none; }
 .fig-lightbox img { width: min(1400px, 94vw); max-height: 92vh; object-fit: contain; background: #fff; border-radius: 10px; padding: 16px; }
 .nowrap { white-space: nowrap; }
+.pub-venue .venue-name { font-weight: 700; color: #c9d3ee; }
