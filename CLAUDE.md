@@ -54,5 +54,5 @@ Always answer the user in Korean.
 
 ## Style
 - Fonts: Inter (English) + KoPub World Dotum (Korean, self-hosted woff2).
-- Eyebrow labels: 1.05rem, letter-spacing .06em. Members achievement headings: letter-spacing 0. No rounded border on the home stats bar.
+- Eyebrow labels: 1.05rem, letter-spacing .06em. Members achievement headings and block titles (Education, Experience, …): letter-spacing 0. No rounded border on the home stats bar.
 - Avoid flashy hover effects on images; don't crop photos (members 7:10, research square, gallery natural ratio).

@@ -150,7 +150,7 @@ p { margin: 0 0 .8em; }
 .section-head { margin-bottom: 2.5rem; }
 .block { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; }
 .block + .block { margin-top: 20px; }
-.block-title { font-size: 1.05rem; text-transform: uppercase; letter-spacing: .12em; color: var(--accent); margin-bottom: 1.2rem; }
+.block-title { font-size: 1.05rem; text-transform: uppercase; letter-spacing: 0; color: var(--accent); margin-bottom: 1.2rem; }
 
 /* stats */
 .stats { position: relative; z-index: 3; margin-top: -70px; }
