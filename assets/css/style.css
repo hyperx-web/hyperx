@@ -405,7 +405,7 @@ mark { background: rgba(76,201,240,.3); color: #fff; border-radius: 3px; }
 .constellation { display: block; width: 100%; aspect-ratio: 1 / 1; }
 .constellation-cap { margin: 0; padding: 8px 4px 0; font-size: .8rem; color: #555; border-top: 1px solid #e5e7eb; }
 .research-fig { margin: 0 0 16px; }
-.research-fig figcaption { font-size: .8rem; color: var(--muted); margin-top: 6px; }
+.research-fig figcaption { font-size: .85rem; font-weight: 700; color: #c9d3ee; text-align: center; margin-top: 8px; }
 .threebody { display: block; width: 100%; aspect-ratio: 4 / 3; }
 
 .research-fig img { cursor: zoom-in; }
