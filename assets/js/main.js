@@ -310,3 +310,15 @@
     });
   });
 })();
+
+// research figures: click to enlarge
+(function () {
+  var box = document.querySelector(".fig-lightbox");
+  if (!box) return;
+  var img = box.querySelector("img");
+  document.querySelectorAll(".research-fig img").forEach(function (im) {
+    im.addEventListener("click", function () { img.src = im.src; img.alt = im.alt; box.hidden = false; });
+  });
+  box.addEventListener("click", function () { box.hidden = true; });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") box.hidden = true; });
+})();
