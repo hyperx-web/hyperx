@@ -27,7 +27,7 @@ eyebrow: Research Output
           <p class="pub-title">{{ it.title }}</p>
           {% assign authors = it.authors %}{% for n in site.data.members.pub_names %}{% assign tagged = '<span class="lab">' | append: n | append: '</span>' %}{% assign authors = authors | replace: n, tagged %}{% endfor %}
           <p class="pub-authors">{{ authors }}</p>
-          <p class="pub-venue">{{ it.venue }}</p>
+          <p class="pub-venue">{% if g.group == "Submitted" %}{{ it.venue | remove_first: "submitted to " }}{% else %}{{ it.venue }}{% endif %}</p>
         </li>
         {% endfor %}
       </ol>

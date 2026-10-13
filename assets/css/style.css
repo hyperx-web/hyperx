@@ -232,7 +232,9 @@ p { margin: 0 0 .8em; }
 .member-role { color: var(--accent); font-weight: 600; font-size: 1.1rem; margin: 0; }
 .member-pubs { border-left: 1px solid var(--border); padding-left: 28px; min-height: 100%; }
 .member-pubs h4 { font-size: .8rem; text-transform: uppercase; letter-spacing: .14em; color: var(--accent); margin: 4px 0 .8rem; }
-.member-pubs ul { list-style: none; margin: 0; padding: 0; }
+.member-pubs ul { list-style: none; margin: 0 0 1.2rem; padding: 0; }
+.member-pubs h4 + ul { margin-top: -.3rem; }
+.member-pubs ul + h4 { margin-top: .4rem; }
 .member-pubs li { padding: 7px 0; border-bottom: 1px dashed var(--border); font-size: .9rem; display: flex; flex-direction: column; gap: 1px; }
 .member-pubs li:last-child { border: 0; }
 .member-pubs li .muted { font-size: .82rem; font-style: italic; }

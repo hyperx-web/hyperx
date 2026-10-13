@@ -26,18 +26,18 @@ eyebrow: Who's in HyperX?
             <a class="tool-open" href="{{ '/professor/' | relative_url }}">View professor page →</a>
           {% else %}
             {% assign count = 0 %}
-            <h4>Publications</h4>
-            <ul>
-            {% for g in site.data.publications %}{% for it in g.items %}
-              {% assign hit = false %}
-              {% for n in p.pub_names %}{% if it.authors contains n %}{% assign hit = true %}{% endif %}{% endfor %}
-              {% if hit %}{% assign count = count | plus: 1 %}
-              <li><span class="pub-kind kind-{{ g.category }}">{{ g.group }}</span>
-                <b>{{ it.title }}</b>
-                <span class="muted">{{ it.venue }}</span></li>
-              {% endif %}
-            {% endfor %}{% endfor %}
-            </ul>
+            {% for g in site.data.publications %}
+              {% assign mine = "" %}
+              {% for it in g.items %}
+                {% assign hit = false %}
+                {% for n in p.pub_names %}{% if it.authors contains n %}{% assign hit = true %}{% endif %}{% endfor %}
+                {% if hit %}{% assign count = count | plus: 1 %}{% assign venue = it.venue | remove_first: "submitted to " %}
+                  {% capture li %}<li><b>{{ it.title }}</b><span class="muted">{{ venue }}</span></li>{% endcapture %}
+                  {% assign mine = mine | append: li %}
+                {% endif %}
+              {% endfor %}
+              {% if mine != "" %}<h4>{{ g.group }}</h4><ul>{{ mine }}</ul>{% endif %}
+            {% endfor %}
             {% if count == 0 %}<p class="muted">To be updated</p>{% endif %}
           {% endif %}
         </div>
