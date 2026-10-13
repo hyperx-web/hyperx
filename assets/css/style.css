@@ -419,4 +419,3 @@ mark { background: rgba(76,201,240,.3); color: #fff; border-radius: 3px; }
 .member-pubs .pub-venue .venue-name { color: inherit; }
 .news-item p strong { color: #fff; font-weight: 700; }
 .acc ul { letter-spacing: -0.04em; }
-.pub-authors sup.mark { font-size: .72em; line-height: 0; vertical-align: super; margin-left: 1px; }

@@ -21,7 +21,7 @@ Always answer the user in Korean.
 - Venue text: submitted → `submitted to <Journal>, <Mon. YYYY>`; accepted → `accepted to …`; in prep → `in preparation`.
 - Author lists: 3+ authors → serial comma before the last `and` (`A, B, and C`); 2 authors → `A and B`.
   Correct spacing (`, ` after commas, no `andD.-H.`), initials like `C.-G. Kang`, `DSSS- and CSS-based`.
-  `*` = corresponding author, `†` = equal contribution (written inline in data; rendered as superscripts by JS).
+  `*` = corresponding author, `†` = equal contribution.
 - Title case: sentence case like the existing entries.
 - Optional `research: 6g|satellite|ai` pins a paper to a Research area (else keyword matching).
 - Lab-member names to mark are listed in `_data/members.yml` → `pub_names` (global list) and per member
