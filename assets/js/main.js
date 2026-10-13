@@ -247,3 +247,66 @@
     window.addEventListener("resize", size);
   });
 })();
+
+// Earth–Moon CR3BP trajectory (precomputed Arenstorf orbit) animation
+(function () {
+  var cvs = document.querySelectorAll(".threebody");
+  if (!cvs.length) return;
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  cvs.forEach(function (cv) {
+    fetch(cv.dataset.src).then(function (r) { return r.json(); }).then(function (d) {
+      var ctx = cv.getContext("2d"), dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var w, h, sc, ox, oy, pts = d.path, mu = d.mu, n = pts.length;
+      function size() {
+        w = cv.clientWidth; h = cv.clientHeight;
+        cv.width = w * dpr; cv.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        sc = Math.min(w / 3.0, h / 2.7); ox = w / 2 - 0.05 * sc; oy = h / 2;
+      }
+      function X(p) { return ox + p[0] * sc; }
+      function Y(p) { return oy - p[1] * sc; }
+      var stars = [];
+      for (var i = 0; i < 90; i++) stars.push([Math.random(), Math.random(), Math.random()]);
+      var t0 = performance.now(), period = 14000; // ms per orbit
+
+      function frame(now) {
+        var k = reduce ? n - 1 : Math.floor(((now - t0) % period) / period * n);
+        ctx.clearRect(0, 0, w, h);
+        stars.forEach(function (s) { ctx.fillStyle = "rgba(255,255,255," + (0.15 + s[2] * 0.4) + ")"; ctx.fillRect(s[0] * w, s[1] * h, 1.2, 1.2); });
+        // full orbit (faint)
+        ctx.strokeStyle = "rgba(255,255,255,.12)"; ctx.lineWidth = 1;
+        ctx.beginPath(); pts.forEach(function (p, i) { i ? ctx.lineTo(X(p), Y(p)) : ctx.moveTo(X(p), Y(p)); }); ctx.stroke();
+        // trail
+        var trail = Math.floor(n * 0.22);
+        for (var j = Math.max(1, k - trail); j <= k; j++) {
+          var a = (j - (k - trail)) / trail;
+          ctx.strokeStyle = "rgba(255,170,60," + (a * 0.95) + ")"; ctx.lineWidth = 0.8 + a * 2;
+          ctx.beginPath(); ctx.moveTo(X(pts[j - 1]), Y(pts[j - 1])); ctx.lineTo(X(pts[j]), Y(pts[j])); ctx.stroke();
+        }
+        // Lagrange points
+        ctx.font = "italic 12px 'Times New Roman', serif";
+        d.L.forEach(function (L, i) {
+          var x = X(L), y = Y(L);
+          ctx.strokeStyle = "rgba(168,151,255,.9)"; ctx.lineWidth = 1.3;
+          ctx.beginPath(); ctx.moveTo(x - 4, y - 4); ctx.lineTo(x + 4, y + 4); ctx.moveTo(x + 4, y - 4); ctx.lineTo(x - 4, y + 4); ctx.stroke();
+          ctx.fillStyle = "#c4b8ff"; ctx.fillText("L" + (i + 1), x + 6, y - 6);
+        });
+        // Earth
+        var ex = X([-mu, 0]), ey = Y([-mu, 0]), er = Math.max(9, sc * 0.075);
+        var g = ctx.createRadialGradient(ex - er * .4, ey - er * .4, er * .1, ex, ey, er);
+        g.addColorStop(0, "#5fa8ff"); g.addColorStop(1, "#163a7a");
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(ex, ey, er, 0, 7); ctx.fill();
+        // Moon
+        var mx = X([1 - mu, 0]), my = Y([1 - mu, 0]), mr = Math.max(4, er * 0.4);
+        ctx.fillStyle = "#cfd3da"; ctx.beginPath(); ctx.arc(mx, my, mr, 0, 7); ctx.fill();
+        ctx.font = "13px Inter, sans-serif"; ctx.fillStyle = "#8f9bb6";
+        ctx.fillText("Earth", ex - 16, ey + er + 16); ctx.fillText("Moon", mx - 14, my + mr + 16);
+        // spacecraft
+        var p = pts[k]; ctx.fillStyle = "#fff"; ctx.shadowColor = "#ffb347"; ctx.shadowBlur = 10;
+        ctx.beginPath(); ctx.arc(X(p), Y(p), 3.2, 0, 7); ctx.fill(); ctx.shadowBlur = 0;
+        if (!reduce) requestAnimationFrame(frame);
+      }
+      size(); requestAnimationFrame(frame);
+      window.addEventListener("resize", size);
+    });
+  });
+})();

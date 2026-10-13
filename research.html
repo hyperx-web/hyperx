@@ -20,6 +20,10 @@ lead: "Our lab explores cutting-edge innovations in future communication systems
           <canvas class="constellation" aria-label="Animated LEO mega-constellation (Walker-delta, 53° inclination)"></canvas>
           <p class="constellation-cap">Walker-delta LEO constellation · <i>i</i> = 53° · 24 planes × 22 satellites (not to scale)</p>
         </div>
+        <div class="constellation-wrap" style="margin-top:16px">
+          <canvas class="threebody" data-src="{{ '/assets/js/threebody.json' | relative_url }}" aria-label="Spacecraft trajectory in the Earth–Moon circular restricted three-body problem"></canvas>
+          <p class="constellation-cap">Earth–Moon circular restricted three-body problem · Arenstorf periodic orbit (rotating frame) · <i>L</i><sub>1</sub>–<i>L</i><sub>5</sub></p>
+        </div>
         {% elsif r.images %}
           {% for im in r.images %}
           <figure class="research-fig"><img src="{{ '/assets/img/research/' | append: im.file | relative_url }}" alt="{{ im.caption }}" loading="lazy"><figcaption>{{ im.caption }}</figcaption></figure>
