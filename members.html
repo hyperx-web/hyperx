@@ -38,7 +38,7 @@ eyebrow: Who's in HyperX?
                   {% for n in p.pub_names %}{% if it.authors contains n %}{% assign hit = true %}{% endif %}{% endfor %}
                   {% if hit %}{% assign count = count | plus: 1 %}
                     {% assign venue = it.venue | replace_first: "submitted to", "Submitted to" | replace_first: "accepted to", "Accepted to" %}
-                    {% assign authors = it.authors %}{% for n in site.data.members.pub_names %}{% assign tagged = '<span class="lab">' | append: n | append: '</span>' %}{% assign authors = authors | replace: n, tagged %}{% endfor %}
+                    {% assign authors = it.authors %}{% for n in p.pub_names %}{% assign tagged = '<span class="lab">' | append: n | append: '</span>' %}{% assign authors = authors | replace: n, tagged %}{% endfor %}
                     {% assign authors = authors | replace: "†</span>", "</span>†" %}
                     {% capture li %}<li><b>{{ it.title }}</b><span class="pub-authors">{{ authors }}</span><span class="pub-venue">{{ venue }}</span></li>{% endcapture %}
                     {% assign mine = mine | append: li %}
