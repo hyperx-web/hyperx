@@ -188,11 +188,11 @@
       var spin = t * 0.08, orbitT = t * 0.35;
       ctx.clearRect(0, 0, w, h);
 
-      // satellites positions
-      var pts = [];
+      // satellites positions (world + projected)
+      var pts = [], raw = [];
       for (var p = 0; p < P; p++) {
-        pts[p] = [];
-        for (var k = 0; k < S; k++) { var q = satPos(p, k, orbitT); pts[p][k] = proj(q[0], q[1], q[2], spin); }
+        pts[p] = []; raw[p] = [];
+        for (var k = 0; k < S; k++) { var q = satPos(p, k, orbitT); raw[p][k] = q; pts[p][k] = proj(q[0], q[1], q[2], spin); }
       }
 
       // back-side sats & links (behind earth)
@@ -216,7 +216,46 @@
 
       // front-side sats & links
       drawLayer(pts, true);
+      drawTerminal(raw, pts, spin);
       if (!reduce) requestAnimationFrame(frame);
+    }
+
+    // ground terminal near the equator (kept facing the viewer), serving + neighbouring satellites
+    var UT_LAT = 5 * D2R, UT_VIEW = 62 * D2R, NEIGH = 4;   // 1 serving + 2nd–5th nearest
+    function drawTerminal(raw, pts, spin) {
+      // fixed in view: near the right limb so the links are seen from the side
+      var cl = Math.cos(UT_LAT), vx = cl * Math.sin(UT_VIEW), vz = cl * Math.cos(UT_VIEW);
+      var c = Math.cos(spin), s0 = Math.sin(spin);
+      var ut = [c * vx - s0 * vz, Math.sin(UT_LAT), s0 * vx + c * vz];        // unit vector on Earth
+      var vis = [];
+      for (var p = 0; p < P; p++) for (var k = 0; k < S; k++) {
+        var q = raw[p][k], d = [q[0] - ut[0], q[1] - ut[1], q[2] - ut[2]];
+        if (d[0] * ut[0] + d[1] * ut[1] + d[2] * ut[2] <= 0) continue;          // below the horizon
+        vis.push({ p: p, k: k, dist: Math.hypot(d[0], d[1], d[2]) });
+      }
+      vis.sort(function (a, b) { return a.dist - b.dist; });
+      var u = proj(ut[0], ut[1], ut[2], spin);
+      ctx.lineCap = "round";
+      // neighbouring satellites: faint grey links
+      for (var i = 1; i <= NEIGH && i < vis.length; i++) {
+        var s = pts[vis[i].p][vis[i].k];
+        ctx.strokeStyle = "rgba(60,60,60,.32)"; ctx.lineWidth = 1; ctx.setLineDash([3, 3]);
+        ctx.beginPath(); ctx.moveTo(u[0], u[1]); ctx.lineTo(s[0], s[1]); ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = "rgba(90,90,90,.85)"; ctx.beginPath(); ctx.arc(s[0], s[1], 2.4, 0, 7); ctx.fill();
+      }
+      // serving satellite: red
+      if (vis.length) {
+        var sv = pts[vis[0].p][vis[0].k];
+        ctx.strokeStyle = "#e03131"; ctx.lineWidth = 1.8;
+        ctx.beginPath(); ctx.moveTo(u[0], u[1]); ctx.lineTo(sv[0], sv[1]); ctx.stroke();
+        ctx.fillStyle = "#e03131"; ctx.beginPath(); ctx.arc(sv[0], sv[1], 4, 0, 7); ctx.fill();
+        ctx.strokeStyle = "#fff"; ctx.lineWidth = 1.2; ctx.stroke();
+      }
+      // terminal
+      ctx.fillStyle = "#1b2f52";
+      ctx.beginPath(); ctx.moveTo(u[0], u[1] - 6); ctx.lineTo(u[0] - 5, u[1] + 3); ctx.lineTo(u[0] + 5, u[1] + 3); ctx.closePath(); ctx.fill();
+      ctx.font = "600 11px Inter, sans-serif"; ctx.fillText("UT", u[0] + 7, u[1] + 4);
     }
 
     function drawCircle(fn, spin) {
