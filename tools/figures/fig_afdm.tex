@@ -72,21 +72,29 @@
 
 % tx antenna
 \coordinate (txa) at (9.05,\yT);
-\draw[line] (dac.east) -- (txa);
-\draw[line] (txa) -- ++(0,0.32) -- ++(-0.16,0.22) ++(0.16,-0.22) -- ++(0.16,0.22)
-  ($(txa)+(0,0.32)$) circle (0.5pt);   % one path = antenna symbol
+\draw[line,->] (dac.east) -- ($(txa)+(-0.12,0)$);
+\foreach \dy in {-0.36,-0.12,0.12,0.36}{
+  \draw[line width=0.6pt, black!80] ($(txa)+(-0.12,\dy)$) -- ($(txa)+(0.02,\dy)$);
+  \draw[line width=0.6pt, black!80] ($(txa)+(0.02,\dy)$) -- ++(0.14,0.08) ($(txa)+(0.02,\dy)$) -- ++(0.14,-0.08);
+}
+\draw[line width=0.6pt, black!80] ($(txa)+(-0.12,-0.36)$) -- ($(txa)+(-0.12,0.36)$);
+\node[sm, anchor=south] at ($(txa)+(0.05,0.42)$) {$N_{\mathrm{Tx}}$};
 
 % ================= channel =================
 \coordinate (rxa) at (9.05,\yR);
-\coordinate (ch1) at (9.75,{\yT+0.54});
-\coordinate (ch2) at (9.75,{\yR+0.54});
-\draw[line] ($(txa)+(0.2,0.54)$) -- (ch1);
+\coordinate (ch1) at (9.75,\yT);
+\coordinate (ch2) at (9.75,\yR);
+\draw[line] ($(txa)+(0.22,0)$) -- (ch1);
 \draw[line] (ch1) -- (ch2);
-\draw[line,->] (ch2) -- ($(rxa)+(0.2,0.54)$);
+\draw[line,->] (ch2) -- ($(rxa)+(0.2,0)$);
 
 % ================= receiver =================
-\draw[line] (rxa) -- ++(0,0.32) -- ++(-0.16,0.22) ++(0.16,-0.22) -- ++(0.16,0.22)
-  ($(rxa)+(0,0.32)$) circle (0.5pt);   % one path = antenna symbol
+\foreach \dy in {-0.36,-0.12,0.12,0.36}{
+  \draw[line width=0.6pt, black!80] ($(rxa)+(-0.12,\dy)$) -- ($(rxa)+(0.02,\dy)$);
+  \draw[line width=0.6pt, black!80] ($(rxa)+(0.02,\dy)$) -- ++(0.14,0.08) ($(rxa)+(0.02,\dy)$) -- ++(0.14,-0.08);
+}
+\draw[line width=0.6pt, black!80] ($(rxa)+(-0.12,-0.36)$) -- ($(rxa)+(-0.12,0.36)$);
+\node[sm, anchor=south] at ($(rxa)+(0.05,0.42)$) {$N_{\mathrm{Rx}}$};
 
 \node[blk, minimum width=12mm] (adc) at (8.1,\yR) {ADC\\S/P};
 \node[cblk, minimum width=13mm] (rcpp) at (6.65,\yR) {Remove\\CPP};
@@ -98,7 +106,7 @@
 \node[blk, minimum width=12mm] (det) at (0.95,\yR) {Detection\\demapping};
 \node[lab, anchor=east] (bhat) at (-0.1,\yR) {$\widehat{\mathbf b}$};
 
-\draw[line,->] (rxa) -- (adc);
+\draw[line,->] ($(rxa)+(-0.12,0)$) -- (adc);
 \draw[line,->] (adc) -- (rcpp);
 \draw[cline,->] (rcpp) -- node[lab, above] {$\mathbf r$} (lc1);
 \draw[cline,->] (lc1) -- (fft);

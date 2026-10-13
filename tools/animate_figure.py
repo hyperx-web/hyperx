@@ -100,9 +100,11 @@ groups = []
 for s in [s for s in segs if not s['dir']]:
     hit = [g for g in groups if any(min(math.dist(p, q) for p in (s['a'], s['b']) for q in (t['a'], t['b'])) < TOL for t in g)]
     groups = [g for g in groups if g not in hit] + [[s] + [t for g in hit for t in g]]
+symbols = []      # antenna arrays etc.: pass signals through, but never column-aligned
 for g in groups:
     xs = [p[0] for s in g for p in (s['a'], s['b'])]; ys = [p[1] for s in g for p in (s['a'], s['b'])]
     blocks.append((min(xs), min(ys), max(xs), max(ys)))
+    symbols.append(blocks[-1])
 
 def tip(s, ext=4.0):
     # the arrow tip lies a few pt beyond the stroked end of the wire
@@ -175,6 +177,7 @@ def propagate():
 # inputs: delay the earlier inputs so that every input of the column arrives together
 columns = []
 for b in blocks:
+    if b in symbols: continue
     for col in columns:
         h0, h1 = col[0][3] - col[0][1], b[3] - b[1]
         near = abs((col[-1][1] + col[-1][3]) / 2 - (b[1] + b[3]) / 2) < 3 * max(h0, h1)
