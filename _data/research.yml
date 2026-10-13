@@ -18,7 +18,7 @@
   animation: constellation   # 그림 대신 위성군 애니메이션 표시
   summary: Advancing satellite and space communication technologies for global connectivity.
   topics:
-    - LEO mega-constellation modeling and coverage analysis (stochastic geometry)
+    - LEO mega-constellation modeling and coverage analysis
     - Satellite clustering for non-terrestrial networks
     - GEO and hybrid GEO-LEO satellite networks
     - Beam hopping and cell association in multi-satellite LEO systems
