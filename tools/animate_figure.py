@@ -10,6 +10,7 @@
 import sys, math, re, pymupdf
 
 SPEED = 70.0      # pt per second
+GAP = 0.45        # seconds between consecutive pulses on a wire
 TOL = 3.2         # endpoint matching tolerance (pt), bridges junction dots
 PALETTE = [(232, 89, 12), (47, 158, 68), (28, 126, 214), (214, 51, 108), (245, 159, 0), (112, 72, 232)]
 
@@ -97,9 +98,13 @@ for g in groups:
     blocks.append((min(xs), min(ys), max(xs), max(ys)))
 
 def near_block(p):
+    # nearest block within 6 pt
+    best, bd = None, 6.0
     for b in blocks:
-        if touches(p, b, 6): return b
-    return None
+        dx = max(b[0] - p[0], 0, p[0] - b[2]); dy = max(b[1] - p[1], 0, p[1] - b[3])
+        dd = math.hypot(dx, dy)
+        if dd <= bd: best, bd = b, dd
+    return best
 
 for s in wires:
     s['len'] = math.dist(s['a'], s['b'])
@@ -128,43 +133,77 @@ def preds(s):
 
 def rgb(c): return tuple(int(v * 255) for v in c)
 k = 0
+seen = []   # (x, length, colour): stacked inputs of the same kind (W_1..W_K) share one colour
 for s in wires:
     s['P'] = preds(s); s['t0'] = None; s['src'] = None
     if not s['P']:
         c = rgb(s['col'])
-        if sum(c) < 230:                 # black/grey source -> distinct palette colour
-            c = PALETTE[k % len(PALETTE)]; k += 1
+        if sum(c) < 230:                 # black/grey source -> palette colour
+            same = [cc for x, L, cc in seen if abs(x - start(s)[0]) < 1 and abs(L - s['len']) < 1]
+            if same: c = same[0]
+            else:
+                c = PALETTE[k % len(PALETTE)]; k += 1
+                seen.append((start(s)[0], s['len'], c))
         s['src'] = {c}; s['t0'] = 0.0
-for _ in range(len(wires) + 5):
-    for s in wires:
-        if s['P'] and all(d['t0'] is not None for d, _ in s['P']):
-            s['t0'] = max(d['t0'] + off / SPEED for d, off in s['P'])
-            s['src'] = set().union(*[d['src'] for d, _ in s['P']])
-for s in wires:
-    if s['t0'] is None: s['t0'] = 0.0
-    if not s['src']: s['src'] = {PALETTE[0]}
+for s in wires: s['delay'] = 0.0
 
-cycle = max(s['t0'] + s['len'] / SPEED for s in wires) + 0.8
+def propagate():
+    for s in wires:
+        s['t0'] = None if s['P'] else s['delay']
+    for _ in range(len(wires) + 5):
+        for s in wires:
+            if s['P'] and all(d['t0'] is not None for d, _ in s['P']):
+                s['t0'] = max(d['t0'] + off / SPEED for d, off in s['P']) + s['delay']
+                s['src'] = set().union(*[d['src'] for d, _ in s['P']])
+    for s in wires:
+        if s['t0'] is None: s['t0'] = 0.0
+        if not s['src']: s['src'] = {PALETTE[0]}
+
+# blocks in the same column (e.g. H_u ... H_u, H_c or Enc ... Enc) and blocks with several
+# inputs: delay the earlier inputs so that every input of the column arrives together
+columns = []
+for b in blocks:
+    for col in columns:
+        h0, h1 = col[0][3] - col[0][1], b[3] - b[1]
+        if abs(col[0][0] - b[0]) < 3 and abs(col[0][2] - b[2]) < 3 and max(h0, h1) < 1.5 * min(h0, h1):
+            col.append(b); break
+    else: columns.append([b])
+for _ in range(6):
+    propagate()
+    for col in columns:
+        ins = [d for d in wires if near_block(end(d)) in col and near_block(start(d)) not in col]
+        if len(ins) < 2: continue
+        arrive = max(d['t0'] + d['len'] / SPEED for d in ins)
+        for d in ins:
+            lag = arrive - (d['t0'] + d['len'] / SPEED)
+            if lag > 1e-3: d['delay'] += lag
+propagate()
 
 def colour(s):
     cs = list(s['src'])
     return '#%02x%02x%02x' % tuple(round(sum(c[i] for c in cs) / len(cs)) for i in range(3))
 
-# 4) emit
+# 4) emit: after a wire first receives the signal, pulses keep flowing every GAP seconds
 g = ['<g class="signals">']
 for s in wires:
     a, b = start(s), end(s)
-    t0 = s['t0'] / cycle
-    t1 = min((s['t0'] + s['len'] / SPEED) / cycle, 0.999)
+    travel = max(s['len'] / SPEED, 0.05)
+    m = max(1, math.ceil(travel / GAP))
+    period = m * GAP
+    f = travel / period
     r = 1.7 + 0.25 * (len(s['src']) - 1)
-    g.append(
-        f'<circle r="{r:.2f}" fill="{colour(s)}" opacity="0">'
-        f'<animateMotion dur="{cycle:.2f}s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" '
-        f'keyTimes="0;{t0:.4f};{t1:.4f};1" path="M{a[0]:.2f} {a[1]:.2f} L{b[0]:.2f} {b[1]:.2f}"/>'
-        f'<animate attributeName="opacity" dur="{cycle:.2f}s" repeatCount="indefinite" values="0;0;1;1;0;0" '
-        f'keyTimes="0;{max(t0 - 0.001, 0):.4f};{t0:.4f};{t1:.4f};{min(t1 + 0.001, 1):.4f};1"/></circle>')
+    path = f"M{a[0]:.2f} {a[1]:.2f} L{b[0]:.2f} {b[1]:.2f}"
+    for j in range(m):
+        begin = s['t0'] + j * GAP
+        kt = f"0;{min(f, .999):.4f};1"
+        g.append(
+            f'<circle r="{r:.2f}" fill="{colour(s)}" opacity="0">'
+            f'<animateMotion begin="{begin:.2f}s" dur="{period:.2f}s" repeatCount="indefinite" calcMode="linear" '
+            f'keyPoints="0;1;1" keyTimes="{kt}" path="{path}"/>'
+            f'<animate attributeName="opacity" begin="{begin:.2f}s" dur="{period:.2f}s" repeatCount="indefinite" '
+            f'values="1;1;0;0" keyTimes="0;{min(f, .998):.4f};{min(f + .001, .999):.4f};1"/></circle>')
 g.append('</g>')
 svg = svg.replace('</svg>', '\n'.join(g) + '\n</svg>')
 svg = re.sub(r'<svg([^>]*?) width="[^"]*" height="[^"]*"', r'<svg\1', svg, count=1)
 open(out, 'w', encoding='utf-8').write(svg)
-print(out, 'wires:', len(wires), 'of', len(segs), 'cycle %.1fs' % cycle, 'sources:', k)
+print(out, 'wires:', len(wires), 'of', len(segs), 'sources:', k, 'fill time %.1fs' % max(w['t0'] for w in wires))
