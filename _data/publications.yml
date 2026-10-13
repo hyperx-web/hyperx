@@ -6,6 +6,7 @@
     - authors: "S. Uoo†, J. Park†, J.-S. Lee, and D.-H. Jung*"
       title: "Optimal reference location determination for GNSS-resilient NR-NTN initial access"
       venue: "in preparation"
+      research: 6g   # Research 페이지 분야 지정 (없으면 제목 키워드로 자동 분류)
     - authors: "J.-S. Lee and D.-H. Jung*"
       title: "Efficient downlink interference analysis of LEO mega-constellations via satellite visibility"
       venue: "in preparation"

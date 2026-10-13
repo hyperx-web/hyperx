@@ -26,7 +26,8 @@ lead: "Our lab explores cutting-edge innovations in future communication systems
         {% for g in site.data.publications %}{% if g.category != "patent" %}{% for it in g.items %}
           {% if shown < 5 %}
             {% assign t = it.title | downcase %}{% assign hit = false %}
-            {% for k in r.keywords %}{% if t contains k %}{% assign hit = true %}{% endif %}{% endfor %}
+            {% if it.research %}{% if it.research == r.id %}{% assign hit = true %}{% endif %}{% else %}
+            {% for k in r.keywords %}{% if t contains k %}{% assign hit = true %}{% endif %}{% endfor %}{% endif %}
             {% if hit %}{% assign shown = shown | plus: 1 %}
               {% capture li %}<li><b>{{ it.title }}</b><span class="muted">{{ it.venue }}</span></li>{% endcapture %}
               {% assign out = out | append: li %}
@@ -34,7 +35,7 @@ lead: "Our lab explores cutting-edge innovations in future communication systems
           {% endif %}
         {% endfor %}{% endif %}{% endfor %}
         {% if out != "" %}
-        <h4>Recent Publications</h4>
+        <h4>Related Works</h4>
         <ul class="research-pubs">{{ out }}</ul>
         {% endif %}
       </div>
