@@ -49,3 +49,6 @@ alumni_undergraduate:
   - { name: Nam-Kun Kim, period: "2025.11. – 2026.02." }
   - { name: Ji-Seok Lee, period: "2025.08. – 2026.02." }
   - { name: Jung-Guen Bae, period: "2025.08. – 2025.10." }
+
+# 논문 목록에서 색으로 강조할 연구실 구성원 이름 (논문에 쓰인 표기 그대로)
+pub_names: ["D.-H. Jung", "D. H. Jung", "정동현", "G.-G. Lee", "N.-K. Kim", "J.-S. Lee", "김남건", "이지석"]

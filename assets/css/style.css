@@ -258,7 +258,9 @@ p { margin: 0 0 .8em; }
 .pub-item p { margin: 0; }
 .pub-title { font-weight: 600; color: #fff; font-size: 1.02rem; }
 .pub-authors { color: #b7c0d8; font-size: .92rem; margin-top: 2px !important; }
-.pub-authors b { color: var(--accent); font-weight: 700; }
+.pub-authors .lab, .pub-legend .lab { color: var(--accent); font-weight: 700; }
+.pub-legend { margin: 0; font-size: .85rem; color: var(--muted); flex-basis: 100%; order: 3; }
+.pub-legend b { color: #fff; }
 .pub-venue { color: var(--muted); font-size: .88rem; font-style: italic; }
 .pub-item.hidden, .pub-group.hidden { display: none; }
 mark { background: rgba(76,201,240,.3); color: #fff; border-radius: 3px; }
