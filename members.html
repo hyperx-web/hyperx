@@ -26,7 +26,7 @@ eyebrow: Who's in HyperX?
             <a class="tool-open" href="{{ '/professor/' | relative_url }}">View professor page →</a>
           {% else %}
             {% assign count = 0 %}
-            {% assign heads = "International Journals|Domestic Journals|International Conferences|Domestic Conferences|US Granted Patents|US Filed Patents" | split: "|" %}
+            {% assign heads = "International Journals|Domestic Journals|International Conferences|US Granted Patents|US Filed Patents" | split: "|" %}
             {% for head in heads %}
               {% assign mine = "" %}
               {% for g in site.data.publications %}
