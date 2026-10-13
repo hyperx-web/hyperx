@@ -36,7 +36,7 @@
 
 % ================= transmitter =================
 \def\xL{-0.55}   % common left edge of both boxes
-\def\xR{8.95}    % common right edge of both boxes
+\def\xR{8.8}    % common right edge of both boxes
 \def\yC{0.75}     % common branch
 \def\yA{-0.25}    % private branch of user 1
 \def\yK{-1.4}    % private branch of user K
@@ -53,29 +53,29 @@
 \draw[line,->] (wK) -- (wK -| split.west);
 
 % combiner of the common parts and the multicast message
-\node[cblk, minimum width=12mm] (comb) at (2.4,\yC) {Combine};
+\node[cblk, minimum width=12mm] (comb) at (2.8,\yC) {Combine};
 \draw[mline,->] (wmc) -- (comb);
 \draw[cline,->] (split.north) |- ($(comb.west)+(0,-0.12)$);
 \node[sm, text=cedge, anchor=west] at ($(split.north)+(0.05,0.22)$) {$W_{1,\mathrm c},\ldots,W_{K,\mathrm c}$};
 
 % encoders
-\node[cblk, minimum width=9mm] (encC) at (4.1,\yC) {Enc};
-\node[blk, minimum width=9mm] (enc1) at (4.1,\yA) {Enc};
-\node[blk, minimum width=9mm] (encK) at (4.1,\yK) {Enc};
-\node[lab] at (4.1,{(\yA+\yK)/2+0.07}) {$\vdots$};
+\node[cblk, minimum width=13mm] (encC) at (4.6,\yC) {Encoder};
+\node[blk, minimum width=13mm] (enc1) at (4.6,\yA) {Encoder};
+\node[blk, minimum width=13mm] (encK) at (4.6,\yK) {Encoder};
+\node[lab] at (4.6,{(\yA+\yK)/2+0.07}) {$\vdots$};
 \draw[cline,->] (comb) -- node[sm, above=1pt, text=cedge] {$W_{\mathrm c}$} (encC);
 \draw[line,->] (split.east |- enc1) -- node[sm, above] {$W_{1,\mathrm p}$} (enc1);
 \draw[line,->] (split.east |- encK) -- node[sm, above] {$W_{K,\mathrm p}$} (encK);
 
 % precoder
-\node[blk, minimum width=11mm, minimum height=28.5mm, fill=white] (prec) at (5.8,{(\yC+\yK)/2}) {};
+\node[blk, minimum width=11mm, minimum height=28.5mm, fill=white] (prec) at (6.9,{(\yC+\yK)/2}) {};
 \node[font=\sffamily\footnotesize, align=center] at (prec.center) {Linear\\precoder\\[1pt]$\mathbf F$};
 \draw[cline,->] (encC) -- node[sm, above, text=cedge] {$s_{\mathrm c}$} (encC -| prec.west);
 \draw[line,->] (enc1) -- node[sm, above] {$s_1$} (enc1 -| prec.west);
 \draw[line,->] (encK) -- node[sm, above] {$s_K$} (encK -| prec.west);
 
 % antenna array
-\coordinate (ant) at (7.05,{(\yC+\yK)/2});
+\coordinate (ant) at (8.4,{(\yC+\yK)/2});
 \draw[line,->] (prec.east |- ant) -- node[sm, above] {$\mathbf x$} ($(ant)+(-0.12,0)$);
 \foreach \dy in {-0.36,-0.12,0.12,0.36}{
   \draw[line width=0.6pt, black!80] ($(ant)+(-0.12,\dy)$) -- ($(ant)+(0.02,\dy)$);
@@ -96,7 +96,7 @@
 % ================= channel =================
 \def\yR{-3.0}
 % receive antenna array (N_Rx)
-\coordinate (rant) at (8.55,\yR);
+\coordinate (rant) at (8.4,-3.475);   % middle of the receiver
 \foreach \dy in {-0.36,-0.12,0.12,0.36}{
   \draw[line width=0.6pt, black!80] ($(rant)+(-0.12,\dy)$) -- ($(rant)+(0.02,\dy)$);
   \draw[line width=0.6pt, black!80] ($(rant)+(0.02,\dy)$) -- ++(0.14,0.08) ($(rant)+(0.02,\dy)$) -- ++(0.14,-0.08);
@@ -104,24 +104,24 @@
 \draw[line width=0.6pt, black!80] ($(rant)+(-0.12,-0.36)$) -- ($(rant)+(-0.12,0.36)$);
 \node[sm, anchor=south] at ($(rant)+(0.05,0.42)$) {$N_{\mathrm{Rx}}$};
 
-\node[sum] (add) at (7.98,\yR) {};
+\node[sum] (add) at (7.82,-3.475) {};
 \draw[black!80, line width=0.5pt] (add.north) -- (add.south) (add.west) -- (add.east);
-\draw[line,->] ($(ant)+(0.22,0)$) -- ({\xR+0.55},{(\yC+\yK)/2}) -- node[sm, right] {$\mathbf H_k^{\mathsf H}$} ({\xR+0.55},\yR) -- ($(rant)+(0.2,0)$);
+\draw[line,->] ($(ant)+(0.22,0)$) -- ({\xR+0.55},{(\yC+\yK)/2}) -- node[sm, right] {$\mathbf H_k^{\mathsf H}$} ({\xR+0.55},-3.475) -- ($(rant)+(0.2,0)$);
 \draw[line,->] ($(rant)+(-0.12,0)$) -- (add.east);
 \draw[line,<-] (add.south) -- ++(0,-0.35) node[sm, below] {$\mathbf n_k$};
 
 % ================= receiver of user k =================
-\node[blk, minimum width=9mm] (comb2) at (7.15,\yR) {$\mathbf w_k^{\mathsf H}$};
-\node[dot] (br) at (6.5,\yR) {};
-\node[cblk, minimum width=13mm] (decC) at (5.6,\yR) {Decode $s_{\mathrm c}$};
-\node[cblk, minimum width=12mm] (reenc) at (3.65,\yR) {Re-encode};
-\node[sum] (sub) at (2.5,\yR) {};
-\node[blk, minimum width=13mm] (decP) at (1.3,\yR) {Decode $s_k$};
+\node[blk, minimum width=11mm, minimum height=23mm, fill=white] (comb2) at (6.9,-3.475) {};
+\node[font=\sffamily\footnotesize, align=center] at (comb2.center) {Linear\\combiner\\[1pt]$\mathbf w_k^{\mathsf H}$};
+\node[dot] (br) at (6.0,\yR) {};
+\node[cblk, minimum width=13mm] (decC) at (4.95,\yR) {Decode $s_{\mathrm c}$};
+\node[cblk, minimum width=12mm] (reenc) at (3.15,\yR) {Re-encode};
+\node[sum] (sub) at (2.15,\yR) {};
+\node[blk, minimum width=13mm] (decP) at (1.0,\yR) {Decode $s_k$};
 \draw[black!80, line width=0.5pt] (sub.west) -- (sub.east);
 
 \draw[line,->] (add.west) -- (comb2);
-\node[sm, text=black!70, above=1pt of comb2] {combiner};
-\draw[line] (comb2.west) -- node[sm, below] {$y_k$} (br);
+\draw[line] (comb2.west |- br) -- node[sm, below] {$y_k$} (br);
 \draw[line,->] (br) -- (decC);
 \draw[cline,->] (decC) -- node[sm, above, text=cedge] {$\widehat W_{\mathrm c}$} (reenc);
 \draw[line,->] (reenc) -- node[sm, above, pos=0.45] {$-$} (sub);
@@ -131,7 +131,7 @@
 \def\yE{-3.95}
 \coordinate (tap) at ($(decC.west)!0.5!(reenc.east)$);
 \node[cblk, minimum width=11mm] (ext) at (tap |- 0,\yE) {Extract};
-\node[blk, minimum width=11mm] (merge) at (1.3,\yE) {Merge};
+\node[blk, minimum width=11mm] (merge) at (1.0,\yE) {Merge};
 \node[dot] at (tap) {};
 \draw[cline,->] (tap) -- (ext);
 \draw[line,->] (decP) -- node[sm, right] {$\widehat W_{k,\mathrm p}$} (merge);

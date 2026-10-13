@@ -175,13 +175,26 @@ def propagate():
 
 # blocks in the same column (e.g. H_u ... H_u, H_c or Enc ... Enc) and blocks with several
 # inputs: delay the earlier inputs so that every input of the column arrives together
+def linked(b1, b2):
+    # a wire runs from one block into the other -> they are in series, not a parallel column
+    return any({near_block(start(d)), near_block(tip(d))} == {b1, b2} for d in wires)
+
+propagate()
+def first_arrival(b):
+    ts = [d['t0'] + d['len'] / SPEED for d in wires if near_block(tip(d)) == b]
+    return min(ts) if ts else None
+
 columns = []
 for b in blocks:
     if b in symbols: continue
     for col in columns:
+        a0, a1 = first_arrival(col[0]), first_arrival(b)
+        if a0 is None or a1 is None or abs(a0 - a1) > 1.2:   # parallel branches only
+            continue
         h0, h1 = col[0][3] - col[0][1], b[3] - b[1]
         near = abs((col[-1][1] + col[-1][3]) / 2 - (b[1] + b[3]) / 2) < 3 * max(h0, h1)
-        if abs(col[0][0] - b[0]) < 3 and abs(col[0][2] - b[2]) < 3 and max(h0, h1) < 1.5 * min(h0, h1) and near:
+        if (abs(col[0][0] - b[0]) < 3 and abs(col[0][2] - b[2]) < 3 and max(h0, h1) < 1.5 * min(h0, h1)
+                and near and not any(linked(c, b) for c in col)):
             col.append(b); break
     else: columns.append([b])
 for _ in range(6):
