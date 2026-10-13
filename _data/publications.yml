@@ -31,7 +31,7 @@
     - authors: "J. Seo, H. Cho*, and D.-H. Jung*"
       title: "Reinforcement learning-based secure beamforming against satellite eavesdroppers"
       venue: "submitted to IEEE Transactions on Wireless Communications, June 2026"
-    - authors: "N.-K. Kim†, J.-S. Lee†, G.-G. Lee andD.-H. Jung*"
+    - authors: "N.-K. Kim†, J.-S. Lee†, G.-G. Lee, and D.-H. Jung*"
       title: "Joint rate and power allocation for secrecy in artificial noise-aided ambient IoT networks"
       venue: "submitted to IEEE Communications Letters, Apr. 2026"
     - authors: "J. Lee, S. Tomasin, and D.-H. Jung*"
@@ -74,7 +74,7 @@
       title: "When satellites work as eavesdroppers"
       venue: "IEEE Transactions on Information Forensics and Security, vol. 17, pp. 2784-2799, 2022"
     - authors: "S. Jung, G. Im, D.-H. Jung, P. Kim, J.-G. Ryu, and J. Kang"
-      title: "Performance analysis of DSSS-and CSS-based physical layer for IoT transmission over LEO satellites"
+      title: "Performance analysis of DSSS- and CSS-based physical layer for IoT transmission over LEO satellites"
       venue: "ETRI Journal, vol. 44, pp. 543-559, Aug. 2022"
     - authors: "D.-H. Jung, J.-G. Ryu, W.-J. Byun, and J. Choi"
       title: "Performance analysis of satellite communication system under the shadowed-Rician fading: A stochastic geometry approach"
@@ -94,7 +94,7 @@
 - category: conference
   group: "International Conferences"
   items:
-    - authors: "T.-H. Yoon, D.-H. Jung and C. -G. Kang"
+    - authors: "T.-H. Yoon, D.-H. Jung and C.-G. Kang"
       title: "Topology-induced heterogeneous phase errors in distributed MIMO over networked LEO satellites downlink analysis and phase-error-aware power allocation"
       venue: "IEEE Consumer Communications & Networking Conference (CCNC), Jan. 2027"
     - authors: "H. Y. Jeong, T. H. Yoon, F. D. Tilahun, D.-H. Jung and C. G. Kang"
