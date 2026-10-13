@@ -165,7 +165,8 @@ columns = []
 for b in blocks:
     for col in columns:
         h0, h1 = col[0][3] - col[0][1], b[3] - b[1]
-        if abs(col[0][0] - b[0]) < 3 and abs(col[0][2] - b[2]) < 3 and max(h0, h1) < 1.5 * min(h0, h1):
+        near = abs((col[-1][1] + col[-1][3]) / 2 - (b[1] + b[3]) / 2) < 3 * max(h0, h1)
+        if abs(col[0][0] - b[0]) < 3 and abs(col[0][2] - b[2]) < 3 and max(h0, h1) < 1.5 * min(h0, h1) and near:
             col.append(b); break
     else: columns.append([b])
 for _ in range(6):
