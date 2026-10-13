@@ -131,7 +131,7 @@ p { margin: 0 0 .8em; }
 .orbits .sat { fill: #fff; filter: drop-shadow(0 0 6px var(--accent)); }
 .hero-content { position: relative; z-index: 2; padding-top: 72px; }
 .hero-title { font-size: clamp(2.6rem, 7vw, 5.4rem); font-weight: 700; line-height: 1.04; margin-bottom: 1.5rem; }
-.hero-lead { font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: #c3cbe0; max-width: 30em; margin-bottom: 2.2rem; }
+.hero-lead { font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: #c3cbe0; max-width: 36em; margin-bottom: 2.2rem; }
 .hero-cta { display: flex; gap: .9rem; flex-wrap: wrap; align-items: center; }
 .hero-cta .btn { font-size: 1.15rem; padding: 1em 2.1em; }
 .scroll-hint { position: absolute; bottom: 30px; left: 50%; z-index: 2; width: 24px; height: 38px; border: 2px solid rgba(255,255,255,.35); border-radius: 14px; transform: translateX(-50%); }
