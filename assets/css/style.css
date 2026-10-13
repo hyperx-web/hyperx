@@ -2,6 +2,21 @@
    HyperX Lab — theme
    색상은 아래 :root 변수만 바꾸면 사이트 전체에 반영됩니다.
    ========================================================== */
+@font-face {
+  font-family: "KoPub Dotum"; font-weight: 300; font-style: normal; font-display: swap;
+  src: url("../fonts/KoPubWorldDotum-Light.woff2") format("woff2");
+  unicode-range: U+1100-11FF, U+3000-303F, U+3130-318F, U+A960-A97F, U+AC00-D7AF, U+D7B0-D7FF, U+FF00-FFEF;
+}
+@font-face {
+  font-family: "KoPub Dotum"; font-weight: 400 500; font-style: normal; font-display: swap;
+  src: url("../fonts/KoPubWorldDotum-Medium.woff2") format("woff2");
+  unicode-range: U+1100-11FF, U+3000-303F, U+3130-318F, U+A960-A97F, U+AC00-D7AF, U+D7B0-D7FF, U+FF00-FFEF;
+}
+@font-face {
+  font-family: "KoPub Dotum"; font-weight: 600 800; font-style: normal; font-display: swap;
+  src: url("../fonts/KoPubWorldDotum-Bold.woff2") format("woff2");
+  unicode-range: U+1100-11FF, U+3000-303F, U+3130-318F, U+A960-A97F, U+AC00-D7AF, U+D7B0-D7FF, U+FF00-FFEF;
+}
 :root {
   --bg: #05070f;
   --bg-2: #0a0f1f;
@@ -16,8 +31,9 @@
   --grad: linear-gradient(100deg, var(--accent) 0%, var(--accent-2) 60%, var(--accent-3) 110%);
   --radius: 18px;
   --maxw: 1180px;
-  --font: "Inter", "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --display: "Space Grotesk", "Pretendard", var(--font);
+  /* 영문: Inter / 한글: KoPub World 돋움체 (assets/fonts) */
+  --font: "Inter", "KoPub Dotum", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --display: var(--font);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -160,7 +176,7 @@ p { margin: 0 0 1em; }
   background: radial-gradient(600px 300px at 100% 0%, rgba(123,97,255,.25), transparent 70%),
               radial-gradient(500px 300px at 0% 100%, rgba(76,201,240,.15), transparent 70%), var(--bg-2);
 }
-.join-card h2 { font-family: "Pretendard", var(--display); font-weight: 700; }
+.join-card h2 { font-family: var(--font); font-weight: 700; }
 .join-action { text-align: center; padding: 28px; border-radius: var(--radius); background: rgba(0,0,0,.25); border: 1px solid var(--border); }
 .join-action .btn { width: 100%; word-break: break-all; }
 
@@ -183,7 +199,7 @@ p { margin: 0 0 1em; }
 .prof-card { position: sticky; top: 96px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; text-align: center; }
 .prof-photo { width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 14px; margin-bottom: 1.2rem; }
 .prof-card h2 { font-size: 1.6rem; margin-bottom: .3rem; }
-.prof-card .ko { font-family: "Pretendard"; font-size: 1rem; color: var(--muted); font-weight: 500; }
+.prof-card .ko { font-family: var(--font); font-size: 1rem; color: var(--muted); font-weight: 500; }
 .prof-title { font-size: .95rem; }
 .contact-list { list-style: none; padding: 0; margin: 0 0 1.4rem; font-size: .92rem; color: var(--muted); }
 .timeline { list-style: none; margin: 0; padding: 0; }
@@ -254,7 +270,7 @@ mark { background: rgba(76,201,240,.3); color: #fff; border-radius: 3px; }
 .project-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
 .project-card { position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 26px; transition: transform .3s, border-color .3s; }
 .project-card:hover { transform: translateY(-4px); border-color: rgba(76,201,240,.4); }
-.project-card h4 { font-family: "Pretendard", var(--display); font-size: 1.15rem; margin: .8rem 0 .3rem; }
+.project-card h4 { font-family: var(--font); font-size: 1.15rem; margin: .8rem 0 .3rem; }
 .project-card p { margin: 0 0 1rem; }
 .live-dot { display: inline-flex; align-items: center; gap: 8px; font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: #4ade80; }
 .live-dot::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 0 0 rgba(74,222,128,.6); animation: pulse 2s infinite; }
