@@ -8,16 +8,38 @@ eyebrow: Who's in HyperX?
 {% assign m = site.data.members %}
 <section class="section">
   <div class="container">
-    <div class="member-grid">
+    <div class="member-rows">
       {% for p in m.current %}
-      <article class="member-card reveal">
+      <article class="member-row reveal{% if p.role == 'Principal Investigator' %} is-pi{% endif %}">
         <div class="member-photo"><img src="{{ '/assets/img/members/' | append: p.photo | relative_url }}" alt="{{ p.name }}" loading="lazy"></div>
-        <div class="member-body">
+        <div class="member-info">
           <h3>{{ p.name }}</h3>
           <p class="member-role">{{ p.role }}{% if p.tag %} <span class="chip chip-sm">{{ p.tag }}</span>{% endif %}</p>
           {% if p.since %}<p class="muted small">since {{ p.since }}</p>{% endif %}
           <div class="tags">{% for i in p.interests %}<span>{{ i }}</span>{% endfor %}</div>
           <a class="member-mail" href="mailto:{{ p.email }}">{{ p.email }}</a>
+        </div>
+        <div class="member-pubs">
+          {% if p.role == 'Principal Investigator' %}
+            <h4>Profile</h4>
+            <p class="muted">Assistant Professor, School of Electronic Engineering, Soongsil University.</p>
+            <a class="tool-open" href="{{ '/professor/' | relative_url }}">View professor page →</a>
+          {% else %}
+            {% assign count = 0 %}
+            <h4>Publications</h4>
+            <ul>
+            {% for g in site.data.publications %}{% for it in g.items %}
+              {% assign hit = false %}
+              {% for n in p.pub_names %}{% if it.authors contains n %}{% assign hit = true %}{% endif %}{% endfor %}
+              {% if hit %}{% assign count = count | plus: 1 %}
+              <li><span class="pub-kind kind-{{ g.category }}">{{ g.group }}</span>
+                <b>{{ it.title }}</b>
+                <span class="muted">{{ it.venue }}</span></li>
+              {% endif %}
+            {% endfor %}{% endfor %}
+            </ul>
+            {% if count == 0 %}<p class="muted">To be updated</p>{% endif %}
+          {% endif %}
         </div>
       </article>
       {% endfor %}

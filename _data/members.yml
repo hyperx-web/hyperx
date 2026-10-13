@@ -6,12 +6,14 @@ current:
     photo: dong-hyun-jung-pi.jpg
     interests: [Wireless Communications, Signal Processing]
   - name: Gun-Goo Lee
+    pub_names: ["G.-G. Lee"]   # 논문에 쓰인 이름 표기 (실적 자동 표시)
     role: Ph.D. Student
     since: "2026.07."
     email: lgg@soongsil.ac.kr
     photo: gun-goo-lee.jpg
     interests: [Wireless Communications, Satellite Communications]
   - name: Nam-Kun Kim
+    pub_names: ["N.-K. Kim", "김남건"]   # 논문에 쓰인 이름 표기 (실적 자동 표시)
     role: M.S. Student
     tag: Lab Manager
     since: "2026.03."
@@ -19,18 +21,21 @@ current:
     photo: nam-kun-kim.jpg
     interests: [Wireless Communications, 6G-NTN Beam Hopping Optimization]
   - name: Ji-Seok Lee
+    pub_names: ["J.-S. Lee", "이지석"]   # 논문에 쓰인 이름 표기 (실적 자동 표시)
     role: M.S. Student
     since: "2026.03."
     email: js010214@soongsil.ac.kr
     photo: ji-seok-lee.jpg
     interests: [Wireless Communications, Satellite Communications]
   - name: Sebin Uoo
+    pub_names: []   # 논문에 쓰인 이름 표기 (실적 자동 표시)
     role: Undergraduate Student
     since: "2026.06."
     email: sebiney1018@gmail.com
     photo: sebin-uoo.jpg
     interests: [Wireless Communications, Satellite Communications]
   - name: Junhyung Park
+    pub_names: []   # 논문에 쓰인 이름 표기 (실적 자동 표시)
     role: Undergraduate Student
     since: "2026.07."
     email: wnsgud020210@cau.ac.kr
