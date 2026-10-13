@@ -15,6 +15,7 @@
 - id: satellite
   title: Satellite & Space Communications
   image: space-model.svg
+  animation: constellation   # 그림 대신 위성군 애니메이션 표시
   summary: Advancing satellite and space communication technologies for global connectivity.
   topics:
     - LEO mega-constellation modeling and coverage analysis (stochastic geometry)

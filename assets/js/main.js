@@ -143,3 +143,121 @@
     document.addEventListener("keydown", function (e) { if (e.key === "Escape") close(); });
   }
 })();
+
+// LEO mega-constellation (Walker-delta) animation
+(function () {
+  var canvases = document.querySelectorAll(".constellation");
+  if (!canvases.length) return;
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var D2R = Math.PI / 180;
+
+  canvases.forEach(function (cv) {
+    var ctx = cv.getContext("2d");
+    var P = 24, S = 22, F = 1;             // planes, sats per plane, phasing
+    var inc = 53 * D2R, ratio = 1.28;        // orbit radius / Earth radius (altitude exaggerated for visibility)
+    var tilt = 23 * D2R;                     // viewing tilt
+    var w, h, R, cx, cy, dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var t0 = performance.now();
+
+    function size() {
+      w = cv.clientWidth; h = cv.clientHeight;
+      cv.width = w * dpr; cv.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      R = Math.min(w, h) * 0.34; cx = w / 2; cy = h / 2;
+    }
+    // rotate around y (spin) then x (tilt), orthographic projection
+    function proj(x, y, z, spin) {
+      var c = Math.cos(spin), s = Math.sin(spin);
+      var x1 = c * x + s * z, z1 = -s * x + c * z;
+      var ct = Math.cos(tilt), st = Math.sin(tilt);
+      var y2 = ct * y - st * z1, z2 = st * y + ct * z1;
+      return [cx + x1 * R, cy - y2 * R, z2];
+    }
+    function satPos(p, k, t) {
+      var raan = (360 / P) * p * D2R;
+      var u = ((360 / S) * k + (360 * F / (P * S)) * p) * D2R + t;
+      // position in orbital plane, then inclination, then RAAN (z = north)
+      var xo = Math.cos(u), yo = Math.sin(u);
+      var x = xo, y = yo * Math.cos(inc), z = yo * Math.sin(inc);
+      var X = x * Math.cos(raan) - y * Math.sin(raan), Y = x * Math.sin(raan) + y * Math.cos(raan);
+      // map: world north -> screen up (y)
+      return [X * ratio, z * ratio, Y * ratio];
+    }
+
+    function frame(now) {
+      var t = reduce ? 0 : (now - t0) / 1000;
+      var spin = t * 0.08, orbitT = t * 0.35;
+      ctx.clearRect(0, 0, w, h);
+
+      // satellites positions
+      var pts = [];
+      for (var p = 0; p < P; p++) {
+        pts[p] = [];
+        for (var k = 0; k < S; k++) { var q = satPos(p, k, orbitT); pts[p][k] = proj(q[0], q[1], q[2], spin); }
+      }
+
+      // back-side sats & links (behind earth)
+      drawLayer(pts, false);
+
+      // earth
+      var g = ctx.createRadialGradient(cx - R * 0.35, cy - R * 0.4, R * 0.1, cx, cy, R);
+      g.addColorStop(0, "#3d7fd6"); g.addColorStop(0.6, "#1b3f8a"); g.addColorStop(1, "#0a1836");
+      ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.fillStyle = g; ctx.fill();
+      // graticule
+      ctx.strokeStyle = "rgba(160,200,255,.18)"; ctx.lineWidth = 0.8;
+      for (var lat = -60; lat <= 60; lat += 30) drawCircle(function (a) {
+        return [Math.cos(lat * D2R) * Math.cos(a), Math.sin(lat * D2R), Math.cos(lat * D2R) * Math.sin(a)];
+      }, spin);
+      for (var lon = 0; lon < 180; lon += 30) drawCircle(function (a) {
+        return [Math.cos(a) * Math.cos(lon * D2R), Math.sin(a), Math.cos(a) * Math.sin(lon * D2R)];
+      }, spin);
+      // atmosphere rim
+      ctx.beginPath(); ctx.arc(cx, cy, R + 2, 0, Math.PI * 2);
+      ctx.strokeStyle = "rgba(127,211,255,.55)"; ctx.lineWidth = 2; ctx.stroke();
+
+      // front-side sats & links
+      drawLayer(pts, true);
+      if (!reduce) requestAnimationFrame(frame);
+    }
+
+    function drawCircle(fn, spin) {
+      ctx.beginPath(); var started = false;
+      for (var i = 0; i <= 72; i++) {
+        var v = fn(i / 72 * Math.PI * 2), q = proj(v[0], v[1], v[2], spin);
+        if (q[2] < 0) { started = false; continue; }
+        if (!started) { ctx.moveTo(q[0], q[1]); started = true; } else ctx.lineTo(q[0], q[1]);
+      }
+      ctx.stroke();
+    }
+    function hidden(q) { // behind earth disk?
+      if (q[2] >= 0) return false;
+      var dx = q[0] - cx, dy = q[1] - cy;
+      return dx * dx + dy * dy < R * R;
+    }
+    function drawLayer(pts, front) {
+      // intra-plane ISL (orbit lines) + inter-plane ISL
+      ctx.lineWidth = 0.7;
+      for (var p = 0; p < P; p++) for (var k = 0; k < S; k++) {
+        var a = pts[p][k], b = pts[p][(k + 1) % S], c = pts[(p + 1) % P][k];
+        var isFront = a[2] >= 0;
+        if (isFront !== front) continue;
+        if (!front && hidden(a)) continue;
+        ctx.strokeStyle = front ? "rgba(76,201,240,.28)" : "rgba(76,201,240,.08)";
+        ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
+        if (p % 2 === 0) {
+          ctx.strokeStyle = front ? "rgba(247,37,133,.22)" : "rgba(247,37,133,.06)";
+          ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(c[0], c[1]); ctx.stroke();
+        }
+      }
+      for (var p2 = 0; p2 < P; p2++) for (var k2 = 0; k2 < S; k2++) {
+        var s = pts[p2][k2];
+        if ((s[2] >= 0) !== front) continue;
+        if (!front && hidden(s)) continue;
+        ctx.fillStyle = front ? "#e8f6ff" : "rgba(232,246,255,.35)";
+        ctx.beginPath(); ctx.arc(s[0], s[1], front ? 1.8 : 1.2, 0, Math.PI * 2); ctx.fill();
+      }
+    }
+
+    size(); requestAnimationFrame(frame);
+    window.addEventListener("resize", size);
+  });
+})();

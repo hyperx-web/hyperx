@@ -14,7 +14,14 @@ lead: "Our lab explores cutting-edge innovations in future communication systems
 
     {% for r in site.data.research %}
     <article class="research-area reveal" id="{{ r.id }}">
-      <div class="research-area-img"><img src="{{ '/assets/img/research/' | append: r.image | relative_url }}" alt="{{ r.title }}" loading="lazy"></div>
+      <div class="research-area-img">
+        {% if r.animation == "constellation" %}
+        <div class="constellation-wrap">
+          <canvas class="constellation" aria-label="Animated LEO mega-constellation (Walker-delta, 53° inclination)"></canvas>
+          <p class="constellation-cap">Walker-delta LEO constellation · <i>i</i> = 53° · 24 planes × 22 satellites · inter-satellite links (not to scale)</p>
+        </div>
+        {% else %}<img src="{{ '/assets/img/research/' | append: r.image | relative_url }}" alt="{{ r.title }}" loading="lazy">{% endif %}
+      </div>
       <div class="research-area-body">
         <span class="chip">0{{ forloop.index }}</span>
         <h2>{{ r.title }}</h2>

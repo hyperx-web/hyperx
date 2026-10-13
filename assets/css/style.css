@@ -396,3 +396,8 @@ mark { background: rgba(76,201,240,.3); color: #fff; border-radius: 3px; }
   .research-area:nth-of-type(even) .research-area-img { order: 0; }
   .research-area-img img { max-width: 520px; }
 }
+
+/* LEO constellation animation */
+.constellation-wrap { border-radius: 12px; overflow: hidden; background: radial-gradient(circle at 50% 45%, #0d1838 0%, #03050c 75%); border: 1px solid var(--border); }
+.constellation { display: block; width: 100%; aspect-ratio: 1 / 1; }
+.constellation-cap { margin: 0; padding: 10px 14px; font-size: .8rem; color: var(--muted); border-top: 1px solid var(--border); }
