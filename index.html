@@ -104,14 +104,13 @@ slug: home
 <section class="section">
   <div class="container">
     <div class="section-head reveal">
-      <p class="eyebrow">News</p>
-      <h2>Latest updates</h2>
+      <h2>News</h2>
     </div>
     <ol class="news-list" data-collapsible="8">
       {% for n in site.data.news %}
       <li class="news-item reveal">
         <time>{{ n.date }}</time>
-        <span class="news-type type-{{ n.type }}">{% case n.type %}{% when "award" %}Award{% when "lab" %}Lab{% else %}Paper{% endcase %}</span>
+        <span class="news-type type-{{ n.type }}">{% case n.type %}{% when "award" %}Award{% when "lab" %}Lab{% when "member" %}Member{% else %}Paper{% endcase %}</span>
         <p>{{ n.text }}</p>
       </li>
       {% endfor %}
