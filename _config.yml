@@ -13,6 +13,7 @@ url: ""
 
 nav:
   - { title: Home, url: / }
+  - { title: Research, url: /research/ }
   - { title: Professor, url: /professor/ }
   - { title: Members, url: /members/ }
   - { title: Publications, url: /publications/ }
