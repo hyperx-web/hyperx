@@ -62,7 +62,7 @@ p { margin: 0 0 .8em; }
 .d-block { display: block; }
 .eyebrow {
   font-family: var(--display); text-transform: uppercase; letter-spacing: .2em;
-  font-size: .78rem; font-weight: 600; color: var(--accent); margin-bottom: .8rem;
+  font-size: .92rem; font-weight: 600; color: var(--accent); margin-bottom: .8rem;
 }
 .grad { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .chip {
