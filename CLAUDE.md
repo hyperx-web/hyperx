@@ -32,7 +32,7 @@ Always answer the user in Korean.
 - Publications page: lab members underlined (same colour as other authors; underline the name only,
   not commas/`*`/`†`); journal/conference name bold in accent blue (detected automatically).
 - Home news: journal names wrapped in `<em>` → bold accent blue. News types: paper | award | lab | member.
-  Add a "joined HyperX … Welcome aboard! 🎉" news item (type member) when someone joins.
+  Add a "<strong>Name</strong> joined HyperX … Welcome aboard! 🎉" news item (type member, name in bold) when someone joins.
 - Members page (student achievements):
   - Submitted + Published are merged under **International Journals**; venue prefix shown as `Submitted to …` / `Accepted to …`.
   - Domestic conference papers are NOT shown.

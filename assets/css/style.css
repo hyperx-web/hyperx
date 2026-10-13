@@ -417,3 +417,4 @@ mark { background: rgba(76,201,240,.3); color: #fff; border-radius: 3px; }
 .member-pubs li .pub-authors { font-size: .84rem; color: #b7c0d8; }
 .member-pubs li .pub-venue { font-size: .82rem; color: var(--muted); font-style: italic; }
 .member-pubs .pub-venue .venue-name { color: inherit; }
+.news-item p strong { color: #fff; font-weight: 700; }
