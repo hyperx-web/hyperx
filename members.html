@@ -31,7 +31,7 @@ eyebrow: Who's in HyperX?
               {% assign mine = "" %}
               {% for g in site.data.publications %}
                 {% assign gname = g.group %}
-                {% if g.group == "Submitted" or g.group == "Published" %}{% assign gname = "International Journals" %}{% endif %}
+                {% if g.group == "Submitted / In Preparation" or g.group == "Published" %}{% assign gname = "International Journals" %}{% endif %}
                 {% if gname == head %}
                 {% for it in g.items %}
                   {% assign hit = false %}
