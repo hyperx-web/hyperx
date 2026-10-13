@@ -200,10 +200,10 @@
 
       // earth
       var g = ctx.createRadialGradient(cx - R * 0.35, cy - R * 0.4, R * 0.1, cx, cy, R);
-      g.addColorStop(0, "#3d7fd6"); g.addColorStop(0.6, "#1b3f8a"); g.addColorStop(1, "#0a1836");
+      g.addColorStop(0, "#cfe0f7"); g.addColorStop(0.7, "#a9c6ec"); g.addColorStop(1, "#7fa5d8");
       ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.fillStyle = g; ctx.fill();
       // graticule
-      ctx.strokeStyle = "rgba(160,200,255,.16)"; ctx.lineWidth = 0.7;
+      ctx.strokeStyle = "rgba(40,70,120,.22)"; ctx.lineWidth = 0.7;
       for (var lat = -75; lat <= 75; lat += 15) drawCircle(function (a) {
         return [Math.cos(lat * D2R) * Math.cos(a), Math.sin(lat * D2R), Math.cos(lat * D2R) * Math.sin(a)];
       }, spin);
@@ -212,7 +212,7 @@
       }, spin);
       // atmosphere rim
       ctx.beginPath(); ctx.arc(cx, cy, R + 2, 0, Math.PI * 2);
-      ctx.strokeStyle = "rgba(127,211,255,.55)"; ctx.lineWidth = 2; ctx.stroke();
+      ctx.strokeStyle = "rgba(47,90,168,.6)"; ctx.lineWidth = 1.5; ctx.stroke();
 
       // front-side sats & links
       drawLayer(pts, true);
@@ -238,7 +238,7 @@
         var s = pts[p2][k2];
         if ((s[2] >= 0) !== front) continue;
         if (!front && hidden(s)) continue;
-        ctx.fillStyle = front ? "#e8f6ff" : "rgba(232,246,255,.35)";
+        ctx.fillStyle = front ? "#1b2f52" : "rgba(27,47,82,.25)";
         ctx.beginPath(); ctx.arc(s[0], s[1], front ? 1.8 : 1.2, 0, Math.PI * 2); ctx.fill();
       }
     }
@@ -271,37 +271,36 @@
       function frame(now) {
         var k = reduce ? n - 1 : Math.floor(((now - t0) % period) / period * n);
         ctx.clearRect(0, 0, w, h);
-        stars.forEach(function (s) { ctx.fillStyle = "rgba(255,255,255," + (0.15 + s[2] * 0.4) + ")"; ctx.fillRect(s[0] * w, s[1] * h, 1.2, 1.2); });
-        // full orbit (faint)
-        ctx.strokeStyle = "rgba(255,255,255,.12)"; ctx.lineWidth = 1;
+                // full orbit (faint)
+        ctx.strokeStyle = "rgba(0,0,0,.15)"; ctx.lineWidth = 1;
         ctx.beginPath(); pts.forEach(function (p, i) { i ? ctx.lineTo(X(p), Y(p)) : ctx.moveTo(X(p), Y(p)); }); ctx.stroke();
         // trail
         var trail = Math.floor(n * 0.22);
         for (var j = Math.max(1, k - trail); j <= k; j++) {
           var a = (j - (k - trail)) / trail;
-          ctx.strokeStyle = "rgba(255,170,60," + (a * 0.95) + ")"; ctx.lineWidth = 0.8 + a * 2;
+          ctx.strokeStyle = "rgba(217,72,15," + (a * 0.95) + ")"; ctx.lineWidth = 0.8 + a * 2;
           ctx.beginPath(); ctx.moveTo(X(pts[j - 1]), Y(pts[j - 1])); ctx.lineTo(X(pts[j]), Y(pts[j])); ctx.stroke();
         }
         // Lagrange points
         ctx.font = "italic 12px 'Times New Roman', serif";
         d.L.forEach(function (L, i) {
           var x = X(L), y = Y(L);
-          ctx.strokeStyle = "rgba(168,151,255,.9)"; ctx.lineWidth = 1.3;
+          ctx.strokeStyle = "#6741d9"; ctx.lineWidth = 1.3;
           ctx.beginPath(); ctx.moveTo(x - 4, y - 4); ctx.lineTo(x + 4, y + 4); ctx.moveTo(x + 4, y - 4); ctx.lineTo(x - 4, y + 4); ctx.stroke();
-          ctx.fillStyle = "#c4b8ff"; ctx.fillText("L" + (i + 1), x + 6, y - 6);
+          ctx.fillStyle = "#6741d9"; ctx.fillText("L" + (i + 1), x + 6, y - 6);
         });
         // Earth
         var ex = X([-mu, 0]), ey = Y([-mu, 0]), er = Math.max(9, sc * 0.075);
         var g = ctx.createRadialGradient(ex - er * .4, ey - er * .4, er * .1, ex, ey, er);
-        g.addColorStop(0, "#5fa8ff"); g.addColorStop(1, "#163a7a");
+        g.addColorStop(0, "#74a9ec"); g.addColorStop(1, "#2f5aa8");
         ctx.fillStyle = g; ctx.beginPath(); ctx.arc(ex, ey, er, 0, 7); ctx.fill();
         // Moon
         var mx = X([1 - mu, 0]), my = Y([1 - mu, 0]), mr = Math.max(4, er * 0.4);
-        ctx.fillStyle = "#cfd3da"; ctx.beginPath(); ctx.arc(mx, my, mr, 0, 7); ctx.fill();
-        ctx.font = "13px Inter, sans-serif"; ctx.fillStyle = "#8f9bb6";
+        ctx.fillStyle = "#9aa1ab"; ctx.beginPath(); ctx.arc(mx, my, mr, 0, 7); ctx.fill();
+        ctx.font = "13px Inter, sans-serif"; ctx.fillStyle = "#444";
         ctx.fillText("Earth", ex - 16, ey + er + 16); ctx.fillText("Moon", mx - 14, my + mr + 16);
         // spacecraft
-        var p = pts[k]; ctx.fillStyle = "#fff"; ctx.shadowColor = "#ffb347"; ctx.shadowBlur = 10;
+        var p = pts[k]; ctx.fillStyle = "#222"; ctx.shadowColor = "rgba(217,72,15,.6)"; ctx.shadowBlur = 6;
         ctx.beginPath(); ctx.arc(X(p), Y(p), 3.2, 0, 7); ctx.fill(); ctx.shadowBlur = 0;
         if (!reduce) requestAnimationFrame(frame);
       }
