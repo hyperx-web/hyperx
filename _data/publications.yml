@@ -3,6 +3,9 @@
 - category: journal
   group: "Submitted / In Preparation"
   items:
+    - authors: "S. Uoo†, J. Park†, J.-S. Lee, and D.-H. Jung*"
+      title: "Optimal reference location determination for GNSS-resilient NR-NTN initial access"
+      venue: "in preparation"
     - authors: "J.-S. Lee and D.-H. Jung*"
       title: "Efficient downlink interference analysis of LEO mega-constellations via satellite visibility"
       venue: "in preparation"

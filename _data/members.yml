@@ -28,14 +28,14 @@ current:
     photo: ji-seok-lee.jpg
     interests: [Wireless Communications, Satellite Communications]
   - name: Sebin Uoo
-    pub_names: []   # 논문에 쓰인 이름 표기 (실적 자동 표시)
+    pub_names: ["S. Uoo"]   # 논문에 쓰인 이름 표기 (실적 자동 표시)
     role: Undergraduate Student
     since: "2026.06."
     email: sebiney1018@gmail.com
     photo: sebin-uoo.jpg
     interests: [Wireless Communications, Satellite Communications]
   - name: Junhyung Park
-    pub_names: []   # 논문에 쓰인 이름 표기 (실적 자동 표시)
+    pub_names: ["J. Park†"]   # "J. Park"은 다른 논문의 동명 저자와 겹쳐서 † 까지 포함
     role: Undergraduate Student
     since: "2026.07."
     email: wnsgud020210@cau.ac.kr
@@ -56,4 +56,4 @@ alumni_undergraduate:
   - { name: Jung-Guen Bae, period: "2025.08. – 2025.10." }
 
 # 논문 목록에서 색으로 강조할 연구실 구성원 이름 (논문에 쓰인 표기 그대로)
-pub_names: ["D.-H. Jung", "D. H. Jung", "정동현", "G.-G. Lee", "N.-K. Kim", "J.-S. Lee", "김남건", "이지석"]
+pub_names: ["D.-H. Jung", "D. H. Jung", "정동현", "G.-G. Lee", "N.-K. Kim", "J.-S. Lee", "김남건", "이지석", "S. Uoo", "J. Park†"]
