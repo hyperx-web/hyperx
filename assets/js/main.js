@@ -406,3 +406,19 @@
     });
   });
 })();
+
+// author lists: show * (corresponding) and † (equal contribution) as superscripts
+(function () {
+  document.querySelectorAll(".pub-authors").forEach(function (el) {
+    Array.prototype.slice.call(el.childNodes).forEach(function (node) {
+      if (node.nodeType !== 3 || !/[*†]/.test(node.nodeValue)) return;
+      var frag = document.createDocumentFragment();
+      node.nodeValue.split(/([*†]+)/).forEach(function (part) {
+        if (!part) return;
+        if (/^[*†]+$/.test(part)) { var s = document.createElement("sup"); s.className = "mark"; s.textContent = part; frag.appendChild(s); }
+        else frag.appendChild(document.createTextNode(part));
+      });
+      el.replaceChild(frag, node);
+    });
+  });
+})();
