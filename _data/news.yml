@@ -1,0 +1,71 @@
+# 최신 소식 — 맨 위에 새 항목을 추가하세요.
+# type: paper | award | lab
+- date: "Oct. 2026"
+  type: paper
+  text: 'Our paper "Leveraging beam squint for increased LEO coverage: An optimization approach" has been accepted for publication in <em>IEEE Transactions on Wireless Communications</em>.'
+- date: "Oct. 2026"
+  type: paper
+  text: 'Our paper "Topology-induced heterogeneous phase errors in distributed MIMO over networked LEO satellites downlink analysis and phase-error-aware power allocation" has been accepted for publication in <em>IEEE Consumer Communications &amp; Networking Conference</em>.'
+- date: "Oct. 2026"
+  type: paper
+  text: 'Our paper "LLM-assisted search steering for successive best response in multi-satellite LEO beam hopping and cell association" has been accepted for publication in <em>International Conference on Information and Communication Technology Convergence</em>.'
+- date: "Oct. 2026"
+  type: paper
+  text: 'Our paper "Networking the space data center: Requirements, use cases, and physical limits" has been accepted for publication in <em>International Conference on Information and Communication Technology Convergence</em>.'
+- date: "Oct. 2026"
+  type: paper
+  text: 'Our paper "Closed-form analysis of satellite visibility for LEO walker constellations" has been accepted for publication in <em>International Conference on Information and Communication Technology Convergence</em>.'
+- date: "Sep. 2026"
+  type: paper
+  text: 'Our paper "Analysis of beam misalignment effect in inter-satellite FSO links" has been accepted for publication in <em>IEEE Transactions on Communications</em>.'
+- date: "July 2026"
+  type: paper
+  text: 'Our paper "A resource allocation framework for cell association and beam hopping with hybrid beamforming in dense multi-satellite LEO systems" has been accepted for publication in <em>IEEE Global Communications Conference</em>.'
+- date: "Apr. 2026"
+  type: paper
+  text: 'Our paper "Geometry-aware pointing error channel modeling for optical inter-satellite links" has been accepted for publication in <em>IEEE Vehicular Technology Conference</em>.'
+- date: "Apr. 2026"
+  type: paper
+  text: 'Our paper "Wolfpack in orbit: The eavesdropping threat of satellite clusters" has been accepted for publication in <em>IEEE Wireless Communications Letters</em>.'
+- date: "June 2025"
+  type: paper
+  text: 'Our paper "Modeling and analysis of hybrid GEO-LEO satellite networks" has been accepted for publication in <em>IEEE Communications Letters</em>.'
+- date: "Apr. 2025"
+  type: paper
+  text: 'Our paper "Analyzing downlink coverage in clustered low Earth orbit satellite constellations: A stochastic geometry approach" has been accepted for publication in <em>IEEE Transactions on Communications</em>.'
+- date: "Mar. 2025"
+  type: lab
+  text: 'HyperX has embarked on a new journey at Soongsil University 🎉 Looking forward to the future!'
+- date: "Jan. 2025"
+  type: paper
+  text: 'Our paper "Rate-splitting for joint unicast and multicast transmission in LEO satellite networks with non-uniform traffic demand" has been published in <em>IEEE Journal on Selected Areas in Communications</em>.'
+- date: "Dec. 2024"
+  type: award
+  text: 'Prof. Dong-Hyun Jung received the KICS Haedong Young Engineer Award (한국통신학회 해동젊은공학인상).'
+- date: "Nov. 2024"
+  type: paper
+  text: 'Our paper "Modeling and analysis of GEO satellite networks" has been published in <em>IEEE Transactions on Wireless Communications</em>.'
+- date: "Oct. 2024"
+  type: award
+  text: 'Prof. Dong-Hyun Jung was awarded the ICTC Best Paper Award.'
+- date: "Feb. 2024"
+  type: paper
+  text: 'Our paper "Satellite clustering for non-terrestrial networks: Orbital configuration-dependent outage analysis" has been published in <em>IEEE Wireless Communications Letters</em>.'
+- date: "Sep. 2023"
+  type: paper
+  text: 'Our paper "Satellite clustering for non-terrestrial networks: Concept, architectures, and applications" has been published in <em>IEEE Vehicular Technology Magazine</em>.'
+- date: "Aug. 2022"
+  type: paper
+  text: 'Our paper "When satellites work as eavesdroppers" has been published in <em>IEEE Transactions on Information Forensics and Security</em>.'
+- date: "Aug. 2022"
+  type: paper
+  text: 'Our paper "Performance analysis of DSSS-and CSS-based physical layer for IoT transmission over LEO satellites" has been published in <em>ETRI Journal</em>.'
+- date: "Apr. 2022"
+  type: paper
+  text: 'Our paper "Performance analysis of satellite communication system under the shadowed-Rician fading: A stochastic geometry approach" has been published in <em>IEEE Transactions on Communications</em>.'
+- date: "June 2020"
+  type: paper
+  text: 'Our paper "Energy beamforming for full-duplex wireless powered cooperative communications" has been published in <em>Wireless Personal Communications</em>.'
+- date: "Nov. 2019"
+  type: paper
+  text: 'Our paper "Fairness-based superframe design and resource allocation for dynamic rate adaptation in DVB-RCS2 satellite systems" has been published in <em>IEEE Communications Letters</em>.'

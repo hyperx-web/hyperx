@@ -1,0 +1,121 @@
+---
+layout: default
+title: Home
+slug: home
+---
+<section class="hero">
+  <div class="hero-bg" style="background-image:url('{{ '/assets/img/hero-space.jpg' | relative_url }}')"></div>
+  <canvas class="starfield" aria-hidden="true"></canvas>
+  <svg class="orbits" viewBox="0 0 600 600" aria-hidden="true">
+    <g transform="rotate(-18 300 300)">
+      <path id="o1" d="M20 300 A280 110 0 1 1 580 300 A280 110 0 1 1 20 300"/>
+      <circle class="sat" r="5"><animateMotion dur="14s" repeatCount="indefinite"><mpath href="#o1"/></animateMotion></circle>
+    </g>
+    <g transform="rotate(35 300 300)">
+      <path id="o2" d="M80 300 A220 200 0 1 0 520 300 A220 200 0 1 0 80 300"/>
+      <circle class="sat" r="4"><animateMotion dur="22s" repeatCount="indefinite"><mpath href="#o2"/></animateMotion></circle>
+    </g>
+    <g transform="rotate(70 300 300)">
+      <path id="o3" d="M140 300 A160 60 0 1 1 460 300 A160 60 0 1 1 140 300"/>
+      <circle class="sat" r="3.5"><animateMotion dur="9s" repeatCount="indefinite"><mpath href="#o3"/></animateMotion></circle>
+    </g>
+  </svg>
+  <div class="container hero-content">
+    <p class="eyebrow">Hyperconnectivity Lab · Soongsil University</p>
+    <h1 class="hero-title">Beyond Limits,<br><span class="grad">Beyond Connectivity</span></h1>
+    <p class="hero-lead">We pioneer the wireless networks of tomorrow: 6G, satellite &amp; space communications, and AI-native communication systems.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#join">Join HyperX</a>
+      <a class="btn btn-ghost" href="{{ '/publications/' | relative_url }}">Publications →</a>
+    </div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true"><span></span></div>
+</section>
+
+{% assign pub_journal = 0 %}{% assign pub_conf = 0 %}{% assign pub_patent = 0 %}
+{% for g in site.data.publications %}
+  {% if g.category == "journal" %}{% assign pub_journal = pub_journal | plus: g.items.size %}{% endif %}
+  {% if g.category == "conference" %}{% assign pub_conf = pub_conf | plus: g.items.size %}{% endif %}
+  {% if g.category == "patent" %}{% assign pub_patent = pub_patent | plus: g.items.size %}{% endif %}
+{% endfor %}
+<section class="stats">
+  <div class="container stats-grid">
+    <div class="stat reveal"><b data-count="{{ pub_journal }}">{{ pub_journal }}</b><span>Journal Papers</span></div>
+    <div class="stat reveal"><b data-count="{{ pub_conf }}">{{ pub_conf }}</b><span>Conference Papers</span></div>
+    <div class="stat reveal"><b data-count="{{ pub_patent }}">{{ pub_patent }}</b><span>US Patents</span></div>
+    <div class="stat reveal"><b data-count="{{ site.data.projects.current.size }}">{{ site.data.projects.current.size }}</b><span>Ongoing Projects</span></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Research Focus</p>
+      <h2>Exploring future communication systems</h2>
+    </div>
+    <div class="research-grid">
+      <article class="research-card reveal">
+        <div class="research-img" style="background-image:url('{{ '/assets/img/research/6g.jpg' | relative_url }}')"></div>
+        <div class="research-body">
+          <span class="chip">01</span>
+          <h3>6G Technologies</h3>
+          <p>Investigating ultra-low latency, high-speed communication protocols for next-gen connectivity.</p>
+        </div>
+      </article>
+      <article class="research-card reveal">
+        <div class="research-img" style="background-image:url('{{ '/assets/img/research/satellite.jpg' | relative_url }}')"></div>
+        <div class="research-body">
+          <span class="chip">02</span>
+          <h3>Satellite &amp; Space Communications</h3>
+          <p>Advancing satellite and space communication technologies for global connectivity.</p>
+        </div>
+      </article>
+      <article class="research-card reveal">
+        <div class="research-img" style="background-image:url('{{ '/assets/img/research/ai.jpg' | relative_url }}')"></div>
+        <div class="research-body">
+          <span class="chip">03</span>
+          <h3>AI Applications for Communications</h3>
+          <p>Applying various machine learning models for intelligent communication systems.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="join">
+  <div class="container">
+    <div class="join-card reveal">
+      <div>
+        <p class="eyebrow">Position Available</p>
+        <h2>함께 미래 통신을 연구할 학생을 찾습니다</h2>
+        <p>HyperX 연구실은 차세대 무선통신(6G 통신, 위성통신, AI 기반 통신) 기술에 대한 선도적인 연구를 수행하고 있습니다.
+          열정적으로 최신 통신기술 연구를 수행할 <strong>2027년 봄학기 입학 예정 대학원생</strong>과
+          <strong>2026년 2학기 학부연구생</strong>(2~4학년, 전공무관)을 모집하고 있습니다.</p>
+        <p class="muted">If you are fascinated by pushing the boundaries of 6G and beyond, pioneering next-generation satellite communication technologies, and utilizing AI for intelligent communication systems, we would love to hear from you! Feel free to visit our lab to discuss your research interests. 🚀</p>
+      </div>
+      <div class="join-action">
+        <p>간단한 자기소개 및 성적표와 함께 연락 주세요 🙂</p>
+        <a class="btn btn-primary" href="mailto:{{ site.email }}">{{ site.email }}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">News</p>
+      <h2>Latest updates</h2>
+    </div>
+    <ol class="news-list" data-collapsible="8">
+      {% for n in site.data.news %}
+      <li class="news-item reveal">
+        <time>{{ n.date }}</time>
+        <span class="news-type type-{{ n.type }}">{% case n.type %}{% when "award" %}Award{% when "lab" %}Lab{% else %}Paper{% endcase %}</span>
+        <p>{{ n.text }}</p>
+      </li>
+      {% endfor %}
+    </ol>
+    <button class="btn btn-ghost show-more" hidden>Show all news</button>
+  </div>
+</section>

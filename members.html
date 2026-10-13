@@ -1,0 +1,43 @@
+---
+layout: default
+title: Members
+slug: members
+permalink: /members/
+eyebrow: Who's in HyperX?
+---
+{% assign m = site.data.members %}
+<section class="section">
+  <div class="container">
+    <div class="member-grid">
+      {% for p in m.current %}
+      <article class="member-card reveal">
+        <div class="member-photo"><img src="{{ '/assets/img/members/' | append: p.photo | relative_url }}" alt="{{ p.name }}" loading="lazy"></div>
+        <div class="member-body">
+          <h3>{{ p.name }}</h3>
+          <p class="member-role">{{ p.role }}{% if p.tag %} <span class="chip chip-sm">{{ p.tag }}</span>{% endif %}</p>
+          {% if p.since %}<p class="muted small">since {{ p.since }}</p>{% endif %}
+          <div class="tags">{% for i in p.interests %}<span>{{ i }}</span>{% endfor %}</div>
+          <a class="member-mail" href="mailto:{{ p.email }}">{{ p.email }}</a>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+
+    <div class="section-head reveal" style="margin-top:5rem">
+      <p class="eyebrow">Alumni</p>
+      <h2>Former members</h2>
+    </div>
+    <div class="alumni-grid">
+      <div class="block reveal">
+        <h3 class="block-title">Graduate Students</h3>
+        {% if m.alumni_graduate.size > 0 %}
+        <ul class="alumni-list">{% for a in m.alumni_graduate %}<li><b>{{ a.name }}</b><span>{{ a.period }}</span></li>{% endfor %}</ul>
+        {% else %}<p class="muted">To be updated</p>{% endif %}
+      </div>
+      <div class="block reveal">
+        <h3 class="block-title">Undergraduate Students</h3>
+        <ul class="alumni-list">{% for a in m.alumni_undergraduate %}<li><b>{{ a.name }}</b><span>{{ a.period }}</span></li>{% endfor %}</ul>
+      </div>
+    </div>
+  </div>
+</section>

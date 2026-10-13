@@ -1,0 +1,20 @@
+---
+layout: default
+title: Lectures
+slug: lectures
+permalink: /lectures/
+eyebrow: Teaching
+---
+<section class="section">
+  <div class="container">
+    <div class="lecture-grid">
+      {% for l in site.data.lectures %}
+      <article class="lecture-card reveal">
+        <span class="chip chip-sm">{{ l.level | default: "Undergraduate" }}</span>
+        <h3>{{ l.title }}</h3>
+        <p class="muted">{{ l.terms }}</p>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,24 @@
+current:
+  - { title: "3GPP IoT-NTN 송수신 기술 연구", sponsor: "한국전자통신연구원(ETRI)", period: "26.04.–30.12.", role: "연구책임자" }
+  - { title: "LEO 위성 기반 VSAT 용 3GPP NTN 기술 연구", sponsor: "SpaceTelecom", period: "26.04.–27.09.", role: "연구책임자" }
+  - { title: "RF/광통신(ISL) 이종 위성간 End-to-End 최적 설계", sponsor: "국방기술진흥연구소(KRIT)", period: "25.12.–28.12.", role: "기관연구책임자" }
+  - { title: "6G 비지상 네트워크(NTN) 핵심 기술 연구", sponsor: "숭실대학교", period: "25.05.–27.04.", role: "연구책임자" }
+
+past:
+  - { title: "차세대 6G NTN Waveform 후보기술 분석 연구", sponsor: "한국전자통신연구원(ETRI)", period: "25.07.–25.11.", role: "연구책임자" }
+  - { title: "클러스터 기반 비지상망 다중 전송 기술 검증 시뮬레이터 제작", sponsor: "한국전자통신연구원(ETRI)", period: "25.06.–25.11.", role: "연구책임자" }
+  - { title: "지상-비지상 공존 네트워크 성능 분석", sponsor: "한국전자통신연구원(ETRI)", period: "25.05.–25.11.", role: "연구책임자" }
+  - { title: "초소형위성체계개발사업", sponsor: "한국연구재단(NRF)", period: "22.11.–25.02.", role: "참여연구원" }
+  - { title: "3GPP 표준기반 저궤도 위성통신 지상국 핵심기술 개발", sponsor: "정보통신기획평가원(IITP)", period: "24.04.–25.02.", role: "참여연구원" }
+  - { title: "3GPP 표준기반 저궤도 위성통신 단말 핵심기술 개발", sponsor: "정보통신기획평가원(IITP)", period: "24.04.–25.02.", role: "참여연구원" }
+  - { title: "3차원 공간 위성통신 기술 개발", sponsor: "정보통신기획평가원(IITP)", period: "21.04.–25.02.", role: "참여연구원" }
+  - { title: "초공간 입체통신 핵심원천기술 개발/초소형 위성 기반 6G IoT-NTN 기술 개발", sponsor: "한국전자통신연구원(ETRI)", period: "24.01.–25.02.", role: "참여연구원" }
+  - { title: "정지궤도 공공복합통신위성 통신탑재체 지상검증시스템 개발", sponsor: "정보통신기획평가원(IITP)", period: "22.01.–24.12.", role: "참여연구원" }
+  - { title: "저궤도 초소형위성(10kg 급) 기반 글로벌 IoT 서비스를 위한 저전력 위성다중액세스 핵심기술 개발", sponsor: "정보통신기획평가원(IITP)", period: "20.04.–24.03.", role: "참여연구원" }
+  - { title: "입체통신 표준기술 및 위성항법 원천기술 연구", sponsor: "한국전자통신연구원(ETRI)", period: "22.01.–23.12.", role: "참여연구원" }
+  - { title: "글로벌 커버리지를 위한 LEO 기반 IoT 위성접속신호처리 및 서비스 플랫폼 기술개발", sponsor: "한국산업기술진흥원(KIAT)", period: "19.05.–22.04.", role: "참여연구원" }
+  - { title: "3GPP NTN기반 입체통신 및 한국형 L6/S 위성항법 원천기술 개발", sponsor: "한국전자통신연구원(ETRI)", period: "20.01.–21.12.", role: "참여연구원" }
+  - { title: "재난현장 지원용 소형 운반형 위성중계장비(SNG) 개발", sponsor: "한국산업기술기획평가원(KEIT)", period: "18.04.–21.12.", role: "참여연구원" }
+  - { title: "디지털 위성 On Board Processor 핵심기술 개발", sponsor: "정보통신기획평가원(IITP)", period: "18.07.–20.12.", role: "참여연구원" }
+  - { title: "재난현장 대응력 강화를 위한 위성재난통신 기술 개발", sponsor: "한국전자통신연구원(ETRI)", period: "17.09.–18.12.", role: "참여연구원" }
+  - { title: "동일 위성채널 전송 및 주파수 공유기술 개발", sponsor: "정보통신기획평가원(IITP)", period: "17.09.–18.12.", role: "참여연구원" }

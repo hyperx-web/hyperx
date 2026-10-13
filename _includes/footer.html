@@ -1,0 +1,20 @@
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <img class="footer-logo" src="{{ '/assets/img/logo-white.png' | relative_url }}" alt="HyperX">
+      <p class="muted">{{ site.subtitle }}</p>
+      <p class="tagline">“{{ site.tagline }}”</p>
+    </div>
+    <div>
+      <h4>Location</h4>
+      <p class="muted">{{ site.address }}</p>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <p class="muted">Dong-Hyun Jung, Ph.D.<br>
+        <a href="mailto:{{ site.email }}">{{ site.email }}</a><br>
+        Tel. {{ site.phone }}</p>
+    </div>
+  </div>
+  <div class="container copyright">© {{ site.time | date: "%Y" }} HyperX Lab. All rights reserved.</div>
+</footer>

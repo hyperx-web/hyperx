@@ -1,0 +1,26 @@
+---
+layout: default
+title: Gallery
+slug: gallery
+permalink: /gallery/
+eyebrow: Life at HyperX
+---
+<section class="section">
+  <div class="container">
+    <div class="gallery-grid">
+      {% for g in site.data.gallery %}
+      <figure class="gallery-item reveal">
+        <button class="gallery-open" data-src="{{ '/assets/img/gallery/' | append: g.image | relative_url }}" data-caption="{{ g.caption }} ({{ g.date }})">
+          <img src="{{ '/assets/img/gallery/' | append: g.image | relative_url }}" alt="{{ g.caption }}" loading="lazy">
+        </button>
+        <figcaption><b>{{ g.caption }}</b><time>{{ g.date }}</time></figcaption>
+      </figure>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<div class="lightbox" hidden>
+  <button class="lightbox-close" aria-label="Close">×</button>
+  <img alt="">
+  <p></p>
+</div>

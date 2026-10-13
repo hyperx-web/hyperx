@@ -1,0 +1,37 @@
+---
+layout: default
+title: Publications
+slug: publications
+permalink: /publications/
+eyebrow: Research Output
+lead: "* corresponding author, † equal contribution"
+---
+<section class="section">
+  <div class="container">
+    <div class="pub-toolbar reveal">
+      <div class="filters" role="tablist">
+        <button class="filter active" data-filter="all">All</button>
+        <button class="filter" data-filter="journal">Journals</button>
+        <button class="filter" data-filter="conference">Conferences</button>
+        <button class="filter" data-filter="patent">Patents</button>
+      </div>
+      <input class="pub-search" type="search" placeholder="Search title, author, venue…" aria-label="Search publications">
+    </div>
+
+    {% for g in site.data.publications %}
+    <div class="pub-group" data-category="{{ g.category }}">
+      <h3 class="pub-group-title">{{ g.group }} <span class="count">{{ g.items.size }}</span></h3>
+      <ol class="pub-list" reversed>
+        {% for it in g.items %}
+        <li class="pub-item">
+          <p class="pub-title">{{ it.title }}</p>
+          <p class="pub-authors">{{ it.authors | replace: "D.-H. Jung", "<b>D.-H. Jung</b>" | replace: "D. H. Jung", "<b>D. H. Jung</b>" | replace: "정동현", "<b>정동현</b>" }}</p>
+          <p class="pub-venue">{{ it.venue }}</p>
+        </li>
+        {% endfor %}
+      </ol>
+    </div>
+    {% endfor %}
+    <p class="no-results muted" hidden>No matching publications.</p>
+  </div>
+</section>

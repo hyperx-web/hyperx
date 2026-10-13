@@ -1,0 +1,17 @@
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a class="brand" href="{{ '/' | relative_url }}" aria-label="HyperX Lab home">
+      <img src="{{ '/assets/img/logo-white.png' | relative_url }}" alt="HyperX">
+      <span class="brand-sub">@ SSU</span>
+    </a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+    <nav class="site-nav">
+      {% for item in site.nav %}
+        {% assign active = false %}
+        {% if page.url == item.url %}{% assign active = true %}{% endif %}
+        {% if item.url == "/" and page.url == "/index.html" %}{% assign active = true %}{% endif %}
+        <a href="{{ item.url | relative_url }}"{% if active %} class="active"{% endif %}>{{ item.title }}</a>
+      {% endfor %}
+    </nav>
+  </div>
+</header>

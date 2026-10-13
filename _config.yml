@@ -1,0 +1,24 @@
+title: HyperX Lab
+subtitle: Hyperconnectivity Lab @ Soongsil University
+tagline: "Beyond Limits, Beyond Connectivity"
+description: HyperX Lab at Soongsil University — research on 6G, satellite & space communications, and AI for communications.
+email: dhjung@ssu.ac.kr
+phone: "+82-2-850-1413"
+address: "Room #104, Faculty Research Building (연구관), Soongsil University, 369 Sangdo-ro, Dongjak-gu, Seoul, Republic of Korea"
+
+# GitHub Pages 주소가 https://<사용자명>.github.io/<저장소명>/ 이면 baseurl을 "/<저장소명>"으로 설정하세요.
+# 사용자명.github.io 저장소나 개인 도메인을 쓰면 빈 문자열("")로 둡니다.
+baseurl: ""
+url: ""
+
+nav:
+  - { title: Home, url: / }
+  - { title: Professor, url: /professor/ }
+  - { title: Members, url: /members/ }
+  - { title: Publications, url: /publications/ }
+  - { title: Projects, url: /projects/ }
+  - { title: Lectures, url: /lectures/ }
+  - { title: Gallery, url: /gallery/ }
+
+markdown: kramdown
+exclude: [README.md, LICENSE, Gemfile, Gemfile.lock, tools]

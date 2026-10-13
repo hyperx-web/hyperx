@@ -1,0 +1,33 @@
+---
+layout: default
+title: Projects
+slug: projects
+permalink: /projects/
+eyebrow: Research Projects
+---
+{% assign pr = site.data.projects %}
+<section class="section">
+  <div class="container">
+    <h3 class="pub-group-title reveal">Current Projects <span class="count">{{ pr.current.size }}</span></h3>
+    <div class="project-grid">
+      {% for p in pr.current %}
+      <article class="project-card current reveal">
+        <span class="live-dot">Ongoing</span>
+        <h4>{{ p.title }}</h4>
+        <p class="muted">{{ p.sponsor }}</p>
+        <div class="project-meta"><span>{{ p.period }}</span><span>{{ p.role }}</span></div>
+      </article>
+      {% endfor %}
+    </div>
+
+    <h3 class="pub-group-title reveal" style="margin-top:4rem">Past Projects <span class="count">{{ pr.past.size }}</span></h3>
+    <ul class="project-list">
+      {% for p in pr.past %}
+      <li class="reveal">
+        <div><b>{{ p.title }}</b><p class="muted">{{ p.sponsor }}</p></div>
+        <div class="project-meta"><span>{{ p.period }}</span><span>{{ p.role }}</span></div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>

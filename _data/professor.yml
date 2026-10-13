@@ -1,0 +1,87 @@
+name: Dong-Hyun Jung
+name_ko: 정동현
+title: Assistant Professor
+affiliation: School of Electronic Engineering, Soongsil University
+email: dhjung@ssu.ac.kr
+phone: "+82-2-850-1413"
+photo: dong-hyun-jung.jpg
+scholar: https://scholar.google.com/citations?hl=en&user=ViP3ThkAAAAJ
+
+education:
+  - { school: KAIST, degree: "Ph.D. in Electrical Engineering", year: "2024" }
+  - { school: Seoul National University, degree: "M.S. in Electrical and Computer Engineering", year: "2017" }
+  - { school: POSTECH, degree: "B.S. in Electrical Engineering", year: "2015" }
+
+experience:
+  - org: Soongsil University
+    dept: School of Electronic Engineering
+    roles: ["Assistant Professor, Mar. 2025 – Present"]
+  - org: UST
+    dept: Department of Information and Communication Engineering
+    roles: ["Assistant Professor, Sep. 2024 – Feb. 2025"]
+  - org: ETRI
+    dept: Satellite Communication Research Division
+    roles: ["Senior Researcher, Mar. 2023 – Feb. 2025", "Researcher, Sep. 2017 – Feb. 2023"]
+
+awards:
+  - The Korean Institute of Communications and Information Sciences (KICS) Haedong Young Engineer Award, 2024.
+  - International Conference on Information and Communication Technology Convergence (ICTC) Best Paper Award, 2024.
+  - The Korean Institute of Electromagnetic Engineering and Science (KIEES) Best Paper Award, 2022.
+
+activities:
+  - heading: Editorial Positions
+    items:
+      - Editor, IEEE Transactions on Green Communications and Networking, September 2026 – Present.
+  - heading: Standardization Delegate
+    items:
+      - ITU-R SG4 WP4B (Satellite IMT-2030), 2026.
+      - ITU-R SG4 WP4B (Satellite IMT-2020), 2024.
+      - 3GPP RAN1 (Timing relationship for non-terrestrial networks), 2020.
+      - 3GPP RAN3 (gNB-DU processed payload), 2018.
+  - heading: Technical Committee Member
+    items:
+      - IEEE Seoul Section Executive Committee (Technical Activity Committee Chair), 2026 – Present.
+      - IEEE Communications Society (ComSoc) Satellite and Space Communications (SSC), 2023 – Present.
+  - heading: Technical Program Committee Member
+    items:
+      - IEEE International Conference on Communications (ICC), 2027.
+      - International Conference on Information Networking (ICOIN), 2027.
+      - IEEE International Conference on Communication, Networks and Satellite (COMNETSAT), 2026.
+      - IEEE Asia Pacific Conference on Wireless and Mobile (APWiMob), 2026.
+      - International Conference on Information and Communication Technology Convergence (ICTC), 2026.
+      - International Symposium on Satellite Communication Systems & Services (SCSS), 2026.
+      - International Symposium on Satellite Communication Systems & Services (SCSS), 2025.
+      - IEEE Asia-Pacific Conference on Communications (APCC), 2024.
+      - IEEE Wireless Communications and Networking Conference (WCNC), 2022.
+  - heading: Journal Paper Reviewer
+    items:
+      - IEEE Journal on Selected Areas in Communications
+      - IEEE Transactions on Vehicular Technology
+      - IEEE Transactions on Communications
+      - IEEE Transactions on Wireless Communications
+      - IEEE Transactions on Information Forensics and Security
+      - IEEE Transactions on Mobile Computing
+      - IEEE Communications Letters
+      - IEEE Open Journal of Vehicular Technology
+      - IEEE Open Journal of the Communications Society
+      - The Journal of Korean Institute of Communications and Information Sciences
+  - heading: Conference Paper Reviewer
+    items:
+      - IEEE Global Communications Conference (GLOBECOM)
+      - IEEE Wireless Communications and Networking Conference (WCNC)
+      - IEEE International Conference on Communications (ICC)
+      - IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)
+      - International Conference on Information and Communication Technology Convergence (ICTC)
+
+talks:
+  - { title: "3GPP NTN SLS & Research Topics", venue: "고려대학교 전문가 초청 세미나", date: "2026.1.29." }
+  - { title: "비지상 네트워크 보안: 위성 도청을 중심으로 한 위협 분석", venue: "차세대 위성/이동통신 네트워크 보안기술 워크샵(한국통신학회)", date: "2025.10.31." }
+  - { title: "6G and Satellite Networks: The New Frontier of Global Connectivity", venue: "중앙대학교 전문가 초청 세미나", date: "2025.10.27." }
+  - { title: "위성통신 네트워크 기초", venue: "제18회 통신네트워크 기초 및 핵심기술 단기강좌(한국통신학회)", date: "2025.9.17." }
+  - { title: "Walker Constellations: Global Coverage via Satellites", venue: "B5G & 6G 핵심기술 및 표준 워크샵(한국통신학회)", date: "2025.7.16." }
+  - { title: "군집 위성 네트워크 모델링 기법", venue: "제18회 미래통신기술 워크숍(한국통신학회)", date: "2025.5.22." }
+  - { title: "위성통신 튜토리얼", venue: "ICT Convergence Korea", date: "2025.4.8." }
+  - { title: "위성통신 연구 동향", venue: "POSTECH EE 전문가 초청 세미나", date: "2025.2.4." }
+  - { title: "6G 위성통신의 기초와 연구/표준화 동향", venue: "B5G & 6G 핵심기술 단기강좌(한국통신학회)", date: "2024.7.18." }
+  - { title: "Modeling and Analysis of GEO Satellite Systems: A Stochastic Geometry Approach", venue: "통신학회 추계학술대회", date: "2023.11.23." }
+  - { title: "Satellite Cluster-Based Non-Terrestrial Networks", venue: "통신학회 하계학술대회", date: "2023.6.23." }

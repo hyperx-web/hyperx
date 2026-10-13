@@ -1,0 +1,51 @@
+# 구성원 — photo는 assets/img/members/ 안의 파일명
+current:
+  - name: Dong-Hyun Jung
+    role: Principal Investigator
+    email: dhjung@ssu.ac.kr
+    photo: dong-hyun-jung-pi.jpg
+    interests: [Wireless Communications, Signal Processing]
+  - name: Gun-Goo Lee
+    role: Ph.D. Student
+    since: "2026.07."
+    email: lgg@soongsil.ac.kr
+    photo: gun-goo-lee.jpg
+    interests: [Wireless Communications, Satellite Communications]
+  - name: Nam-Kun Kim
+    role: M.S. Student
+    tag: Lab Manager
+    since: "2026.03."
+    email: namkun@soongsil.ac.kr
+    photo: nam-kun-kim.jpg
+    interests: [Wireless Communications, 6G-NTN Beam Hopping Optimization]
+  - name: Ji-Seok Lee
+    role: Integrated B.S.-M.S. Student
+    since: "2026.03."
+    email: js010214@soongsil.ac.kr
+    photo: ji-seok-lee.jpg
+    interests: [Wireless Communications, Satellite Communications]
+  - name: Sebin Uoo
+    role: Undergraduate Student
+    since: "2026.06."
+    email: sebiney1018@gmail.com
+    photo: sebin-uoo.jpg
+    interests: [Wireless Communications, Satellite Communications]
+  - name: Junhyung Park
+    role: Undergraduate Student
+    since: "2026.07."
+    email: wnsgud020210@cau.ac.kr
+    photo: junhyung-park.jpg
+    interests: [6G Non-Terrestrial Networks, Signal Processing]
+
+alumni_graduate: []   # 비어 있으면 "To be updated"로 표시
+
+alumni_undergraduate:
+  - { name: SoHyeon Choi, period: "2026.07. – 2026.08." }
+  - { name: Jung-Seon Park, period: "2025.12. – 2026.08." }
+  - { name: Hyeon Chae Kim, period: "2025.12. – 2026.08." }
+  - { name: Minseo Choi, period: "2025.12. – 2026.06." }
+  - { name: Yong-Jun Mo, period: "2026.03. – 2026.05." }
+  - { name: Hyeon Jun Kang, period: "2025.12. – 2026.03." }
+  - { name: Nam-Kun Kim, period: "2025.11. – 2026.02." }
+  - { name: Ji-Seok Lee, period: "2025.08. – 2026.02." }
+  - { name: Jung-Guen Bae, period: "2025.08. – 2025.10." }
