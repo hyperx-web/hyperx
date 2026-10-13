@@ -49,8 +49,8 @@ Always answer the user in Korean.
   stacked inputs of the same kind share one colour; dashed strokes = group boxes/control arrows, not signals). New block diagrams: draw in TikZ with the RSMA palette
   (`tools/figures/fig_afdm.tex`, `fig_rsma.tex` are the sources; both show multi-antenna Tx/Rx, panels
   labelled Transmitter / Receiver), compile with pdflatex, then animate. Edit .tex with the Edit tool (shell drops `\`).
-- Satellite area: Walker-delta constellation canvas (no ISLs, 15° grid; ground terminal UT near the equator at the
-  right limb: nearest visible satellite red + red link, 2nd–5th nearest grey dashed links) + Earth–Moon CR3BP Arenstorf orbit
+- Satellite area: Walker-delta constellation canvas (no ISLs, 15° grid; Earth-fixed UE near the equator, starts at the left limb and
+  rotates with the Earth (hidden on the far side): nearest visible satellite red + red link, 2nd–5th nearest grey dashed links) + Earth–Moon CR3BP Arenstorf orbit
   (`assets/js/threebody.json`, precomputed with scipy). Both on white.
 
 ## Style

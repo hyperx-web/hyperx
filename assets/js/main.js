@@ -221,12 +221,11 @@
     }
 
     // ground terminal near the equator (kept facing the viewer), serving + neighbouring satellites
-    var UT_LAT = 5 * D2R, UT_VIEW = 62 * D2R, NEIGH = 4;   // 1 serving + 2nd–5th nearest
+    var UT_LAT = 5 * D2R, UT_VIEW = -62 * D2R, NEIGH = 4;   // 1 serving + 2nd–5th nearest
+    // Earth-fixed UE: starts near the left limb and rotates with the Earth
+    var UT = [Math.cos(UT_LAT) * Math.sin(UT_VIEW), Math.sin(UT_LAT), Math.cos(UT_LAT) * Math.cos(UT_VIEW)];
     function drawTerminal(raw, pts, spin) {
-      // fixed in view: near the right limb so the links are seen from the side
-      var cl = Math.cos(UT_LAT), vx = cl * Math.sin(UT_VIEW), vz = cl * Math.cos(UT_VIEW);
-      var c = Math.cos(spin), s0 = Math.sin(spin);
-      var ut = [c * vx - s0 * vz, Math.sin(UT_LAT), s0 * vx + c * vz];        // unit vector on Earth
+      var ut = UT;
       var vis = [];
       for (var p = 0; p < P; p++) for (var k = 0; k < S; k++) {
         var q = raw[p][k], d = [q[0] - ut[0], q[1] - ut[1], q[2] - ut[2]];
@@ -235,6 +234,7 @@
       }
       vis.sort(function (a, b) { return a.dist - b.dist; });
       var u = proj(ut[0], ut[1], ut[2], spin);
+      if (u[2] < 0) return;                       // UE is on the far side of the Earth
       ctx.lineCap = "round";
       // neighbouring satellites: faint grey links
       for (var i = 1; i <= NEIGH && i < vis.length; i++) {
@@ -255,7 +255,7 @@
       // terminal
       ctx.fillStyle = "#1b2f52";
       ctx.beginPath(); ctx.moveTo(u[0], u[1] - 6); ctx.lineTo(u[0] - 5, u[1] + 3); ctx.lineTo(u[0] + 5, u[1] + 3); ctx.closePath(); ctx.fill();
-      ctx.font = "600 11px Inter, sans-serif"; ctx.fillText("UT", u[0] + 7, u[1] + 4);
+      ctx.font = "600 11px Inter, sans-serif"; ctx.fillText("UE", u[0] + 7, u[1] + 4);
     }
 
     function drawCircle(fn, spin) {
@@ -309,7 +309,9 @@
       var orbit = null;
 
       function frame(now) {
-        var k = reduce ? n - 1 : Math.floor(((now - t0) % period) / period * n);
+        // rAF timestamps can be slightly earlier than t0 on the first frame -> clamp, never index < 0
+        var el = Math.max(0, now - t0);
+        var k = reduce ? n - 1 : Math.min(n - 1, Math.floor((el % period) / period * n));
         ctx.clearRect(0, 0, w, h);
                 // full orbit (faint, cached)
         if (!orbit || orbit.sc !== sc) {
