@@ -40,7 +40,7 @@
 html { scroll-behavior: smooth; }
 body {
   margin: 0; background: var(--bg); color: var(--text);
-  font-family: var(--font); font-size: 16px; line-height: 1.65;
+  font-family: var(--font); font-size: 16px; line-height: 1.5;
   -webkit-font-smoothing: antialiased; overflow-x: hidden;
 }
 body::before { /* subtle global glow */
@@ -52,10 +52,10 @@ body::before { /* subtle global glow */
 img { max-width: 100%; display: block; }
 a { color: var(--accent); text-decoration: none; transition: color .2s; }
 a:hover { color: #fff; }
-h1, h2, h3, h4 { font-family: var(--display); line-height: 1.2; margin: 0 0 .5em; letter-spacing: -0.01em; }
+h1, h2, h3, h4 { font-family: var(--display); line-height: 1.15; margin: 0 0 .4em; letter-spacing: -0.01em; }
 h2 { font-size: clamp(1.7rem, 3vw, 2.4rem); }
 h3 { font-size: 1.2rem; }
-p { margin: 0 0 1em; }
+p { margin: 0 0 .8em; }
 .container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
 .muted { color: var(--muted); }
 .small { font-size: .85rem; }
@@ -145,7 +145,7 @@ p { margin: 0 0 1em; }
 .page-hero .lead { color: var(--muted); margin: .8rem 0 0; }
 
 /* ---------- sections ---------- */
-.section { padding: 90px 0; }
+.section { padding: 72px 0; }
 .section-head { margin-bottom: 2.5rem; }
 .block { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; }
 .block + .block { margin-top: 20px; }
@@ -182,8 +182,8 @@ p { margin: 0 0 1em; }
 
 /* news */
 .news-list { list-style: none; margin: 0; padding: 0; border-left: 1px solid var(--border); }
-.news-item { position: relative; display: grid; grid-template-columns: 96px 70px 1fr; gap: 16px; align-items: baseline; padding: 14px 0 14px 28px; }
-.news-item::before { content: ""; position: absolute; left: -5px; top: 22px; width: 9px; height: 9px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); }
+.news-item { position: relative; display: grid; grid-template-columns: 96px 70px 1fr; gap: 16px; align-items: baseline; padding: 9px 0 9px 28px; }
+.news-item::before { content: ""; position: absolute; left: -5px; top: 17px; width: 9px; height: 9px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); }
 .news-item time { color: var(--muted); font-size: .85rem; font-weight: 600; white-space: nowrap; }
 .news-item p { margin: 0; }
 .news-item p em { color: #c9d3ee; }
@@ -203,20 +203,20 @@ p { margin: 0 0 1em; }
 .prof-title { font-size: .95rem; }
 .contact-list { list-style: none; padding: 0; margin: 0 0 1.4rem; font-size: .92rem; color: var(--muted); }
 .timeline { list-style: none; margin: 0; padding: 0; }
-.timeline li { display: grid; grid-template-columns: 150px 1fr; gap: 20px; padding: 12px 0; border-bottom: 1px dashed var(--border); }
+.timeline li { display: grid; grid-template-columns: 150px 1fr; gap: 20px; padding: 8px 0; border-bottom: 1px dashed var(--border); }
 .timeline li:last-child { border: 0; }
 .timeline p { margin: 0; }
 .tl-year { font-family: var(--display); font-weight: 600; color: #fff; }
 .award-list { list-style: none; margin: 0; padding: 0; }
-.award-list li { padding: 10px 0; border-bottom: 1px dashed var(--border); }
+.award-list li { padding: 6px 0; border-bottom: 1px dashed var(--border); }
 .award-list li:last-child { border: 0; }
 .acc-group { border-bottom: 1px solid var(--border); }
 .acc-group:last-child { border: 0; }
-.acc-group h4 { padding: 14px 0 4px; margin: 0 0 6px; font-size: 1rem; font-weight: 600; }
-.acc ul { margin: 0 0 14px; padding-left: 1.2em; color: var(--muted); }
-.acc li { padding: 3px 0; }
+.acc-group h4 { padding: 10px 0 2px; margin: 0 0 6px; font-size: 1rem; font-weight: 600; }
+.acc ul { margin: 0 0 10px; padding-left: 1.2em; color: var(--muted); }
+.acc li { padding: 1px 0; }
 .talk-list { list-style: none; margin: 0; padding: 0; }
-.talk-list li { display: grid; grid-template-columns: 110px 1fr; gap: 16px; padding: 12px 0; border-bottom: 1px dashed var(--border); }
+.talk-list li { display: grid; grid-template-columns: 110px 1fr; gap: 16px; padding: 8px 0; border-bottom: 1px dashed var(--border); }
 .talk-list li:last-child { border: 0; }
 .talk-list time { color: var(--accent); font-weight: 600; font-size: .85rem; }
 .talk-list p { margin: 0; font-size: .9rem; }
@@ -237,7 +237,7 @@ p { margin: 0 0 1em; }
 .alumni-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .alumni-grid .block + .block { margin-top: 0; }
 .alumni-list { list-style: none; margin: 0; padding: 0; }
-.alumni-list li { display: flex; justify-content: space-between; gap: 1rem; padding: 9px 0; border-bottom: 1px dashed var(--border); }
+.alumni-list li { display: flex; justify-content: space-between; gap: 1rem; padding: 6px 0; border-bottom: 1px dashed var(--border); }
 .alumni-list li:last-child { border: 0; }
 .alumni-list span { color: var(--muted); font-size: .88rem; white-space: nowrap; }
 
@@ -254,7 +254,7 @@ p { margin: 0 0 1em; }
 .pub-group-title { font-size: 1.3rem; padding-bottom: .8rem; border-bottom: 1px solid var(--border); margin-bottom: 1rem; }
 .pub-list { margin: 0; padding-left: 2.6em; }
 .pub-list li::marker { color: var(--muted); font-size: .85rem; font-weight: 600; }
-.pub-item { padding: 12px 0 12px 8px; border-bottom: 1px solid rgba(255,255,255,.04); }
+.pub-item { padding: 8px 0 8px 8px; border-bottom: 1px solid rgba(255,255,255,.04); }
 .pub-item p { margin: 0; }
 .pub-title { font-weight: 600; color: #fff; font-size: 1.02rem; }
 .pub-authors { color: #b7c0d8; font-size: .92rem; margin-top: 2px !important; }
@@ -275,7 +275,7 @@ mark { background: rgba(76,201,240,.3); color: #fff; border-radius: 3px; }
 .project-meta { display: flex; gap: 8px; flex-wrap: wrap; }
 .project-meta span { font-size: .78rem; padding: .25em .7em; border-radius: 6px; background: var(--surface-2); color: #c3cbe0; white-space: nowrap; }
 .project-list { list-style: none; margin: 0; padding: 0; }
-.project-list li { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 16px 4px; border-bottom: 1px solid var(--border); }
+.project-list li { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 11px 4px; border-bottom: 1px solid var(--border); }
 .project-list p { margin: 0; font-size: .88rem; }
 .project-list b { font-weight: 600; }
 
