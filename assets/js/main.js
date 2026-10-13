@@ -156,7 +156,7 @@
     var P = 24, S = 22, F = 1;             // planes, sats per plane, phasing
     var inc = 53 * D2R, ratio = 1.28;        // orbit radius / Earth radius (altitude exaggerated for visibility)
     var tilt = 23 * D2R;                     // viewing tilt
-    var w, h, R, cx, cy, dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var w, h, R, cx, cy, dpr = Math.min(Math.max((window.devicePixelRatio || 1) * 1.5, 2), 3);
     var t0 = performance.now();
 
     function size() {
@@ -255,7 +255,7 @@
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   cvs.forEach(function (cv) {
     fetch(cv.dataset.src).then(function (r) { return r.json(); }).then(function (d) {
-      var ctx = cv.getContext("2d"), dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var ctx = cv.getContext("2d"), dpr = Math.min(Math.max((window.devicePixelRatio || 1) * 1.5, 2), 3);   // supersample for crisp lines
       var w, h, sc, ox, oy, pts = d.path, mu = d.mu, n = pts.length;
       function size() {
         w = cv.clientWidth; h = cv.clientHeight;
@@ -267,19 +267,29 @@
       var stars = [];
       for (var i = 0; i < 90; i++) stars.push([Math.random(), Math.random(), Math.random()]);
       var t0 = performance.now(), period = 14000; // ms per orbit
+      var orbit = null;
 
       function frame(now) {
         var k = reduce ? n - 1 : Math.floor(((now - t0) % period) / period * n);
         ctx.clearRect(0, 0, w, h);
-                // full orbit (faint)
-        ctx.strokeStyle = "rgba(0,0,0,.15)"; ctx.lineWidth = 1;
-        ctx.beginPath(); pts.forEach(function (p, i) { i ? ctx.lineTo(X(p), Y(p)) : ctx.moveTo(X(p), Y(p)); }); ctx.stroke();
-        // trail
-        var trail = Math.floor(n * 0.22);
-        for (var j = Math.max(1, k - trail); j <= k; j++) {
-          var a = (j - (k - trail)) / trail;
+                // full orbit (faint, cached)
+        if (!orbit || orbit.sc !== sc) {
+          orbit = new Path2D(); orbit.sc = sc;
+          pts.forEach(function (p, i) { i ? orbit.lineTo(X(p), Y(p)) : orbit.moveTo(X(p), Y(p)); });
+        }
+        ctx.strokeStyle = "rgba(0,0,0,.15)"; ctx.lineWidth = 1; ctx.stroke(orbit);
+        // trail drawn in chunks with increasing opacity / width
+        var trail = Math.floor(n * 0.22), chunks = 40, step = Math.ceil(trail / chunks);
+        ctx.lineCap = "round"; ctx.lineJoin = "round";
+        for (var c = 0; c < chunks; c++) {
+          var j0 = k - trail + c * step, j1 = Math.min(j0 + step + 1, k);
+          if (j1 <= 0) continue;
+          j0 = Math.max(0, j0);
+          var a = (c + 1) / chunks;
           ctx.strokeStyle = "rgba(217,72,15," + (a * 0.95) + ")"; ctx.lineWidth = 0.8 + a * 2;
-          ctx.beginPath(); ctx.moveTo(X(pts[j - 1]), Y(pts[j - 1])); ctx.lineTo(X(pts[j]), Y(pts[j])); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(X(pts[j0]), Y(pts[j0]));
+          for (var j = j0 + 1; j <= j1; j++) ctx.lineTo(X(pts[j]), Y(pts[j]));
+          ctx.stroke();
         }
         // Lagrange points
         ctx.font = "italic 12px 'Times New Roman', serif";

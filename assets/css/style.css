@@ -373,9 +373,9 @@ mark { background: rgba(76,201,240,.3); color: #fff; border-radius: 3px; }
 .research-jump { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 2.5rem; }
 .research-jump a { color: var(--muted); font-weight: 600; font-size: .92rem; padding: .5em 1.1em; border-radius: 99px; background: var(--surface); border: 1px solid var(--border); }
 .research-jump a:hover { color: #fff; border-color: rgba(76,201,240,.4); }
-.research-area { display: grid; grid-template-columns: 1.25fr 1fr; gap: 40px; align-items: start; padding: 32px; margin-bottom: 28px;
+.research-area { display: grid; grid-template-columns: 460px 1fr; gap: 40px; align-items: start; padding: 32px; margin-bottom: 28px;
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); scroll-margin-top: 96px; }
-.research-area:nth-of-type(even) { grid-template-columns: 1fr 1.25fr; }
+.research-area:nth-of-type(even) { grid-template-columns: 1fr 460px; }
 .research-area:nth-of-type(even) .research-area-img { order: 2; }
 .research-area-img img { width: 100%; height: auto; border-radius: 12px; background: #fff; padding: 10px; }
 .research-area-body .chip { margin-bottom: .8rem; }
