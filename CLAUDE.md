@@ -6,8 +6,8 @@ Always answer the user in Korean.
 
 ## Workflow
 - Content lives in `_data/*.yml`; pages only render it. Edit data, not templates, for content changes.
-- Local preview: no Ruby on this PC. Build with the Python Liquid preview script (scratchpad `preview.py`
-  → `_site`, served on http://localhost:8765). Re-create it if missing.
+- Local preview: no Ruby on this PC. `python -I tools/preview.py . <out>/_site` (python-liquid + pyyaml),
+  then serve `<out>/_site` with `python -m http.server 8765`.
 - After every change: rebuild preview, `git commit` (with the Co-Authored-By line), `git push origin main`.
   Push uses the `hyperx-web` account via remote `https://hyperx-web@github.com/hyperx-web/hyperx.git`
   (do not switch the global credential; `dhjung-debug` has no access).
@@ -53,5 +53,5 @@ Always answer the user in Korean.
 
 ## Style
 - Fonts: Inter (English) + KoPub World Dotum (Korean, self-hosted woff2).
-- Eyebrow labels: 1.05rem, letter-spacing .06em. No rounded border on the home stats bar.
+- Eyebrow labels: 1.05rem, letter-spacing .06em. Members achievement headings: letter-spacing .05em. No rounded border on the home stats bar.
 - Avoid flashy hover effects on images; don't crop photos (members 7:10, research square, gallery natural ratio).
