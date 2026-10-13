@@ -10,7 +10,7 @@
 import sys, math, re, pymupdf
 
 SPEED = 70.0      # pt per second
-GAP = 0.45        # seconds between consecutive pulses on a wire
+GAP = 0.90        # seconds between consecutive pulses on a wire
 TOL = 3.2         # endpoint matching tolerance (pt), bridges junction dots
 PALETTE = [(232, 89, 12), (47, 158, 68), (28, 126, 214), (214, 51, 108), (245, 159, 0), (112, 72, 232)]
 
