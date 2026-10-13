@@ -26,17 +26,25 @@ eyebrow: Who's in HyperX?
             <a class="tool-open" href="{{ '/professor/' | relative_url }}">View professor page →</a>
           {% else %}
             {% assign count = 0 %}
-            {% for g in site.data.publications %}
+            {% assign heads = "International Journals|Domestic Journals|International Conferences|Domestic Conferences|US Granted Patents|US Filed Patents" | split: "|" %}
+            {% for head in heads %}
               {% assign mine = "" %}
-              {% for it in g.items %}
-                {% assign hit = false %}
-                {% for n in p.pub_names %}{% if it.authors contains n %}{% assign hit = true %}{% endif %}{% endfor %}
-                {% if hit %}{% assign count = count | plus: 1 %}{% assign venue = it.venue %}
-                  {% capture li %}<li><b>{{ it.title }}</b><span class="muted">{{ venue }}</span></li>{% endcapture %}
-                  {% assign mine = mine | append: li %}
+              {% for g in site.data.publications %}
+                {% assign gname = g.group %}
+                {% if g.group == "Submitted" or g.group == "Published" %}{% assign gname = "International Journals" %}{% endif %}
+                {% if gname == head %}
+                {% for it in g.items %}
+                  {% assign hit = false %}
+                  {% for n in p.pub_names %}{% if it.authors contains n %}{% assign hit = true %}{% endif %}{% endfor %}
+                  {% if hit %}{% assign count = count | plus: 1 %}
+                    {% assign venue = it.venue | replace_first: "submitted to", "Submitted to" | replace_first: "accepted to", "Accepted to" %}
+                    {% capture li %}<li><b>{{ it.title }}</b><span class="muted">{{ venue }}</span></li>{% endcapture %}
+                    {% assign mine = mine | append: li %}
+                  {% endif %}
+                {% endfor %}
                 {% endif %}
               {% endfor %}
-              {% if mine != "" %}<h4>{{ g.group }}</h4><ul>{{ mine }}</ul>{% endif %}
+              {% if mine != "" %}<h4>{{ head }}</h4><ul>{{ mine }}</ul>{% endif %}
             {% endfor %}
             {% if count == 0 %}<p class="muted">To be updated</p>{% endif %}
           {% endif %}
