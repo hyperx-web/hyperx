@@ -4,7 +4,7 @@
   image: 6g-model.svg
   images:
     - { file: 6g-rsma-anim.svg, caption: "RSMA system model" }
-    - { file: 6g-afdm-anim.svg, caption: "AFDM transceiver with delay–Doppler sensing (ISAC)" }
+    - { file: 6g-afdm-anim.svg, caption: "AFDM transceiver with delay–Doppler sensing" }
   summary: Investigating ultra-low latency, high-speed communication protocols for next-gen connectivity.
   topics:
     - Rate-splitting multiple access (RSMA) for unicast and multicast
