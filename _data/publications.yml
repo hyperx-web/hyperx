@@ -1,11 +1,8 @@
 # 논문/특허 목록 — 각 그룹의 items 맨 위에 새 항목을 추가하세요.
 # 연구실 지도교수 이름(D.-H. Jung / 정동현 / D. H. Jung)은 자동으로 굵게 표시됩니다.
 - category: journal
-  group: "Submitted / In Preparation"
+  group: "Submitted"
   items:
-    - authors: "J.-S. Lee and D.-H. Jung*"
-      title: "Efficient downlink interference analysis of LEO mega-constellations via satellite visibility"
-      venue: "in preparation"
     - authors: "S. Lee, H. Cho, D.-H. Jung, M. Kim, J. S. Baik, H. Kim, J. Son, and J. Choi"
       title: "Robust 3D rainbow beamforming in LEO satellite communications under imperfect CSI"
       venue: "submitted to IEEE Transactions on Wireless Communications, Oct 2026"
@@ -37,7 +34,7 @@
       title: "System-level evaluation of LEO satellite communications under service-driven traffic dynamics"
       venue: "submitted to IEEE Wireless Communications Magazine, Jan. 2026"
 - category: journal
-  group: "Accepted / Published"
+  group: "Published"
   items:
     - authors: "H. Cho, S. Lee, D.-H. Jung, D. J. Love and J. Choi"
       title: "Leveraging beam squint for increased LEO coverage: An optimization approach"
