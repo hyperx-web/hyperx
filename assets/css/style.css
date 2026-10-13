@@ -225,7 +225,7 @@ p { margin: 0 0 .8em; }
 
 /* members */
 .member-rows { display: flex; flex-direction: column; gap: 20px; }
-.member-row { display: grid; grid-template-columns: 220px 200px 1fr; gap: 22px; align-items: start;
+.member-row { display: grid; grid-template-columns: 200px 200px 1fr; gap: 22px; align-items: start;
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; transition: border-color .3s; }
 .member-row:hover { border-color: rgba(76, 201, 240, .4); }
 .member-row.is-pi { border-color: rgba(123, 97, 255, .35); }
