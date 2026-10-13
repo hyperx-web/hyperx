@@ -8,8 +8,8 @@ address: "Room #104, Faculty Research Building (연구관), Soongsil University,
 
 # GitHub Pages 주소가 https://<사용자명>.github.io/<저장소명>/ 이면 baseurl을 "/<저장소명>"으로 설정하세요.
 # 사용자명.github.io 저장소나 개인 도메인을 쓰면 빈 문자열("")로 둡니다.
-baseurl: ""
-url: ""
+baseurl: "/hyperx"
+url: "https://hyperx-web.github.io"
 
 nav:
   - { title: Home, url: / }
