@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -34 760 594" font-family="Helvetica, Arial, sans-serif">
+  <!-- Animated version of the JSAC concept figure: beamspace transport + neural rebalancing warm start -->
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#444"/></marker>
+    <marker id="arB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2f5aa8"/></marker>
+    <marker id="arG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5a7d3a"/></marker>
+    <g id="sat">
+      <g transform="rotate(-14)">
+        <rect x="-78" y="-12" width="56" height="22" fill="#2c4a7c" stroke="#1b2f52" stroke-width="1"/>
+        <path d="M-64 -12V10M-50 -12V10M-36 -12V10M-78 -1H-22" stroke="#8fa8d0" stroke-width=".8"/>
+        <rect x="22" y="-12" width="56" height="22" fill="#2c4a7c" stroke="#1b2f52" stroke-width="1"/>
+        <path d="M36 -12V10M50 -12V10M64 -12V10M22 -1H78" stroke="#8fa8d0" stroke-width=".8"/>
+        <rect x="-18" y="-20" width="36" height="34" rx="3" fill="#e6e8ec" stroke="#555" stroke-width="1.2"/>
+        <path d="M-12 22 A12 8 0 0 0 12 22 Z" fill="#e6e8ec" stroke="#555" stroke-width="1"/>
+        <path d="M0 14V20" stroke="#555"/>
+      </g>
+    </g>
+    <path id="orbit" d="M0 62 Q380 -22 760 92"/>
+    <path id="hop" d="M140 62 Q380 2 612 64"/>
+    <path id="p1" d="M163 226 H217"/>
+    <path id="p2" d="M372 226 H400"/>
+    <path id="p3" d="M554 226 H620"/>
+  </defs>
+  <rect y="-34" width="760" height="594" fill="#fff"/>
+
+  <!-- orbit -->
+  <use href="#orbit" fill="none" stroke="#222" stroke-width="2" stroke-dasharray="9 7">
+  </use>
+  <path d="M370 18 l12 4 -12 4z" fill="#222"/>
+  <text x="380" y="-6" font-size="19" text-anchor="middle">known LEO orbit</text>
+
+  <!-- beams -->
+  <path d="M150 100 L162 382 L548 382 L255 165 Z" fill="#cfdcef" opacity=".55">
+    <animate attributeName="opacity" values=".6;.6;.12;.12;.6" keyTimes="0;.25;.45;.95;1" dur="8s" repeatCount="indefinite"/>
+  </path>
+  <path d="M610 100 L548 382 L162 382 L475 165 Z" fill="#cfdcef" opacity=".12">
+    <animate attributeName="opacity" values=".12;.12;.6;.6;.12" keyTimes="0;.25;.45;.95;1" dur="8s" repeatCount="indefinite"/>
+  </path>
+
+  <!-- satellites at slots -->
+  <g transform="translate(140 72)" opacity="1">
+    <use href="#sat"/>
+    <animate attributeName="opacity" values="1;1;.3;.3;1" keyTimes="0;.25;.45;.95;1" dur="8s" repeatCount="indefinite"/>
+  </g>
+  <g transform="translate(612 74)" opacity=".3">
+    <use href="#sat"/>
+    <animate attributeName="opacity" values=".3;.3;1;1;.3" keyTimes="0;.25;.45;.95;1" dur="8s" repeatCount="indefinite"/>
+  </g>
+  <!-- moving ghost satellite between slots -->
+  <g opacity="0">
+    <g transform="scale(.55)"><use href="#sat"/></g>
+    <animateMotion dur="8s" repeatCount="indefinite" keyPoints="0;0;1;1" keyTimes="0;.2;.45;1" calcMode="linear"><mpath href="#hop"/></animateMotion>
+    <animate attributeName="opacity" values="0;0;.75;.75;0;0" keyTimes="0;.2;.24;.42;.46;1" dur="8s" repeatCount="indefinite"/>
+  </g>
+  <text x="140" y="12" font-size="20" text-anchor="middle">Slot <tspan font-family="'Times New Roman',serif" font-style="italic">t</tspan> − 1</text>
+  <text x="612" y="14" font-size="20" text-anchor="middle">Slot <tspan font-family="'Times New Roman',serif" font-style="italic">t</tspan></text>
+
+  <!-- warm-start dashed group -->
+  <rect x="205" y="170" width="366" height="112" rx="10" fill="#fff" fill-opacity=".6" stroke="#222" stroke-width="1.6" stroke-dasharray="8 6"/>
+  <text x="388" y="162" font-size="18" fill="#444" text-anchor="middle">warm start at slot <tspan font-family="'Times New Roman',serif" font-style="italic">t</tspan></text>
+
+  <!-- boxes -->
+  <rect x="18" y="188" width="145" height="77" rx="8" fill="#fff" stroke="#222" stroke-width="1.6"/>
+  <text x="90" y="220" font-size="21" text-anchor="middle" font-family="'Times New Roman',serif" font-weight="bold">z̃<tspan font-size="14" baseline-shift="sub" font-weight="normal" font-style="italic">t</tspan><tspan font-size="14" baseline-shift="sub" font-weight="normal">−1</tspan></text>
+  <text x="90" y="250" font-size="17" text-anchor="middle">GPI at <tspan font-family="'Times New Roman',serif" font-style="italic">t</tspan> − 1</text>
+
+  <rect x="220" y="188" width="152" height="76" rx="8" fill="#dbe6f6" stroke="#2f5aa8" stroke-width="1.6">
+    <animate attributeName="stroke-width" values="1.6;1.6;4;1.6;1.6" keyTimes="0;.3;.38;.46;1" dur="8s" repeatCount="indefinite"/>
+  </rect>
+  <text x="296" y="219" font-size="19" text-anchor="middle">Beamspace</text>
+  <text x="296" y="245" font-size="19" text-anchor="middle">transport</text>
+
+  <rect x="402" y="188" width="152" height="76" rx="8" fill="#e3edd9" stroke="#5a7d3a" stroke-width="1.6">
+    <animate attributeName="stroke-width" values="1.6;1.6;4;1.6;1.6" keyTimes="0;.5;.58;.66;1" dur="8s" repeatCount="indefinite"/>
+  </rect>
+  <text x="478" y="219" font-size="19" text-anchor="middle">Neural</text>
+  <text x="478" y="245" font-size="19" text-anchor="middle">rebalancing</text>
+
+  <rect x="622" y="188" width="122" height="77" rx="8" fill="#fff" stroke="#222" stroke-width="1.6">
+    <animate attributeName="stroke-width" values="1.6;1.6;4;1.6" keyTimes="0;.72;.8;1" dur="8s" repeatCount="indefinite"/>
+  </rect>
+  <text x="683" y="221" font-size="21" text-anchor="middle" font-family="'Times New Roman',serif" font-weight="bold">z<tspan font-size="14" baseline-shift="sub" font-weight="normal" font-style="italic">t</tspan><tspan font-size="13" baseline-shift="super" font-weight="normal">(0)</tspan></text>
+  <text x="683" y="250" font-size="16" text-anchor="middle">initialization</text>
+
+  <text x="296" y="302" font-size="16" fill="#2f5aa8" text-anchor="middle">align to geometry</text>
+  <text x="478" y="302" font-size="16" fill="#5a7d3a" text-anchor="middle">adapt to demand</text>
+
+  <!-- arrows -->
+  <use href="#p1" stroke="#444" stroke-width="1.6" marker-end="url(#ar)"/>
+  <use href="#p2" stroke="#444" stroke-width="1.6" marker-end="url(#ar)"/>
+  <use href="#p3" stroke="#444" stroke-width="1.6" marker-end="url(#ar)"/>
+
+  <!-- travelling token through the pipeline -->
+  <circle r="6" fill="#d9480f" opacity="0">
+    <animateMotion dur="8s" repeatCount="indefinite" keyPoints="0;0;1;1" keyTimes="0;.25;.32;1" calcMode="linear"><mpath href="#p1"/></animateMotion>
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.24;.25;.32;.33;1" dur="8s" repeatCount="indefinite"/>
+  </circle>
+  <circle r="6" fill="#d9480f" opacity="0">
+    <animateMotion dur="8s" repeatCount="indefinite" keyPoints="0;0;1;1" keyTimes="0;.46;.5;1" calcMode="linear"><mpath href="#p2"/></animateMotion>
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.45;.46;.5;.51;1" dur="8s" repeatCount="indefinite"/>
+  </circle>
+  <circle r="6" fill="#d9480f" opacity="0">
+    <animateMotion dur="8s" repeatCount="indefinite" keyPoints="0;0;1;1" keyTimes="0;.66;.72;1" calcMode="linear"><mpath href="#p3"/></animateMotion>
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.65;.66;.72;.73;1" dur="8s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- ground users -->
+  <ellipse cx="355" cy="382" rx="195" ry="36" fill="#d5dceb" fill-opacity=".85" stroke="#888" stroke-width="1.5" stroke-dasharray="7 5"/>
+  <g fill="#555">
+    <g transform="translate(210 370)"><circle cy="-10" r="9"/><path d="M-15 12 Q-15 -2 0 -2 Q15 -2 15 12 Z"/></g>
+    <g transform="translate(295 370)"><circle cy="-10" r="9"/><path d="M-15 12 Q-15 -2 0 -2 Q15 -2 15 12 Z"/></g>
+    <g transform="translate(490 370)"><circle cy="-10" r="9"/><path d="M-15 12 Q-15 -2 0 -2 Q15 -2 15 12 Z"/></g>
+  </g>
+  <text x="210" y="412" font-size="19" text-anchor="middle">1</text>
+  <text x="295" y="412" font-size="19" text-anchor="middle">2</text>
+  <text x="392" y="385" font-size="20" text-anchor="middle">· · ·</text>
+  <text x="490" y="412" font-size="20" text-anchor="middle" font-family="'Times New Roman',serif" font-style="italic">K</text>
+  <text x="565" y="390" font-size="19" fill="#666">ground users</text>
+
+  <!-- bottom rows -->
+  <rect x="8" y="455" width="744" height="42" fill="#fff" stroke="#222" stroke-width="1.4"/>
+  <rect x="8" y="455" width="210" height="42" fill="#dbe6f6" stroke="#222" stroke-width="1.4"/>
+  <text x="113" y="482" font-size="19" text-anchor="middle">Array responses</text>
+  <text x="270" y="484" font-size="20" font-family="'Times New Roman',serif" font-weight="bold">A<tspan font-size="13" baseline-shift="sub" font-weight="normal" font-style="italic">t</tspan><tspan font-size="13" baseline-shift="sub" font-weight="normal">−1</tspan></text>
+  <path d="M312 477 H660" stroke="#2f5aa8" stroke-width="1.6" stroke-dasharray="7 5" marker-end="url(#arB)">
+    <animate attributeName="stroke-dashoffset" values="24;0" dur="1s" repeatCount="indefinite"/>
+  </path>
+  <rect x="404" y="464" width="164" height="26" fill="#fff"/>
+  <text x="486" y="483" font-size="18" fill="#2f5aa8" text-anchor="middle">geometry evolves</text>
+  <text x="690" y="484" font-size="20" font-family="'Times New Roman',serif" font-weight="bold">A<tspan font-size="13" baseline-shift="sub" font-weight="normal" font-style="italic">t</tspan></text>
+
+  <rect x="8" y="510" width="744" height="42" fill="#fff" stroke="#222" stroke-width="1.4"/>
+  <rect x="8" y="510" width="210" height="42" fill="#e3edd9" stroke="#222" stroke-width="1.4"/>
+  <text x="113" y="537" font-size="19" text-anchor="middle">Traffic demands</text>
+  <text x="270" y="539" font-size="20" font-family="'Times New Roman',serif" font-weight="bold">d<tspan font-size="13" baseline-shift="sub" font-weight="normal" font-style="italic">t</tspan><tspan font-size="13" baseline-shift="sub" font-weight="normal">−1</tspan></text>
+  <path d="M312 532 H660" stroke="#5a7d3a" stroke-width="1.6" stroke-dasharray="7 5" marker-end="url(#arG)">
+    <animate attributeName="stroke-dashoffset" values="24;0" dur="1s" repeatCount="indefinite"/>
+  </path>
+  <rect x="404" y="519" width="164" height="26" fill="#fff"/>
+  <text x="486" y="538" font-size="18" fill="#5a7d3a" text-anchor="middle">demand varies</text>
+  <text x="690" y="539" font-size="20" font-family="'Times New Roman',serif" font-weight="bold">d<tspan font-size="13" baseline-shift="sub" font-weight="normal" font-style="italic">t</tspan></text>
+</svg>

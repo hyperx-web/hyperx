@@ -30,6 +30,9 @@
 - id: ai
   title: AI Applications for Communications
   image: ai-model.svg
+  images:   # 여러 그림 (있으면 image 대신 사용)
+    - { file: ai-concept-anim.svg, caption: "Beamspace transport + neural rebalancing warm start (JSAC, submitted)" }
+    - { file: ai-network.png, caption: "Permutation-equivariant rebalancing network" }
   summary: Applying various machine learning models for intelligent communication systems.
   topics:
     - Reinforcement learning-based secure beamforming

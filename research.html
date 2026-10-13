@@ -18,8 +18,12 @@ lead: "Our lab explores cutting-edge innovations in future communication systems
         {% if r.animation == "constellation" %}
         <div class="constellation-wrap">
           <canvas class="constellation" aria-label="Animated LEO mega-constellation (Walker-delta, 53° inclination)"></canvas>
-          <p class="constellation-cap">Walker-delta LEO constellation · <i>i</i> = 53° · 24 planes × 22 satellites · inter-satellite links (not to scale)</p>
+          <p class="constellation-cap">Walker-delta LEO constellation · <i>i</i> = 53° · 24 planes × 22 satellites (not to scale)</p>
         </div>
+        {% elsif r.images %}
+          {% for im in r.images %}
+          <figure class="research-fig"><img src="{{ '/assets/img/research/' | append: im.file | relative_url }}" alt="{{ im.caption }}" loading="lazy"><figcaption>{{ im.caption }}</figcaption></figure>
+          {% endfor %}
         {% else %}<img src="{{ '/assets/img/research/' | append: r.image | relative_url }}" alt="{{ r.title }}" loading="lazy">{% endif %}
       </div>
       <div class="research-area-body">

@@ -203,11 +203,11 @@
       g.addColorStop(0, "#3d7fd6"); g.addColorStop(0.6, "#1b3f8a"); g.addColorStop(1, "#0a1836");
       ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.fillStyle = g; ctx.fill();
       // graticule
-      ctx.strokeStyle = "rgba(160,200,255,.18)"; ctx.lineWidth = 0.8;
-      for (var lat = -60; lat <= 60; lat += 30) drawCircle(function (a) {
+      ctx.strokeStyle = "rgba(160,200,255,.16)"; ctx.lineWidth = 0.7;
+      for (var lat = -75; lat <= 75; lat += 15) drawCircle(function (a) {
         return [Math.cos(lat * D2R) * Math.cos(a), Math.sin(lat * D2R), Math.cos(lat * D2R) * Math.sin(a)];
       }, spin);
-      for (var lon = 0; lon < 180; lon += 30) drawCircle(function (a) {
+      for (var lon = 0; lon < 180; lon += 15) drawCircle(function (a) {
         return [Math.cos(a) * Math.cos(lon * D2R), Math.sin(a), Math.cos(a) * Math.sin(lon * D2R)];
       }, spin);
       // atmosphere rim
@@ -234,20 +234,6 @@
       return dx * dx + dy * dy < R * R;
     }
     function drawLayer(pts, front) {
-      // intra-plane ISL (orbit lines) + inter-plane ISL
-      ctx.lineWidth = 0.7;
-      for (var p = 0; p < P; p++) for (var k = 0; k < S; k++) {
-        var a = pts[p][k], b = pts[p][(k + 1) % S], c = pts[(p + 1) % P][k];
-        var isFront = a[2] >= 0;
-        if (isFront !== front) continue;
-        if (!front && hidden(a)) continue;
-        ctx.strokeStyle = front ? "rgba(76,201,240,.28)" : "rgba(76,201,240,.08)";
-        ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
-        if (p % 2 === 0) {
-          ctx.strokeStyle = front ? "rgba(247,37,133,.22)" : "rgba(247,37,133,.06)";
-          ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(c[0], c[1]); ctx.stroke();
-        }
-      }
       for (var p2 = 0; p2 < P; p2++) for (var k2 = 0; k2 < S; k2++) {
         var s = pts[p2][k2];
         if ((s[2] >= 0) !== front) continue;
