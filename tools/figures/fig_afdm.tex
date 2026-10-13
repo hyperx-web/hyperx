@@ -37,7 +37,7 @@
 % ================= rows / columns =================
 \def\yT{0}       % transmitter chain
 \def\yR{-2.45}   % receiver chain
-\def\yS{-3.65}   % sensing branch
+\def\yS{-4.0}    % sensing branch
 \def\xL{-0.6}
 \def\xR{10.15}
 \def\xa{2.8}     % first chirp/FFT block
@@ -47,7 +47,7 @@
 % ---------- background panels ----------
 \begin{scope}[on background layer]
   \draw[grpbox, fill=txfill] (\xL,1.0) rectangle (\xR,-0.72);
-  \draw[grpbox, fill=rxfill] (\xL,-1.5) rectangle (\xR,-4.35);
+  \draw[grpbox, fill=rxfill] (\xL,-1.5) rectangle (\xR,-4.7);
 \end{scope}
 \node[grplab, anchor=north west] at (\xL+0.05,0.97) {Transmitter};
 \node[grplab, anchor=north west] at (\xL+0.05,-1.53) {Receiver};
