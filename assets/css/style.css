@@ -187,7 +187,7 @@ p { margin: 0 0 .8em; }
 .news-item::before { content: ""; position: absolute; left: -5px; top: 17px; width: 9px; height: 9px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); }
 .news-item time { color: var(--muted); font-size: .85rem; font-weight: 600; white-space: nowrap; }
 .news-item p { margin: 0; }
-.news-item p em { color: #c9d3ee; }
+.news-item p em { color: var(--accent); font-weight: 700; font-style: normal; }
 .news-type { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; text-align: center; padding: .2em .5em; border-radius: 6px; }
 .type-paper { background: rgba(76,201,240,.12); color: var(--accent); }
 .type-award { background: rgba(255,196,0,.13); color: #ffc93c; }
