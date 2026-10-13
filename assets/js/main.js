@@ -345,18 +345,25 @@
   });
 })();
 
-// members: keep * / † only on the member's own name
+// members: keep * only on the member's own name; keep all † when the member is an equal-contribution author
 (function () {
   document.querySelectorAll(".member-pubs .pub-authors").forEach(function (el) {
-    Array.prototype.slice.call(el.childNodes).forEach(function (node) {
+    var nodes = Array.prototype.slice.call(el.childNodes);
+    var afterOwn = function (node) {
+      var prev = node.previousSibling;
+      return prev && prev.nodeType === 1 && prev.classList.contains("lab");
+    };
+    var ownDagger = nodes.some(function (node) {
+      return node.nodeType === 3 && afterOwn(node) && /^[*]*†/.test(node.nodeValue);
+    });
+    nodes.forEach(function (node) {
       if (node.nodeType !== 3) return;
       var t = node.nodeValue, keep = "";
-      var prev = node.previousSibling;
-      if (prev && prev.nodeType === 1 && prev.classList.contains("lab")) {
-        var m = t.match(/^[*\u2020]+/);
+      if (afterOwn(node)) {
+        var m = t.match(/^[*†]+/);
         if (m) { keep = m[0]; t = t.slice(keep.length); }
       }
-      node.nodeValue = keep + t.replace(/[*\u2020]/g, "");
+      node.nodeValue = keep + t.replace(ownDagger ? /[*]/g : /[*†]/g, "");
     });
   });
 })();
