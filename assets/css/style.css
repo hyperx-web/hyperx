@@ -210,12 +210,9 @@ p { margin: 0 0 1em; }
 .award-list { list-style: none; margin: 0; padding: 0; }
 .award-list li { padding: 10px 0; border-bottom: 1px dashed var(--border); }
 .award-list li:last-child { border: 0; }
-.acc details { border-bottom: 1px solid var(--border); }
-.acc details:last-child { border: 0; }
-.acc summary { cursor: pointer; padding: 14px 0; font-weight: 600; list-style: none; display: flex; align-items: center; }
-.acc summary::-webkit-details-marker { display: none; }
-.acc summary::after { content: "+"; margin-left: auto; color: var(--accent); font-size: 1.3rem; transition: transform .3s; }
-.acc details[open] summary::after { transform: rotate(45deg); }
+.acc-group { border-bottom: 1px solid var(--border); }
+.acc-group:last-child { border: 0; }
+.acc-group h4 { padding: 14px 0 4px; margin: 0 0 6px; font-size: 1rem; font-weight: 600; }
 .acc ul { margin: 0 0 14px; padding-left: 1.2em; color: var(--muted); }
 .acc li { padding: 3px 0; }
 .talk-list { list-style: none; margin: 0; padding: 0; }
