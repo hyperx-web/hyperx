@@ -222,18 +222,19 @@ p { margin: 0 0 .8em; }
 .talk-list p { margin: 0; font-size: .9rem; }
 
 /* members */
-.member-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 22px; }
+.member-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 16px; }
 .member-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: transform .35s, border-color .35s; }
 .member-card:hover { transform: translateY(-6px); border-color: rgba(76, 201, 240, .4); }
 .member-photo { aspect-ratio: 1 / 1; overflow: hidden; background: var(--bg-2); }
 .member-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; transition: transform .6s; }
 .member-card:hover .member-photo img { transform: scale(1.05); }
-.member-body { padding: 20px; }
+.member-body { padding: 14px; }
+.member-body h3 { font-size: 1.05rem; }
 .member-body h3 { margin-bottom: .2rem; }
 .member-role { color: var(--accent); font-weight: 600; font-size: .9rem; margin: 0; }
 .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
-.tags span { font-size: .75rem; padding: .2em .65em; border-radius: 6px; background: var(--surface-2); color: #c3cbe0; }
-.member-mail { font-size: .82rem; color: var(--muted); word-break: break-all; }
+.tags span { font-size: .7rem; padding: .2em .65em; border-radius: 6px; background: var(--surface-2); color: #c3cbe0; }
+.member-mail { font-size: .72rem; color: var(--muted); word-break: break-all; }
 .alumni-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .alumni-grid .block + .block { margin-top: 0; }
 .alumni-list { list-style: none; margin: 0; padding: 0; }
