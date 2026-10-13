@@ -1,7 +1,20 @@
 # 연구 분야 — keywords: 논문 제목에 이 단어(소문자)가 있으면 관련 논문으로 자동 표시
+- id: 6g
+  title: 6G Technologies
+  image: 6g-model.svg
+  summary: Investigating ultra-low latency, high-speed communication protocols for next-gen connectivity.
+  topics:
+    - Rate-splitting multiple access (RSMA) for unicast and multicast
+    - Integrated sensing and communication (ISAC) with AFDM
+    - Near-field channel estimation for movable antenna systems
+    - Beam squint and wideband beamforming
+    - Distributed MIMO and phase-error-aware power allocation
+    - Secure ambient IoT networks
+  keywords: [rate-splitting, rsma, isac, near-field, movable antenna, mimo, beamforming, beam squint, ambient iot, 6g]
+
 - id: satellite
   title: Satellite & Space Communications
-  image: satellite.jpg
+  image: space-model.svg
   summary: Advancing satellite and space communication technologies for global connectivity.
   topics:
     - LEO mega-constellation modeling and coverage analysis (stochastic geometry)
@@ -13,22 +26,9 @@
     - Physical-layer security against satellite eavesdroppers
   keywords: [satellite, leo, geo, non-terrestrial, ntn, orbit, constellation]
 
-- id: 6g
-  title: 6G Technologies
-  image: 6g.jpg
-  summary: Investigating ultra-low latency, high-speed communication protocols for next-gen connectivity.
-  topics:
-    - Rate-splitting multiple access (RSMA) for unicast and multicast
-    - Integrated sensing and communication (ISAC) with AFDM
-    - Near-field channel estimation for movable antenna systems
-    - Beam squint and wideband beamforming
-    - Distributed MIMO and phase-error-aware power allocation
-    - Secure ambient IoT networks
-  keywords: [rate-splitting, rsma, isac, near-field, movable antenna, mimo, beamforming, beam squint, ambient iot, 6g]
-
 - id: ai
   title: AI Applications for Communications
-  image: ai.jpg
+  image: ai-model.svg
   summary: Applying various machine learning models for intelligent communication systems.
   topics:
     - Reinforcement learning-based secure beamforming

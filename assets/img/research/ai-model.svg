@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" font-family="Inter, Arial, sans-serif">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="85%">
+      <stop offset="0" stop-color="#1a1546"/><stop offset="1" stop-color="#070b18"/>
+    </radialGradient>
+    <linearGradient id="core" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4cc9f0"/><stop offset="1" stop-color="#7b61ff"/>
+    </linearGradient>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#8fa2d8"/></marker>
+  </defs>
+  <rect width="800" height="800" rx="36" fill="url(#bg)"/>
+
+  <!-- environment box -->
+  <rect x="50" y="70" width="700" height="170" rx="22" fill="#0f1730" stroke="#4cc9f0" stroke-opacity=".5" stroke-width="2"/>
+  <text x="80" y="108" fill="#4cc9f0" font-size="18" font-weight="700" letter-spacing="2">ENVIRONMENT · WIRELESS NETWORK</text>
+  <!-- mini satellite / BS / users -->
+  <g transform="translate(160 175)">
+    <rect x="-24" y="-6" width="16" height="12" fill="#2b4a9b"/><rect x="8" y="-6" width="16" height="12" fill="#2b4a9b"/><rect x="-7" y="-9" width="14" height="18" rx="3" fill="#dfe6ff"/>
+  </g>
+  <g transform="translate(300 180)"><path d="M-14 30 L-4 -20 H4 L14 30 Z" fill="none" stroke="#c9d6ff" stroke-width="2.5"/><circle cy="-26" r="6" fill="#4cc9f0"/></g>
+  <g fill="#dfe6ff"><circle cx="420" cy="195" r="7"/><circle cx="460" cy="175" r="7"/><circle cx="500" cy="200" r="7"/></g>
+  <g fill="none" stroke="#4cc9f0" stroke-opacity=".5" stroke-width="2"><path d="M310 160 Q360 140 412 190"/><path d="M310 160 Q390 130 455 170"/></g>
+  <g transform="translate(640 180)"><rect x="-50" y="-26" width="100" height="52" rx="10" fill="none" stroke="#8fa2d8" stroke-width="2"/>
+    <path d="M-36 12 L-20 -4 L-4 6 L14 -14 L36 -2" fill="none" stroke="#4ade80" stroke-width="3"/></g>
+  <text x="640" y="232" fill="#8f9bb6" font-size="14" text-anchor="middle">traffic · CSI</text>
+
+  <!-- state arrow down -->
+  <path d="M220 250 V330" stroke="#8fa2d8" stroke-width="3" marker-end="url(#arr)"/>
+  <text x="235" y="296" fill="#c9d6ff" font-size="17" font-weight="600">State</text>
+  <!-- action arrow up -->
+  <path d="M580 330 V250" stroke="#8fa2d8" stroke-width="3" marker-end="url(#arr)"/>
+  <text x="595" y="296" fill="#c9d6ff" font-size="17" font-weight="600">Action</text>
+
+  <!-- neural network agent -->
+  <rect x="120" y="340" width="560" height="250" rx="26" fill="#120f33" stroke="url(#core)" stroke-width="3"/>
+  <text x="150" y="378" fill="#a897ff" font-size="18" font-weight="700" letter-spacing="2">AI AGENT</text>
+  <g stroke="#7b61ff" stroke-opacity=".35" stroke-width="1.5">
+    <path d="M260 420L400 400M260 420L400 465M260 420L400 530M260 480L400 400M260 480L400 465M260 480L400 530M260 540L400 400M260 540L400 465M260 540L400 530"/>
+    <path d="M400 400L540 440M400 400L540 510M400 465L540 440M400 465L540 510M400 530L540 440M400 530L540 510"/>
+  </g>
+  <g>
+    <circle cx="260" cy="420" r="14" fill="#4cc9f0"/><circle cx="260" cy="480" r="14" fill="#4cc9f0"/><circle cx="260" cy="540" r="14" fill="#4cc9f0"/>
+    <circle cx="400" cy="400" r="14" fill="#7b61ff"><animate attributeName="r" values="14;17;14" dur="2s" repeatCount="indefinite"/></circle>
+    <circle cx="400" cy="465" r="14" fill="#7b61ff"><animate attributeName="r" values="14;17;14" dur="2s" begin=".4s" repeatCount="indefinite"/></circle>
+    <circle cx="400" cy="530" r="14" fill="#7b61ff"><animate attributeName="r" values="14;17;14" dur="2s" begin=".8s" repeatCount="indefinite"/></circle>
+    <circle cx="540" cy="440" r="14" fill="#f72585"/><circle cx="540" cy="510" r="14" fill="#f72585"/>
+  </g>
+  <rect x="580" y="395" width="80" height="34" rx="17" fill="#ffc93c" fill-opacity=".15" stroke="#ffc93c" stroke-opacity=".6"/>
+  <text x="620" y="418" fill="#ffc93c" font-size="16" font-weight="700" text-anchor="middle">LLM</text>
+  <rect x="580" y="445" width="80" height="34" rx="17" fill="#4ade80" fill-opacity=".12" stroke="#4ade80" stroke-opacity=".6"/>
+  <text x="620" y="468" fill="#4ade80" font-size="16" font-weight="700" text-anchor="middle">RL</text>
+  <rect x="580" y="495" width="80" height="34" rx="17" fill="#4cc9f0" fill-opacity=".12" stroke="#4cc9f0" stroke-opacity=".6"/>
+  <text x="620" y="518" fill="#4cc9f0" font-size="16" font-weight="700" text-anchor="middle">DNN</text>
+
+  <!-- reward loop -->
+  <path d="M680 465 C770 465 770 160 750 160" fill="none" stroke="#4ade80" stroke-opacity=".6" stroke-width="2" stroke-dasharray="6 6">
+    <animate attributeName="stroke-dashoffset" values="24;0" dur="1.2s" repeatCount="indefinite"/>
+  </path>
+  <text x="770" y="320" fill="#4ade80" font-size="15" font-weight="700" transform="rotate(90 770 320)" text-anchor="middle">Reward</text>
+
+  <!-- outputs -->
+  <g font-size="16" font-weight="700" text-anchor="middle">
+    <rect x="70" y="640" width="200" height="90" rx="18" fill="#0f1730" stroke="#4cc9f0" stroke-opacity=".5"/>
+    <text x="170" y="680" fill="#4cc9f0">Secure</text><text x="170" y="703" fill="#4cc9f0">beamforming</text>
+    <rect x="300" y="640" width="200" height="90" rx="18" fill="#0f1730" stroke="#7b61ff" stroke-opacity=".6"/>
+    <text x="400" y="680" fill="#c4b8ff">Beam hopping &amp;</text><text x="400" y="703" fill="#c4b8ff">cell association</text>
+    <rect x="530" y="640" width="200" height="90" rx="18" fill="#0f1730" stroke="#f72585" stroke-opacity=".55"/>
+    <text x="630" y="680" fill="#ff6fae">RSMA rate</text><text x="630" y="703" fill="#ff6fae">optimization</text>
+  </g>
+  <path d="M400 590 V630" stroke="#8fa2d8" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M330 590 L190 632" stroke="#8fa2d8" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M470 590 L610 632" stroke="#8fa2d8" stroke-width="2" marker-end="url(#arr)"/>
+</svg>

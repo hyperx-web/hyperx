@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" font-family="Inter, Arial, sans-serif">
+  <defs>
+    <radialGradient id="bg" cx="30%" cy="35%" r="85%">
+      <stop offset="0" stop-color="#14204a"/><stop offset="1" stop-color="#070b18"/>
+    </radialGradient>
+    <linearGradient id="beamA" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#4cc9f0" stop-opacity=".55"/><stop offset="1" stop-color="#4cc9f0" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="beamB" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7b61ff" stop-opacity=".55"/><stop offset="1" stop-color="#7b61ff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="beamC" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f72585" stop-opacity=".45"/><stop offset="1" stop-color="#f72585" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <g id="ue"><rect x="-13" y="-22" width="26" height="44" rx="6" fill="#0f1730" stroke="#c9d6ff" stroke-width="2"/><rect x="-8" y="-15" width="16" height="25" rx="2" fill="#4cc9f0" opacity=".35"/><circle cy="15" r="2.4" fill="#c9d6ff"/></g>
+  </defs>
+  <rect width="800" height="800" rx="36" fill="url(#bg)"/>
+  <g stroke="#ffffff" stroke-opacity=".05">
+    <path d="M0 200H800M0 400H800M0 600H800M200 0V800M400 0V800M600 0V800"/>
+  </g>
+
+  <!-- beams (RSMA: common + private streams) -->
+  <path d="M190 330 L690 150 L715 230 Z" fill="url(#beamA)"/>
+  <path d="M190 345 L700 330 L700 420 Z" fill="url(#beamB)"/>
+  <path d="M190 360 L640 540 L600 610 Z" fill="url(#beamC)"/>
+
+  <!-- near-field spherical wavefronts -->
+  <g fill="none" stroke="#4cc9f0" stroke-opacity=".35" stroke-width="2">
+    <path d="M250 270 A90 90 0 0 1 250 430"/><path d="M290 240 A130 130 0 0 1 290 460"/><path d="M330 215 A170 170 0 0 1 330 485"/>
+  </g>
+
+  <!-- base station with antenna array -->
+  <g>
+    <path d="M150 640 L178 380 L202 380 L230 640 Z" fill="#101a38" stroke="#5b6b96" stroke-width="2"/>
+    <path d="M160 560H220M166 500H214M172 440H208" stroke="#5b6b96" stroke-width="2"/>
+    <rect x="160" y="250" width="60" height="140" rx="8" fill="#0f1730" stroke="#4cc9f0" stroke-width="2.5"/>
+    <g fill="#4cc9f0">
+      <circle cx="178" cy="272" r="5"/><circle cx="202" cy="272" r="5"/>
+      <circle cx="178" cy="298" r="5"/><circle cx="202" cy="298" r="5"/>
+      <circle cx="178" cy="324" r="5"/><circle cx="202" cy="324" r="5"/>
+      <circle cx="178" cy="350" r="5"/><circle cx="202" cy="350" r="5"/>
+      <circle cx="190" cy="372" r="5" fill="#ffc93c"><animate attributeName="cy" values="368;378;368" dur="3s" repeatCount="indefinite"/></circle>
+    </g>
+    <text x="190" y="680" fill="#c9d6ff" font-size="22" font-weight="700" text-anchor="middle">6G Base Station</text>
+    <text x="190" y="706" fill="#8f9bb6" font-size="16" text-anchor="middle">XL-MIMO · movable antenna</text>
+  </g>
+
+  <!-- users -->
+  <use href="#ue" x="705" y="190"/>
+  <use href="#ue" x="712" y="375"/>
+  <use href="#ue" x="625" y="580"/>
+  <text x="705" y="240" fill="#4cc9f0" font-size="15" font-weight="700" text-anchor="middle">User 1</text>
+  <text x="712" y="425" fill="#a897ff" font-size="15" font-weight="700" text-anchor="middle">User 2</text>
+  <text x="625" y="630" fill="#ff6fae" font-size="15" font-weight="700" text-anchor="middle">User 3</text>
+
+  <!-- ISAC sensing target -->
+  <g transform="translate(470 120)">
+    <path d="M-34 8 L-10 -6 L30 -6 L42 8 L30 16 L-26 16 Z" fill="#1a2550" stroke="#ffc93c" stroke-width="2"/>
+    <path d="M-6 -6 L4 -24 L14 -6" fill="#1a2550" stroke="#ffc93c" stroke-width="2"/>
+  </g>
+  <path d="M215 300 Q330 170 430 128" fill="none" stroke="#ffc93c" stroke-width="2.5" stroke-dasharray="7 7">
+    <animate attributeName="stroke-dashoffset" values="28;0" dur="1.2s" repeatCount="indefinite"/>
+  </path>
+  <path d="M430 145 Q340 200 222 312" fill="none" stroke="#ffc93c" stroke-opacity=".5" stroke-width="2" stroke-dasharray="3 7"/>
+
+  <!-- ambient IoT -->
+  <g transform="translate(420 640)">
+    <rect x="-22" y="-14" width="44" height="28" rx="5" fill="#0f1730" stroke="#4ade80" stroke-width="2"/>
+    <path d="M-10 0h20M0 -8v16" stroke="#4ade80" stroke-width="2"/>
+  </g>
+  <path d="M235 380 Q330 560 395 630" fill="none" stroke="#4ade80" stroke-opacity=".6" stroke-width="2" stroke-dasharray="4 6"/>
+
+  <!-- labels -->
+  <g font-size="17" font-weight="700">
+    <rect x="300" y="52" width="196" height="34" rx="17" fill="#ffc93c" fill-opacity=".14" stroke="#ffc93c" stroke-opacity=".5"/>
+    <text x="398" y="75" fill="#ffc93c" text-anchor="middle">ISAC · Sensing echo</text>
+    <rect x="400" y="268" width="180" height="34" rx="17" fill="#7b61ff" fill-opacity=".16" stroke="#7b61ff" stroke-opacity=".6"/>
+    <text x="490" y="291" fill="#c4b8ff" text-anchor="middle">RSMA streams</text>
+    <rect x="250" y="452" width="150" height="34" rx="17" fill="#4cc9f0" fill-opacity=".12" stroke="#4cc9f0" stroke-opacity=".5"/>
+    <text x="325" y="475" fill="#4cc9f0" text-anchor="middle">Near-field</text>
+    <rect x="455" y="680" width="150" height="34" rx="17" fill="#4ade80" fill-opacity=".12" stroke="#4ade80" stroke-opacity=".5"/>
+    <text x="530" y="703" fill="#4ade80" text-anchor="middle">Ambient IoT</text>
+  </g>
+</svg>
