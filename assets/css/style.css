@@ -234,7 +234,7 @@ p { margin: 0 0 .8em; }
 .member-info h3 { font-size: 1.6rem; margin: 4px 0 .2rem; }
 .member-role { color: var(--accent); font-weight: 600; font-size: 1.1rem; margin: 0; }
 .member-pubs { border-left: 1px solid var(--border); padding-left: 24px; min-height: 100%; }
-.member-pubs h4 { font-size: .8rem; text-transform: uppercase; letter-spacing: .14em; color: var(--accent); margin: 4px 0 .8rem; }
+.member-pubs h4 { font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; color: var(--accent); margin: 4px 0 .8rem; }
 .member-pubs ul { list-style: none; margin: 0 0 1.2rem; padding: 0; }
 .member-pubs h4 + ul { margin-top: -.3rem; }
 .member-pubs ul + h4 { margin-top: .4rem; }
