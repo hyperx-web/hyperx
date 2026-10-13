@@ -38,7 +38,8 @@ lead: "Our lab explores cutting-edge innovations in future communication systems
           {% if shown < 5 %}
             {% assign t = it.title | downcase %}{% assign hit = false %}
             {% if it.research %}{% if it.research == r.id %}{% assign hit = true %}{% endif %}{% else %}
-            {% for k in r.keywords %}{% if t contains k %}{% assign hit = true %}{% endif %}{% endfor %}{% endif %}
+            {% for k in r.keywords %}{% if t contains k %}{% assign hit = true %}{% endif %}{% endfor %}
+            {% for k in r.exclude_keywords %}{% if t contains k %}{% assign hit = false %}{% endif %}{% endfor %}{% endif %}
             {% if hit %}{% assign shown = shown | plus: 1 %}
               {% capture li %}<li><b>{{ it.title }}</b><span class="muted">{{ it.venue }}</span></li>{% endcapture %}
               {% assign out = out | append: li %}

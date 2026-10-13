@@ -2,6 +2,8 @@
 - id: 6g
   title: 6G Technologies
   image: 6g-model.svg
+  images:
+    - { file: 6g-rsma.png, caption: "RSMA system model (JSAC, submitted)" }
   summary: Investigating ultra-low latency, high-speed communication protocols for next-gen connectivity.
   topics:
     - Rate-splitting multiple access (RSMA) for unicast and multicast
@@ -10,7 +12,8 @@
     - Beam squint and wideband beamforming
     - Distributed MIMO and phase-error-aware power allocation
     - Secure ambient IoT networks
-  keywords: [rate-splitting, rsma, isac, near-field, movable antenna, mimo, beamforming, beam squint, ambient iot, 6g]
+  keywords: [iot, rate-splitting, rsma, isac, near-field, movable antenna, mimo, beamforming, beam squint, full-duplex, relay, 6g]
+  exclude_keywords: [satellite, leo, geo, ntn, non-terrestrial, orbit, constellation, 위성]   # 위성 논문은 6G 목록에서 제외
 
 - id: satellite
   title: Satellite & Space Communications
