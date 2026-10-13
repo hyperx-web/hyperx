@@ -43,7 +43,7 @@
 - category: journal
   group: "Published"
   items:
-    - authors: "H. Cho, S. Lee, D.-H. Jung, D. J. Love and J. Choi"
+    - authors: "H. Cho, S. Lee, D.-H. Jung, D. J. Love, and J. Choi"
       title: "Leveraging beam squint for increased LEO coverage: An optimization approach"
       venue: "accepted to IEEE Transactions on Wireless Communications, Oct. 2026"
     - authors: "M. Kim, H. Nam, B. Ko, H. Park, H. Kim, D.-H. Jung, and J. Choi"
@@ -94,10 +94,10 @@
 - category: conference
   group: "International Conferences"
   items:
-    - authors: "T.-H. Yoon, D.-H. Jung and C.-G. Kang"
+    - authors: "T.-H. Yoon, D.-H. Jung, and C.-G. Kang"
       title: "Topology-induced heterogeneous phase errors in distributed MIMO over networked LEO satellites downlink analysis and phase-error-aware power allocation"
       venue: "IEEE Consumer Communications & Networking Conference (CCNC), Jan. 2027"
-    - authors: "H. Y. Jeong, T. H. Yoon, F. D. Tilahun, D.-H. Jung and C. G. Kang"
+    - authors: "H. Y. Jeong, T. H. Yoon, F. D. Tilahun, D.-H. Jung, and C. G. Kang"
       title: "LLM-assisted search steering for successive best response in multi-satellite LEO beam hopping and cell association"
       venue: "International Conference on Information and Communication Technology Convergence (ICTC), Oct. 2026"
     - authors: "D.-H. Jung and C. G. Kang"
