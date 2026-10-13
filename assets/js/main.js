@@ -344,3 +344,19 @@
     el.innerHTML = esc(m[1] || "") + '<span class="venue-name">' + esc(m[2]) + "</span>" + esc(t.slice((m[1] || "").length + m[2].length));
   });
 })();
+
+// members: keep * / † only on the member's own name
+(function () {
+  document.querySelectorAll(".member-pubs .pub-authors").forEach(function (el) {
+    Array.prototype.slice.call(el.childNodes).forEach(function (node) {
+      if (node.nodeType !== 3) return;
+      var t = node.nodeValue, keep = "";
+      var prev = node.previousSibling;
+      if (prev && prev.nodeType === 1 && prev.classList.contains("lab")) {
+        var m = t.match(/^[*\u2020]+/);
+        if (m) { keep = m[0]; t = t.slice(keep.length); }
+      }
+      node.nodeValue = keep + t.replace(/[*\u2020]/g, "");
+    });
+  });
+})();
