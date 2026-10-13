@@ -46,7 +46,7 @@ Always answer the user in Korean.
 - Figures: white background, caption outside the figure, figure column 460px, click to enlarge.
 - Paper figures are vector SVGs animated with `tools/animate_figure.py <figure.pdf> <out.svg>`
   (signals flow along wires, continuous pulses every 0.9 s, merges arrive together, merged colours blend,
-  stacked inputs of the same kind share one colour). New block diagrams: draw in TikZ with the RSMA palette
+  stacked inputs of the same kind share one colour; dashed strokes = group boxes/control arrows, not signals). New block diagrams: draw in TikZ with the RSMA palette
   (`tools/figures/fig_afdm.tex` is the template), compile with pdflatex, then animate.
 - Satellite area: Walker-delta constellation canvas (no ISLs, 15° grid) + Earth–Moon CR3BP Arenstorf orbit
   (`assets/js/threebody.json`, precomputed with scipy). Both on white.

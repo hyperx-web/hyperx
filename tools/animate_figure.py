@@ -22,6 +22,9 @@ heads, blocks, segs = [], [], []
 for d in pg.get_drawings():
     r = d['rect']
     kinds = ''.join(it[0] for it in d['items'])
+    dashes = (d.get('dashes') or '').strip()
+    if d['type'] == 's' and dashes and not dashes.startswith('[]'):
+        continue                                    # dashed: group boxes / control arrows, not signal paths
     if d.get('fill') is not None and d['type'] in ('f', 'fs'):
         if r.width < 4.5 and r.height < 4.5:
             if kinds != 'cccc':                     # not a junction dot -> arrowhead
@@ -55,12 +58,15 @@ def start(s): return s['a'] if s['dir'] == 1 else s['b']
 def end(s): return s['b'] if s['dir'] == 1 else s['a']
 
 # 1) arrowheads give directions
-for s in segs:
-    for h in heads:
+for h in heads:
+    # each arrowhead belongs to the single wire whose endpoint is closest to it
+    best, bd, bdir = None, 3.5, 0
+    for s in segs:
         da, db = math.dist(s['a'], h), math.dist(s['b'], h)
-        if min(da, db) < 3.5:
-            s['dir'] = 1 if db < da else -1
-            break
+        if min(da, db) < bd:
+            best, bd, bdir = s, min(da, db), (1 if db < da else -1)
+    if best is not None:
+        best['dir'] = bdir
 
 # 2) propagate directions through junctions, then out of blocks
 def junction_pass():
@@ -72,7 +78,8 @@ def junction_pass():
             for which, p in ((1, s['b']), (-1, s['a'])):
                 for d in segs:
                     if d is s or not d['dir'] or on_seg(p, d) is None: continue
-                    s['dir'] = -which if math.dist(p, end(d)) < TOL else which
+                    feeds = math.dist(p, end(d)) < TOL and math.dist(p, end(d)) < math.dist(p, start(d))
+                    s['dir'] = -which if feeds else which
                     changed = True; break
                 if s['dir']: break
 
@@ -96,6 +103,11 @@ for s in [s for s in segs if not s['dir']]:
 for g in groups:
     xs = [p[0] for s in g for p in (s['a'], s['b'])]; ys = [p[1] for s in g for p in (s['a'], s['b'])]
     blocks.append((min(xs), min(ys), max(xs), max(ys)))
+
+def tip(s, ext=4.0):
+    # the arrow tip lies a few pt beyond the stroked end of the wire
+    (x0, y0), (x1, y1) = start(s), end(s); L = math.dist((x0, y0), (x1, y1)) or 1
+    return (x1 + (x1 - x0) / L * ext, y1 + (y1 - y0) / L * ext)
 
 def near_block(p):
     # nearest block within 6 pt
@@ -123,7 +135,7 @@ def preds(s):
     if not res:
         blk = near_block(p)
         if blk:
-            ins = [d for d in wires if d is not s and near_block(end(d)) == blk]
+            ins = [d for d in wires if d is not s and near_block(tip(d)) == blk]
             straight = abs(end(s)[1] - p[1]) < 1
             aligned = [d for d in ins if abs(end(d)[1] - p[1]) < 2 and abs(end(d)[1] - start(d)[1]) < 1]
             if straight and aligned:
@@ -172,7 +184,7 @@ for b in blocks:
 for _ in range(6):
     propagate()
     for col in columns:
-        ins = [d for d in wires if near_block(end(d)) in col and near_block(start(d)) not in col]
+        ins = [d for d in wires if near_block(tip(d)) in col and near_block(start(d)) not in col]
         if len(ins) < 2: continue
         arrive = max(d['t0'] + d['len'] / SPEED for d in ins)
         for d in ins:
