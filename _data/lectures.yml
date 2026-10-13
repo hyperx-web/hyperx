@@ -1,5 +1,7 @@
-- { title: "Digital Communications", terms: "Fall 2026, Fall 2025" }
+# page: 과목 상세 페이지 주소 (있을 때만)
+- { title: "Linear Algebra", terms: "Fall 2026, Fall 2025", page: /lectures/linear-algebra/ }
+- { title: "Digital Communications", terms: "Spring 2026, Spring 2025" }
 - { title: "Engineering Mathematics", terms: "Spring 2026, Spring 2025" }
-- { title: "Advanced Engineering Mathematics", terms: "Spring 2026, Spring 2025" }
-- { title: "Introduction to Satellite Communications", level: Graduate, terms: "Fall 2025" }
-- { title: "Introduction to Information and Communication Engineering", level: Graduate, terms: "Spring 2026" }
+- { title: "Advanced Engineering Mathematics", terms: "Fall 2025" }
+- { title: "Introduction to Satellite Communications", level: Graduate, terms: "Spring 2026" }
+- { title: "Introduction to Information and Communication Engineering", level: Graduate, terms: "Fall 2026" }

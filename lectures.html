@@ -9,11 +9,12 @@ eyebrow: Teaching
   <div class="container">
     <div class="lecture-grid">
       {% for l in site.data.lectures %}
-      <article class="lecture-card reveal">
+      {% if l.page %}<a class="lecture-card tool-card reveal" href="{{ l.page | relative_url }}">{% else %}<article class="lecture-card reveal">{% endif %}
         <span class="chip chip-sm">{{ l.level | default: "Undergraduate" }}</span>
         <h3>{{ l.title }}</h3>
         <p class="muted">{{ l.terms }}</p>
-      </article>
+        {% if l.page %}<span class="tool-open">Simulators &amp; materials →</span>{% endif %}
+      {% if l.page %}</a>{% else %}</article>{% endif %}
       {% endfor %}
     </div>
   </div>

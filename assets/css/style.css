@@ -345,3 +345,8 @@ mark { background: rgba(76,201,240,.3); color: #fff; border-radius: 3px; }
   .gallery-grid, .lecture-grid { grid-template-columns: 1fr; }
   .stat b { font-size: 2rem; }
 }
+
+/* lecture / simulator link cards */
+.tool-card { display: block; color: var(--text); }
+.tool-card:hover { color: var(--text); }
+.tool-open { display: inline-block; margin-top: 1rem; color: var(--accent); font-weight: 600; font-size: .9rem; }
