@@ -222,14 +222,14 @@ p { margin: 0 0 .8em; }
 
 /* members */
 .member-rows { display: flex; flex-direction: column; gap: 20px; }
-.member-row { display: grid; grid-template-columns: 220px 260px 1fr; gap: 28px; align-items: start;
+.member-row { display: grid; grid-template-columns: 220px 300px 1fr; gap: 28px; align-items: start;
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; transition: border-color .3s; }
 .member-row:hover { border-color: rgba(76, 201, 240, .4); }
 .member-row.is-pi { border-color: rgba(123, 97, 255, .35); }
 .member-photo { aspect-ratio: 7 / 10; overflow: hidden; border-radius: 12px; background: var(--bg-2); }
 .member-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
-.member-info h3 { font-size: 1.35rem; margin: 4px 0 .2rem; }
-.member-role { color: var(--accent); font-weight: 600; font-size: .95rem; margin: 0; }
+.member-info h3 { font-size: 1.6rem; margin: 4px 0 .2rem; }
+.member-role { color: var(--accent); font-weight: 600; font-size: 1.1rem; margin: 0; }
 .member-pubs { border-left: 1px solid var(--border); padding-left: 28px; min-height: 100%; }
 .member-pubs h4 { font-size: .8rem; text-transform: uppercase; letter-spacing: .14em; color: var(--accent); margin: 4px 0 .8rem; }
 .member-pubs ul { list-style: none; margin: 0; padding: 0; }
@@ -241,8 +241,8 @@ p { margin: 0 0 .8em; }
 .kind-conference { background: rgba(123,97,255,.15); color: #a897ff; }
 .kind-patent { background: rgba(255,196,0,.13); color: #ffc93c; }
 .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
-.tags span { font-size: .75rem; padding: .2em .65em; border-radius: 6px; background: var(--surface-2); color: #c3cbe0; }
-.member-mail { font-size: .85rem; color: var(--muted); word-break: break-all; }
+.tags span { font-size: .88rem; padding: .2em .65em; border-radius: 6px; background: var(--surface-2); color: #c3cbe0; }
+.member-mail { font-size: 1rem; color: var(--muted); word-break: break-all; }
 .alumni-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .alumni-grid .block + .block { margin-top: 0; }
 .alumni-list { list-style: none; margin: 0; padding: 0; }
