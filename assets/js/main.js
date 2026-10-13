@@ -210,13 +210,10 @@
       for (var lon = 0; lon < 180; lon += 15) drawCircle(function (a) {
         return [Math.cos(a) * Math.cos(lon * D2R), Math.sin(a), Math.cos(a) * Math.sin(lon * D2R)];
       }, spin);
-      // atmosphere rim
-      ctx.beginPath(); ctx.arc(cx, cy, R + 2, 0, Math.PI * 2);
-      ctx.strokeStyle = "rgba(47,90,168,.6)"; ctx.lineWidth = 1.5; ctx.stroke();
 
       // front-side sats & links
       drawLayer(pts, true);
-      drawTerminal(raw, pts, spin);
+      if (!drawTerminal(raw, pts, spin) && !reduce) t0 = now;   // UE went behind the Earth -> restart
       if (!reduce) requestAnimationFrame(frame);
     }
 
@@ -234,7 +231,7 @@
       }
       vis.sort(function (a, b) { return a.dist - b.dist; });
       var u = proj(ut[0], ut[1], ut[2], spin);
-      if (u[2] < 0) return;                       // UE is on the far side of the Earth
+      if (u[2] < 0) return false;                 // UE is on the far side of the Earth
       ctx.lineCap = "round";
       // neighbouring satellites: faint grey links
       for (var i = 1; i <= NEIGH && i < vis.length; i++) {
@@ -256,6 +253,7 @@
       ctx.fillStyle = "#1b2f52";
       ctx.beginPath(); ctx.moveTo(u[0], u[1] - 6); ctx.lineTo(u[0] - 5, u[1] + 3); ctx.lineTo(u[0] + 5, u[1] + 3); ctx.closePath(); ctx.fill();
       ctx.font = "600 11px Inter, sans-serif"; ctx.fillText("UE", u[0] + 7, u[1] + 4);
+      return true;
     }
 
     function drawCircle(fn, spin) {
