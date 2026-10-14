@@ -57,3 +57,8 @@ Always answer the user in Korean.
 - Fonts: Inter (English) + KoPub World Dotum (Korean, self-hosted woff2).
 - Eyebrow labels: 1.05rem, letter-spacing .06em. Members achievement headings and block titles (Education, Experience, …): letter-spacing 0. No rounded border on the home stats bar.
 - Avoid flashy hover effects on images; don't crop photos (members 7:10, research square, gallery natural ratio).
+
+## School domain (pending)
+- Requested domain: `hyperx.ssu.ac.kr` (forms in `../domain/`), DNS: CNAME → `hyperx-web.github.io`.
+- When it is issued: add `CNAME` file (`hyperx.ssu.ac.kr`), set `baseurl: ""` and `url: "https://hyperx.ssu.ac.kr"`,
+  set the custom domain in repo Settings → Pages, and turn ON **Enforce HTTPS** once the certificate is issued (user decided).
