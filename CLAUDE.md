@@ -45,7 +45,7 @@ Always answer the user in Korean.
 - `/lectures/exam-timer/` = standalone exam timer (layout: null, dark site theme, projector-friendly): duration input, start/pause/reset,
   start & end clock times, 10/5-min warnings, beep + red flash at the end, exam rules list with photos,
   TA checklist ("조교 확인사항" button bottom-right of the rules panel swaps rules ↔ checklist; items hidden until clicked),
-  seat map (rows × cols, board always on top, clicking a column number or any desk toggles the whole column, odd/even presets; saved in localStorage). Linked as a small button under the lecture cards.
+  seat map (rows × cols, board always on top, clicking a column number or any desk toggles the whole column, odd/even presets that also apply to columns added later; new rows follow their column; saved in localStorage). Linked as a small button under the lecture cards.
 
 ## Research page (`_data/research.yml`)
 - Order: 6G → Satellite & Space → AI. Heading "Related Works" (max 6, auto by keywords; no patents or domestic papers; 6G excludes satellite papers).

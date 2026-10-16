@@ -300,12 +300,17 @@ permalink: /lectures/exam-timer/
       var cc = +t.dataset.c, on2 = !isOn(+t.dataset.r, cc);       // a desk toggles its whole column
       for (var rr = 1; rr <= st.rows; rr++) set(rr, cc, on2);
     } else return;
+    st.mode = null;                                            // manual edit: no odd/even pattern any more
     save(); render();
   });
   function resize() {
-    var oldRows = st.rows;
+    var oldRows = st.rows, oldCols = st.cols;
     st.rows = Math.max(1, Math.min(20, parseInt(R.value) || 1));
     st.cols = Math.max(1, Math.min(20, parseInt(C.value) || 1));
+    // new columns follow the odd/even pattern if one is selected
+    if (st.mode === "odd" || st.mode === "even")
+      for (var c0 = oldCols + 1; c0 <= st.cols; c0++)
+        for (var r0 = 1; r0 <= Math.max(oldRows, st.rows); r0++) set(r0, c0, st.mode === "odd" ? c0 % 2 === 1 : c0 % 2 === 0);
     // new rows follow their column's current state (taken from the first row)
     for (var r = oldRows + 1; r <= st.rows; r++)
       for (var c = 1; c <= st.cols; c++) set(r, c, isOn(1, c));
@@ -318,7 +323,7 @@ permalink: /lectures/exam-timer/
   R.addEventListener("input", resize); C.addEventListener("input", resize);
   document.querySelectorAll(".presets [data-p]").forEach(function (b) {
     b.addEventListener("click", function () {
-      var p = b.dataset.p; st.off = {};
+      var p = b.dataset.p; st.off = {}; st.mode = p;
       for (var r = 1; r <= st.rows; r++) for (var c = 1; c <= st.cols; c++) {
         var on = (p === "odd" && c % 2 === 1) || (p === "even" && c % 2 === 0);
         set(r, c, on);
