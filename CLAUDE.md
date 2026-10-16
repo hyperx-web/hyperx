@@ -23,7 +23,7 @@ Always answer the user in Korean.
   Correct spacing (`, ` after commas, no `andD.-H.`), initials like `C.-G. Kang`, `DSSS- and CSS-based`.
   `*` = corresponding author, `†` = equal contribution.
 - Title case: sentence case like the existing entries.
-- Optional `research: 6g|satellite|ai` pins a paper to a Research area (else keyword matching).
+- Optional `research: 6g|satellite|ai` pins a paper to a Research area (else keyword matching); `research: none` hides it from Related Works.
 - Lab-member names to mark are listed in `_data/members.yml` → `pub_names` (global list) and per member
   `pub_names` (spelling exactly as in papers). Add new students there.
   `J. Park†` is used for Junhyung Park because another "J. Park" exists.

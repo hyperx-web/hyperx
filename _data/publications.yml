@@ -19,6 +19,7 @@
     - authors: "M. Lee, H. S. Rou, A. L. Swindlehurst, B. Ottersten, D.-H. Jung*, and J. Choi*"
       title: "LEO satellite-enabled ISAC: AFDM-based joint angle–delay–doppler estimation"
       venue: "submitted to IEEE Transactions on Wireless Communications, Sep. 2026"
+      research: 6g   # 6G 추천 논문 (위성 키워드와 무관하게 6G에 표시)
     - authors: "H. Cho, D.-H. Jung*, and J. Choi*"
       title: "Rate-splitting multiple access with grouping for scalable satellite communication"
       venue: "submitted to IEEE Transactions on Wireless Communications, Aug. 2026"
@@ -163,6 +164,7 @@
     - authors: "D.-H. Jung and J. H. Lee"
       title: "Secrecy performance of full-duplex relay system with randomly located eavesdroppers"
       venue: "IEEE Vehicular Technology Conference (VTC), Sep. 2017"
+      research: none   # Research 페이지 추천에서 제외
 - category: conference
   group: "Domestic Conferences"
   items:
