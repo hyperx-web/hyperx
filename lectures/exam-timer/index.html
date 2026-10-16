@@ -1,0 +1,176 @@
+---
+layout: null
+title: Exam Timer
+permalink: /lectures/exam-timer/
+---
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>시험 타이머 · HyperX Lab</title>
+<link rel="icon" href="{{ '/assets/img/favicon.svg' | relative_url }}" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#ffffff; --fg:#111827; --muted:#6b7280; --line:#e5e7eb; --accent:#1d4ed8; --warn:#d97706; --danger:#dc2626; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--fg);
+    font-family: Inter, "KoPub Dotum", "Malgun Gothic", sans-serif; }
+  body { display: flex; flex-direction: column; }
+  header { display: flex; align-items: center; justify-content: space-between; padding: 14px 28px; border-bottom: 1px solid var(--line); }
+  header a { color: var(--muted); text-decoration: none; font-size: .95rem; }
+  header .title { font-weight: 700; font-size: 1.1rem; }
+  main { flex: 1; display: grid; grid-template-columns: 1.15fr 1fr; gap: 0; min-height: 0; }
+  .left { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; border-right: 1px solid var(--line); }
+  .right { padding: 36px 44px; display: flex; flex-direction: column; justify-content: center; }
+  #examName { font-size: clamp(1.4rem, 2.6vw, 2.2rem); font-weight: 700; text-align: center; margin: 0 0 6px; min-height: 1.2em; }
+  #clock { font-variant-numeric: tabular-nums; font-weight: 800; font-size: clamp(5rem, 15vw, 13rem); line-height: 1; letter-spacing: -0.02em; }
+  #clock.warn { color: var(--warn); }
+  #clock.danger { color: var(--danger); }
+  #clock.done { color: var(--danger); font-size: clamp(3.5rem, 9vw, 8rem); }
+  .times { margin-top: 18px; display: flex; gap: 2.2em; font-size: clamp(1.4rem, 2.8vw, 2.4rem); color: #374151; }
+  .times b { font-variant-numeric: tabular-nums; color: var(--fg); }
+  body.ended { animation: endflash 1s ease-in-out 6; }
+  @keyframes endflash { 50% { background: #fee2e2; } }
+  .meta.alert { color: var(--danger); font-weight: 700; font-size: clamp(1.4rem, 2.6vw, 2.2rem); }
+  .meta { margin-top: 14px; color: var(--muted); font-size: clamp(1rem, 1.6vw, 1.35rem); text-align: center; }
+  .bar { width: min(640px, 90%); height: 10px; background: var(--line); border-radius: 99px; margin-top: 22px; overflow: hidden; }
+  .bar > div { height: 100%; width: 100%; background: var(--accent); transition: width .5s linear, background .3s; }
+  .controls { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; align-items: center; }
+  .controls label { font-size: 1rem; color: var(--muted); }
+  input { font: inherit; font-size: 1.1rem; padding: .55em .7em; border: 1px solid #cbd5e1; border-radius: 10px; }
+  input[type=number] { width: 6.5em; text-align: center; }
+  input[type=text] { width: 15em; }
+  button { font: inherit; font-size: 1.05rem; font-weight: 700; padding: .65em 1.3em; border-radius: 10px; border: 1px solid #cbd5e1; background: #fff; cursor: pointer; }
+  button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  button:disabled { opacity: .45; cursor: default; }
+  .running .setup { display: none; }
+  h2 { margin: 0 0 18px; font-size: clamp(1.3rem, 2.2vw, 1.9rem); }
+  ol { margin: 0; padding-left: 1.4em; }
+  ol li { font-size: clamp(1.15rem, 2vw, 1.7rem); line-height: 1.45; margin: 0 0 18px; padding-left: .2em; }
+  ol li b { color: var(--danger); }
+  @media (max-width: 900px) { main { grid-template-columns: 1fr; } .left { border-right: 0; border-bottom: 1px solid var(--line); } }
+  :fullscreen header { display: none; }
+</style>
+</head>
+<body>
+<header>
+  <a href="{{ '/lectures/' | relative_url }}">← Lectures</a>
+  <span class="title">시험 타이머</span>
+  <button id="fs" type="button">전체 화면</button>
+</header>
+<main>
+  <section class="left">
+    <p id="examName"></p>
+    <div id="clock">60:00</div>
+    <div class="times" id="times" hidden>
+      <span>시작 <b id="tStart">--:--</b></span><span>종료 <b id="tEnd">--:--</b></span>
+    </div>
+    <div class="meta" id="meta">시험 시간을 설정한 뒤 시작을 누르세요.</div>
+    <div class="bar"><div id="bar"></div></div>
+    <div class="controls setup">
+      <label for="name">시험명</label><input id="name" type="text" placeholder="예) 선형대수 중간고사">
+      <label for="mins">시험 시간(분)</label><input id="mins" type="number" min="1" max="600" value="60">
+    </div>
+    <div class="controls">
+      <button id="start" class="primary" type="button">타이머 시작</button>
+      <button id="pause" type="button" disabled>일시정지</button>
+      <button id="reset" type="button">초기화</button>
+    </div>
+  </section>
+  <section class="right">
+    <h2>시험 주의사항</h2>
+    <ol>
+      <li>공평성을 위해서 시험 중에 <b>화장실을 제한</b>하니, 시험 보기 전에 화장실 꼭 다녀오세요.</li>
+      <li><b>시험지/답안지를 제출</b>해야 강의실 밖을 나갈 수 있습니다.</li>
+      <li>휴대폰은 <b>전원을 종료</b>해서 가방에 넣으세요. (시험 중 휴대폰 소리가 나면 <b>부정행위로 간주</b>)</li>
+      <li>스마트 글래스를 포함한 <b>모든 전자기기(계산기 등) 사용 금지</b></li>
+    </ol>
+  </section>
+</main>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var clock = $("clock"), meta = $("meta"), bar = $("bar");
+  var total = 0, endAt = 0, remainWhenPaused = 0, timer = null, running = false;
+
+  function fmt(ms) {
+    var s = Math.max(0, Math.ceil(ms / 1000)), h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = s % 60;
+    var mm = (h ? String(m).padStart(2, "0") : String(m)), ss = String(x).padStart(2, "0");
+    return (h ? h + ":" : "") + mm + ":" + ss;
+  }
+  function hm(d) { return String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0"); }
+  function beep(n) {
+    try {
+      var ctx = new (window.AudioContext || window.webkitAudioContext)();
+      for (var i = 0; i < n; i++) {
+        var o = ctx.createOscillator(), g = ctx.createGain(), t = ctx.currentTime + i * 0.6;
+        o.frequency.value = 880; o.connect(g); g.connect(ctx.destination);
+        g.gain.setValueAtTime(0.25, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.45);
+        o.start(t); o.stop(t + 0.5);
+      }
+    } catch (e) {}
+  }
+  var warned10 = false, warned5 = false;
+  function tick() {
+    var left = endAt - Date.now();
+    clock.textContent = fmt(left);
+    bar.style.width = (Math.max(0, left) / total * 100) + "%";
+    clock.className = left <= 5 * 60000 ? "danger" : (left <= 10 * 60000 ? "warn" : "");
+    bar.style.background = left <= 5 * 60000 ? "var(--danger)" : (left <= 10 * 60000 ? "var(--warn)" : "var(--accent)");
+    if (!warned10 && left <= 10 * 60000 && total > 10 * 60000) { warned10 = true; meta.textContent = "종료 10분 전입니다"; }
+    if (!warned5 && left <= 5 * 60000 && total > 5 * 60000) { warned5 = true; meta.textContent = "종료 5분 전입니다"; meta.className = "meta alert"; beep(1); }
+    if (left <= 0) {
+      clearInterval(timer); timer = null; running = false;
+      clock.textContent = "시험 종료"; clock.className = "done"; bar.style.width = "0%";
+      meta.textContent = "시험이 종료되었습니다. 필기구를 내려놓고 답안지를 제출하세요.";
+      meta.className = "meta alert";
+      document.body.classList.add("ended");
+      document.title = "⏰ 시험 종료 · 시험 타이머";
+      $("pause").disabled = true; $("start").disabled = true; beep(5);
+    }
+  }
+  $("start").onclick = function () {
+    if (running) return;
+    if (!remainWhenPaused) {
+      var mins = parseFloat($("mins").value);
+      if (!(mins > 0)) { alert("시험 시간을 분 단위로 입력하세요."); return; }
+      total = mins * 60000; remainWhenPaused = total; warned10 = warned5 = false;
+      $("examName").textContent = $("name").value.trim();
+    }
+    var firstStart = !$("times").hidden ? false : true;
+    endAt = Date.now() + remainWhenPaused; remainWhenPaused = 0; running = true;
+    document.body.classList.add("running");
+    if (firstStart) $("tStart").textContent = hm(new Date());
+    $("tEnd").textContent = hm(new Date(endAt));          // updated after a pause, too
+    $("times").hidden = false;
+    meta.className = "meta"; meta.textContent = "시험 진행 중";
+    $("start").textContent = "타이머 시작"; $("pause").disabled = false;
+    tick(); timer = setInterval(tick, 250);
+  };
+  $("pause").onclick = function () {
+    if (!running) return;
+    clearInterval(timer); timer = null; running = false;
+    remainWhenPaused = endAt - Date.now();
+    meta.textContent = "일시정지됨 · 남은 시간 " + fmt(remainWhenPaused);
+    $("start").textContent = "계속"; $("pause").disabled = true;
+  };
+  $("reset").onclick = function () {
+    if (running && !confirm("진행 중인 타이머를 초기화할까요?")) return;
+    clearInterval(timer); timer = null; running = false; remainWhenPaused = 0;
+    document.body.classList.remove("running", "ended");
+    $("times").hidden = true; meta.className = "meta"; document.title = "시험 타이머 · HyperX Lab";
+    var mins = parseFloat($("mins").value) || 60;
+    clock.textContent = fmt(mins * 60000); clock.className = ""; bar.style.width = "100%"; bar.style.background = "var(--accent)";
+    meta.textContent = "시험 시간을 설정한 뒤 시작을 누르세요."; $("examName").textContent = "";
+    $("start").disabled = false; $("start").textContent = "타이머 시작"; $("pause").disabled = true;
+  };
+  $("mins").oninput = function () { if (!running && !remainWhenPaused) { var m = parseFloat(this.value); if (m > 0) clock.textContent = fmt(m * 60000); } };
+  $("fs").onclick = function () {
+    if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen();
+  };
+  window.addEventListener("beforeunload", function (e) { if (running) { e.preventDefault(); e.returnValue = ""; } });
+})();
+</script>
+</body>
+</html>

@@ -419,3 +419,6 @@ mark { background: rgba(76,201,240,.3); color: #fff; border-radius: 3px; }
 .member-pubs .pub-venue .venue-name { color: inherit; }
 .news-item p strong { color: #fff; font-weight: 700; }
 .acc ul { letter-spacing: -0.04em; }
+.lecture-extra { margin: 1.6rem 0 0; text-align: right; font-size: .85rem; }
+.lecture-extra a { color: var(--muted); border: 1px solid var(--border); border-radius: 99px; padding: .35em .9em; }
+.lecture-extra a:hover { color: #fff; border-color: rgba(76,201,240,.4); }

@@ -41,6 +41,10 @@ Always answer the user in Korean.
   - Venue name bold but no accent colour.
   - Professor row shows profile + link, no publication list.
 
+## Lectures
+- `/lectures/exam-timer/` = standalone exam timer (layout: null, white, projector-friendly): duration input, start/pause/reset,
+  start & end clock times, 10/5-min warnings, beep + red flash at the end, exam rules list. Linked as a small button under the lecture cards.
+
 ## Research page (`_data/research.yml`)
 - Order: 6G → Satellite & Space → AI. Heading "Related Works" (max 6, auto by keywords; no patents or domestic papers; 6G excludes satellite papers).
 - Figures: white background, caption outside the figure (bold, centred), figure column 460px, click to enlarge.
