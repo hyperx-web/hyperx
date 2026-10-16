@@ -1,7 +1,7 @@
 # 갤러리 — 맨 위에 새 사진을 추가하세요.
-# 사진은 assets/img/gallery/<연-월>/ 폴더에 넣고, image는 "연-월/파일명" (예: 2026-08/outing.jpg)
-- { image: 2026-08/outing.jpg, caption: "We had a team outing", date: "Aug. 2026" }
-- { image: 2026-06/kics.jpg, caption: "We attended the KICS conference", date: "June 2026" }
-- { image: 2026-05/new-lab.jpg, caption: "We had lunch at our new lab after moving in", date: "May 2026" }
-- { image: 2025-02/appointment.jpg, caption: "Dong-Hyun has been appointed as an assistant professor at Soongsil University", date: "Feb. 2025" }
-- { image: 2024-12/haedong.jpg, caption: "Dong-Hyun received the Haedong Young Engineer Award", date: "Dec. 2024" }
+# 사진은 assets/img/gallery/<연-월-행사이름>/ 폴더에 넣고, image는 "폴더/파일명" (예: 2026-08-outing/01.jpg)
+- { image: 2026-08-outing/01.jpg, caption: "We had a team outing", date: "Aug. 2026" }
+- { image: 2026-06-kics/01.jpg, caption: "We attended the KICS conference", date: "June 2026" }
+- { image: 2026-05-new-lab/01.jpg, caption: "We had lunch at our new lab after moving in", date: "May 2026" }
+- { image: 2025-02-appointment/01.jpg, caption: "Dong-Hyun has been appointed as an assistant professor at Soongsil University", date: "Feb. 2025" }
+- { image: 2024-12-haedong/01.jpg, caption: "Dong-Hyun received the Haedong Young Engineer Award", date: "Dec. 2024" }
