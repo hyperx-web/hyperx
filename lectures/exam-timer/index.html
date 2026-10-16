@@ -118,11 +118,8 @@ permalink: /lectures/exam-timer/
         <span class="presets">
           <button type="button" data-p="odd">홀수 열</button>
           <button type="button" data-p="even">짝수 열</button>
-          <button type="button" data-p="zig">지그재그</button>
-          <button type="button" data-p="all">전체</button>
-          <button type="button" id="sFlip" title="칠판 위치를 위/아래로 바꿉니다">칠판 위치 ⇅</button>
         </span>
-        <span class="hint">열 번호나 책상을 클릭하면 앉는 자리/비우는 자리가 바뀝니다.</span>
+        <span class="hint">열 번호나 그 열의 책상을 클릭하면 열 전체가 앉는 자리/비우는 자리로 바뀝니다.</span>
       </div>
       <div id="seatMap"></div>
     </div>
@@ -239,6 +236,7 @@ permalink: /lectures/exam-timer/
   var st = { rows: 6, cols: 8, frontTop: true, off: {} };   // off["r,c"] = true -> empty desk
   try { var s = JSON.parse(localStorage.getItem(KEY)); if (s && s.rows) st = s; } catch (e) {}
   var map = document.getElementById("seatMap"), R = document.getElementById("sRows"), C = document.getElementById("sCols");
+  st.frontTop = true;                                        // board is always at the top
   R.value = st.rows; C.value = st.cols;
 
   function save() { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} }
@@ -274,7 +272,8 @@ permalink: /lectures/exam-timer/
       var c = +t.dataset.c, on = !colOn(c);
       for (var r = 1; r <= st.rows; r++) set(r, c, on);
     } else if (t.classList.contains("desk")) {
-      set(+t.dataset.r, +t.dataset.c, !isOn(+t.dataset.r, +t.dataset.c));
+      var cc = +t.dataset.c, on2 = !isOn(+t.dataset.r, cc);       // a desk toggles its whole column
+      for (var rr = 1; rr <= st.rows; rr++) set(rr, cc, on2);
     } else return;
     save(); render();
   });
@@ -288,13 +287,12 @@ permalink: /lectures/exam-timer/
     b.addEventListener("click", function () {
       var p = b.dataset.p; st.off = {};
       for (var r = 1; r <= st.rows; r++) for (var c = 1; c <= st.cols; c++) {
-        var on = p === "all" || (p === "odd" && c % 2 === 1) || (p === "even" && c % 2 === 0) || (p === "zig" && (r + c) % 2 === 0);
+        var on = (p === "odd" && c % 2 === 1) || (p === "even" && c % 2 === 0);
         set(r, c, on);
       }
       save(); render();
     });
   });
-  document.getElementById("sFlip").addEventListener("click", function () { st.frontTop = !st.frontTop; save(); render(); });
   render();
 })();
 </script>
