@@ -280,8 +280,16 @@ permalink: /lectures/exam-timer/
     save(); render();
   });
   function resize() {
+    var oldRows = st.rows;
     st.rows = Math.max(1, Math.min(20, parseInt(R.value) || 1));
     st.cols = Math.max(1, Math.min(20, parseInt(C.value) || 1));
+    // new rows follow their column's current state (taken from the first row)
+    for (var r = oldRows + 1; r <= st.rows; r++)
+      for (var c = 1; c <= st.cols; c++) set(r, c, isOn(1, c));
+    // drop state of desks that no longer exist
+    Object.keys(st.off).forEach(function (k) {
+      var p = k.split(","); if (+p[0] > st.rows || +p[1] > st.cols) delete st.off[k];
+    });
     save(); render();
   }
   R.addEventListener("input", resize); C.addEventListener("input", resize);
