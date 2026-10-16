@@ -36,6 +36,7 @@
     - authors: "N.-K. Kim†, J.-S. Lee†, G.-G. Lee, and D.-H. Jung*"
       title: "Joint rate and power allocation for secrecy in artificial noise-aided ambient IoT networks"
       venue: "submitted to IEEE Communications Letters, Apr. 2026"
+      research: none   # Research 페이지 추천에서 제외
     - authors: "J. Lee, S. Tomasin, and D.-H. Jung*"
       title: "Challenge-response authentication for LEO satellite channels: Exploiting orbit-specific uniqueness"
       venue: "submitted to IEEE Wireless Communications Magazine, Mar. 2026"
