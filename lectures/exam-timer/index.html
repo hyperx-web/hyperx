@@ -92,7 +92,7 @@ permalink: /lectures/exam-timer/
 <main>
   <section class="left">
     <p id="examName"></p>
-    <div id="clock">60:00</div>
+    <div id="clock">75:00</div>
     <div class="times" id="times" hidden>
       <span>시작 <b id="tStart">--:--</b></span><span>종료 <b id="tEnd">--:--</b></span>
     </div>
@@ -100,7 +100,7 @@ permalink: /lectures/exam-timer/
     <div class="bar"><div id="bar"></div></div>
     <div class="controls setup">
       <label for="name">시험명</label><input id="name" type="text" placeholder="예) 선형대수 중간고사">
-      <label for="mins">시험 시간(분)</label><input id="mins" type="number" min="1" max="600" value="60">
+      <label for="mins">시험 시간(분)</label><input id="mins" type="number" min="1" max="600" value="75">
     </div>
     <div class="controls">
       <button id="start" class="primary" type="button">타이머 시작</button>
@@ -218,7 +218,7 @@ permalink: /lectures/exam-timer/
     clearInterval(timer); timer = null; running = false; remainWhenPaused = 0;
     document.body.classList.remove("running", "ended");
     $("times").hidden = true; meta.className = "meta"; document.title = "시험 타이머 · HyperX Lab";
-    var mins = parseFloat($("mins").value) || 60;
+    var mins = parseFloat($("mins").value) || 75;
     clock.textContent = fmt(mins * 60000); clock.className = ""; bar.style.width = "100%"; bar.style.background = "var(--accent)";
     meta.textContent = "시험 시간을 설정한 뒤 시작을 누르세요."; $("examName").textContent = "";
     $("start").disabled = false; $("start").textContent = "타이머 시작"; $("pause").disabled = true;
