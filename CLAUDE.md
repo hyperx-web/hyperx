@@ -43,7 +43,8 @@ Always answer the user in Korean.
 
 ## Lectures
 - `/lectures/exam-timer/` = standalone exam timer (layout: null, white, projector-friendly): duration input, start/pause/reset,
-  start & end clock times, 10/5-min warnings, beep + red flash at the end, exam rules list. Linked as a small button under the lecture cards.
+  start & end clock times, 10/5-min warnings, beep + red flash at the end, exam rules list with photos,
+  seat map (rows × cols, board marker, click column/desk to toggle, presets; saved in localStorage). Linked as a small button under the lecture cards.
 
 ## Research page (`_data/research.yml`)
 - Order: 6G → Satellite & Space → AI. Heading "Related Works" (max 6, auto by keywords; no patents or domestic papers; 6G excludes satellite papers).

@@ -24,7 +24,7 @@ permalink: /lectures/exam-timer/
   .left { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; border-right: 1px solid var(--line); }
   .right { padding: 36px 44px; display: flex; flex-direction: column; justify-content: center; }
   #examName { font-size: clamp(1.4rem, 2.6vw, 2.2rem); font-weight: 700; text-align: center; margin: 0 0 6px; min-height: 1.2em; }
-  #clock { font-variant-numeric: tabular-nums; font-weight: 800; font-size: clamp(5rem, 15vw, 13rem); line-height: 1; letter-spacing: -0.02em; }
+  #clock { font-variant-numeric: tabular-nums; font-weight: 800; font-size: clamp(4.2rem, 11vw, 10rem); line-height: 1; letter-spacing: -0.02em; }
   #clock.warn { color: var(--warn); }
   #clock.danger { color: var(--danger); }
   #clock.done { color: var(--danger); font-size: clamp(3.5rem, 9vw, 8rem); }
@@ -58,6 +58,26 @@ permalink: /lectures/exam-timer/
   .banned .x path { stroke: #dc2626; stroke-width: 9; stroke-linecap: round; fill: none; vector-effect: non-scaling-stroke; stroke-width: 12px; opacity: .9; }
   .credit { margin: 8px 0 0; font-size: .7rem; color: #9ca3af; }
   .banned figcaption { margin-top: 4px; font-weight: 700; color: var(--danger); font-size: clamp(.95rem, 1.5vw, 1.2rem); }
+  /* seat map */
+  .seats { width: min(680px, 96%); margin-top: 26px; }
+  .seat-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 1.05rem; }
+  .legend { font-size: .9rem; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+  .legend .sw { display: inline-block; width: 14px; height: 14px; border-radius: 4px; margin-left: 8px; }
+  .sw.on { background: #16a34a; } .sw.off { background: #e5e7eb; border: 1px solid #cbd5e1; }
+  .seat-setup { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; margin-bottom: 10px; font-size: .95rem; color: var(--muted); }
+  .seat-setup input[type=number] { width: 3.6em; font-size: .95rem; padding: .3em .4em; }
+  .presets button { font-size: .85rem; padding: .35em .75em; font-weight: 600; }
+  .hint { font-size: .8rem; flex-basis: 100%; }
+  .board { text-align: center; font-weight: 700; color: #fff; background: #334155; border-radius: 6px; padding: 5px 0; font-size: .95rem; letter-spacing: .02em; }
+  .grid { display: grid; gap: 4px; margin: 6px 0; }
+  .grid .colh { text-align: center; font-size: .85rem; font-weight: 700; color: var(--muted); cursor: pointer; border-radius: 6px; padding: 3px 0; user-select: none; }
+  .grid .colh:hover { background: #eef2ff; }
+  .grid .colh.on { color: #16a34a; }
+  .desk { aspect-ratio: 3 / 1; min-height: 22px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: 800; cursor: pointer; user-select: none;
+          font-size: clamp(.7rem, 1.4vw, 1.05rem); transition: background .15s; }
+  .desk.on { background: #16a34a; color: #fff; }
+  .desk.off { background: #f3f4f6; color: #cbd5e1; border: 1px solid #e5e7eb; }
+  .running .seats { margin-top: 18px; }
   @media (max-width: 900px) { main { grid-template-columns: 1fr; } .left { border-right: 0; border-bottom: 1px solid var(--line); } }
   :fullscreen header { display: none; }
 </style>
@@ -85,6 +105,26 @@ permalink: /lectures/exam-timer/
       <button id="start" class="primary" type="button">타이머 시작</button>
       <button id="pause" type="button" disabled>일시정지</button>
       <button id="reset" type="button">초기화</button>
+    </div>
+
+    <div class="seats">
+      <div class="seat-head">
+        <b>좌석 배치</b>
+        <span class="legend"><i class="sw on"></i>앉는 자리 <i class="sw off"></i>비우는 자리</span>
+      </div>
+      <div class="seat-setup setup">
+        <label>책상 <input id="sRows" type="number" min="1" max="20" value="6"> 줄 ×
+          <input id="sCols" type="number" min="1" max="20" value="8"> 열</label>
+        <span class="presets">
+          <button type="button" data-p="odd">홀수 열</button>
+          <button type="button" data-p="even">짝수 열</button>
+          <button type="button" data-p="zig">지그재그</button>
+          <button type="button" data-p="all">전체</button>
+          <button type="button" id="sFlip" title="칠판 위치를 위/아래로 바꿉니다">칠판 위치 ⇅</button>
+        </span>
+        <span class="hint">열 번호나 책상을 클릭하면 앉는 자리/비우는 자리가 바뀝니다.</span>
+      </div>
+      <div id="seatMap"></div>
     </div>
   </section>
   <section class="right">
@@ -190,6 +230,72 @@ permalink: /lectures/exam-timer/
     if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen();
   };
   window.addEventListener("beforeunload", function (e) { if (running) { e.preventDefault(); e.returnValue = ""; } });
+})();
+</script>
+<script>
+// seat map: rows x cols desks, board (front) marker, click column number / desk to toggle
+(function () {
+  var KEY = "hyperx-exam-seats";
+  var st = { rows: 6, cols: 8, frontTop: true, off: {} };   // off["r,c"] = true -> empty desk
+  try { var s = JSON.parse(localStorage.getItem(KEY)); if (s && s.rows) st = s; } catch (e) {}
+  var map = document.getElementById("seatMap"), R = document.getElementById("sRows"), C = document.getElementById("sCols");
+  R.value = st.rows; C.value = st.cols;
+
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} }
+  function isOn(r, c) { return !st.off[r + "," + c]; }
+  function set(r, c, on) { if (on) delete st.off[r + "," + c]; else st.off[r + "," + c] = true; }
+  function colOn(c) { for (var r = 1; r <= st.rows; r++) if (isOn(r, c)) return true; return false; }
+  function el(cls, text, data) {
+    var d = document.createElement("div"); d.className = cls; d.textContent = text;
+    for (var k in (data || {})) d.dataset[k] = data[k];
+    return d;
+  }
+
+  function render() {
+    var board = el("board", "칠판 (앞)");
+    var grid = el("grid", "");
+    grid.style.gridTemplateColumns = "repeat(" + st.cols + ", 1fr)";
+    for (var c = 1; c <= st.cols; c++) grid.appendChild(el("colh" + (colOn(c) ? " on" : ""), c + "열", { c: c }));
+    var rows = [];
+    for (var r = 1; r <= st.rows; r++) rows.push(r);             // row 1 = closest to the board
+    if (!st.frontTop) rows.reverse();
+    rows.forEach(function (r) {
+      for (var c = 1; c <= st.cols; c++) {
+        var on = isOn(r, c);
+        grid.appendChild(el("desk " + (on ? "on" : "off"), on ? "✓" : "✕", { r: r, c: c }));
+      }
+    });
+    map.replaceChildren.apply(map, st.frontTop ? [board, grid] : [grid, board]);
+  }
+
+  map.addEventListener("click", function (e) {
+    var t = e.target;
+    if (t.classList.contains("colh")) {
+      var c = +t.dataset.c, on = !colOn(c);
+      for (var r = 1; r <= st.rows; r++) set(r, c, on);
+    } else if (t.classList.contains("desk")) {
+      set(+t.dataset.r, +t.dataset.c, !isOn(+t.dataset.r, +t.dataset.c));
+    } else return;
+    save(); render();
+  });
+  function resize() {
+    st.rows = Math.max(1, Math.min(20, parseInt(R.value) || 1));
+    st.cols = Math.max(1, Math.min(20, parseInt(C.value) || 1));
+    save(); render();
+  }
+  R.addEventListener("input", resize); C.addEventListener("input", resize);
+  document.querySelectorAll(".presets [data-p]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var p = b.dataset.p; st.off = {};
+      for (var r = 1; r <= st.rows; r++) for (var c = 1; c <= st.cols; c++) {
+        var on = p === "all" || (p === "odd" && c % 2 === 1) || (p === "even" && c % 2 === 0) || (p === "zig" && (r + c) % 2 === 0);
+        set(r, c, on);
+      }
+      save(); render();
+    });
+  });
+  document.getElementById("sFlip").addEventListener("click", function () { st.frontTop = !st.frontTop; save(); render(); });
+  render();
 })();
 </script>
 </body>
