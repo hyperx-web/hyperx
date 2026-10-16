@@ -30,6 +30,7 @@ permalink: /lectures/exam-timer/
   #clock.done { color: var(--danger); font-size: clamp(3.5rem, 9vw, 8rem); }
   .times { margin-top: 18px; display: flex; gap: 2.2em; font-size: clamp(1.4rem, 2.8vw, 2.4rem); color: #374151; }
   .times b { font-variant-numeric: tabular-nums; color: var(--fg); }
+  .times[hidden] { display: none; }
   body.ended { animation: endflash 1s ease-in-out 6; }
   @keyframes endflash { 50% { background: #fee2e2; } }
   .meta.alert { color: var(--danger); font-weight: 700; font-size: clamp(1.4rem, 2.6vw, 2.2rem); }
@@ -49,6 +50,10 @@ permalink: /lectures/exam-timer/
   ol { margin: 0; padding-left: 1.4em; }
   ol li { font-size: clamp(1.15rem, 2vw, 1.7rem); line-height: 1.45; margin: 0 0 18px; padding-left: .2em; }
   ol li b { color: var(--danger); }
+  .banned { display: flex; gap: 22px; margin-top: 10px; }
+  .banned figure { margin: 0; flex: 1; max-width: 230px; text-align: center; border: 2px solid #fecaca; border-radius: 14px; padding: 10px 10px 8px; background: #fff7f7; }
+  .banned svg { width: 100%; height: auto; display: block; }
+  .banned figcaption { margin-top: 4px; font-weight: 700; color: var(--danger); font-size: clamp(.95rem, 1.5vw, 1.2rem); }
   @media (max-width: 900px) { main { grid-template-columns: 1fr; } .left { border-right: 0; border-bottom: 1px solid var(--line); } }
   :fullscreen header { display: none; }
 </style>
@@ -84,8 +89,48 @@ permalink: /lectures/exam-timer/
       <li>공평성을 위해서 시험 중에 <b>화장실을 제한</b>하니, 시험 보기 전에 화장실 꼭 다녀오세요.</li>
       <li><b>시험지/답안지를 제출</b>해야 강의실 밖을 나갈 수 있습니다.</li>
       <li>휴대폰은 <b>전원을 종료</b>해서 가방에 넣으세요. (시험 중 휴대폰 소리가 나면 <b>부정행위로 간주</b>)</li>
-      <li>스마트 글래스를 포함한 <b>모든 전자기기(계산기 등) 사용 금지</b></li>
+      <li><b>스마트 글래스</b>를 포함한 <b>모든 전자기기(계산기 등) 사용 금지</b></li>
     </ol>
+    <div class="banned">
+      <figure>
+        <svg viewBox="0 0 200 140" aria-label="스마트 글래스 사용 금지">
+          <!-- smart glasses -->
+          <g fill="none" stroke="#1f2937" stroke-width="6" stroke-linejoin="round">
+            <rect x="22" y="48" width="66" height="44" rx="16" fill="#dbeafe"/>
+            <rect x="112" y="48" width="66" height="44" rx="16" fill="#dbeafe"/>
+            <path d="M88 64 Q100 54 112 64"/>
+            <path d="M22 60 L6 52 M178 60 L194 52"/>
+          </g>
+          <rect x="112" y="40" width="30" height="10" rx="3" fill="#1f2937"/>
+          <circle cx="160" cy="45" r="5" fill="#1d4ed8"/>
+          <path d="M34 82 L58 58" stroke="#fff" stroke-width="5" opacity=".8"/>
+          <!-- red X -->
+          <g stroke="#dc2626" stroke-width="14" stroke-linecap="round" opacity=".92">
+            <path d="M40 18 L160 122 M160 18 L40 122"/>
+          </g>
+        </svg>
+        <figcaption>스마트 글래스 금지</figcaption>
+      </figure>
+      <figure>
+        <svg viewBox="0 0 200 140" aria-label="시험 중 휴대폰 사용 금지">
+          <!-- student at desk looking at phone -->
+          <rect x="10" y="112" width="180" height="10" rx="3" fill="#9ca3af"/>
+          <rect x="34" y="98" width="70" height="14" fill="#f3f4f6" stroke="#9ca3af" stroke-width="2"/>
+          <circle cx="78" cy="38" r="20" fill="#fde68a" stroke="#1f2937" stroke-width="4"/>
+          <path d="M58 30 Q78 6 98 30" fill="#1f2937"/>
+          <path d="M50 112 Q52 70 78 62 Q104 70 108 98" fill="#60a5fa" stroke="#1f2937" stroke-width="4"/>
+          <rect x="112" y="64" width="26" height="44" rx="5" fill="#1f2937"/>
+          <rect x="116" y="70" width="18" height="30" rx="2" fill="#93c5fd"/>
+          <path d="M104 92 Q112 92 116 86" fill="none" stroke="#1f2937" stroke-width="4" stroke-linecap="round"/>
+          <path d="M86 44 L114 70" stroke="#1d4ed8" stroke-width="2" stroke-dasharray="4 4"/>
+          <!-- red X -->
+          <g stroke="#dc2626" stroke-width="14" stroke-linecap="round" opacity=".92">
+            <path d="M40 18 L160 122 M160 18 L40 122"/>
+          </g>
+        </svg>
+        <figcaption>시험 중 휴대폰 금지</figcaption>
+      </figure>
+    </div>
   </section>
 </main>
 <script>
