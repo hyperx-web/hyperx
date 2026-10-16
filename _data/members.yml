@@ -45,7 +45,7 @@ current:
 alumni_graduate: []   # 비어 있으면 "To be updated"로 표시
 
 alumni_undergraduate:
-  - { name: SoHyeon Choi, period: "2026.07. – 2026.08." }
+  - { name: So-Hyeon Choi, period: "2026.07. – 2026.08." }
   - { name: Jung-Seon Park, period: "2025.12. – 2026.08." }
   - { name: Hyeon Chae Kim, period: "2025.12. – 2026.08." }
   - { name: Minseo Choi, period: "2025.12. – 2026.06." }
