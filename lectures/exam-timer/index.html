@@ -61,7 +61,8 @@ permalink: /lectures/exam-timer/
   /* seat map */
   .seats { width: min(680px, 96%); margin-top: 26px; }
   .seat-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 1.05rem; }
-  .legend { font-size: .9rem; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+  .legend { font-size: .95rem; color: var(--muted); display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 6px; }
+  #seatMap { height: 300px; display: flex; flex-direction: column; }   /* fixed overall size; desks scale with rows/cols */
   .legend .sw { display: inline-block; width: 14px; height: 14px; border-radius: 4px; margin-left: 8px; }
   .sw.on { background: #16a34a; } .sw.off { background: #e5e7eb; border: 1px solid #cbd5e1; }
   .seat-setup { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; margin-bottom: 10px; font-size: .95rem; color: var(--muted); }
@@ -69,11 +70,11 @@ permalink: /lectures/exam-timer/
   .presets button { font-size: .85rem; padding: .35em .75em; font-weight: 600; }
   .hint { font-size: .8rem; flex-basis: 100%; }
   .board { text-align: center; font-weight: 700; color: #fff; background: #334155; border-radius: 6px; padding: 5px 0; font-size: .95rem; letter-spacing: .02em; }
-  .grid { display: grid; gap: 4px; margin: 6px 0; }
+  .grid { display: grid; gap: 4px; margin: 6px 0 0; flex: 1; min-height: 0; }
   .grid .colh { text-align: center; font-size: .85rem; font-weight: 700; color: var(--muted); cursor: pointer; border-radius: 6px; padding: 3px 0; user-select: none; }
   .grid .colh:hover { background: #eef2ff; }
   .grid .colh.on { color: #16a34a; }
-  .desk { aspect-ratio: 3 / 1; min-height: 22px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: 800; cursor: pointer; user-select: none;
+  .desk { min-height: 0; min-width: 0; border-radius: 5px; display: flex; align-items: center; justify-content: center; font-weight: 800; cursor: pointer; user-select: none;
           font-size: clamp(.7rem, 1.4vw, 1.05rem); transition: background .15s; }
   .desk.on { background: #16a34a; color: #fff; }
   .desk.off { background: #f3f4f6; color: #cbd5e1; border: 1px solid #e5e7eb; }
@@ -110,7 +111,6 @@ permalink: /lectures/exam-timer/
     <div class="seats">
       <div class="seat-head">
         <b>좌석 배치</b>
-        <span class="legend"><i class="sw on"></i>앉는 자리 <i class="sw off"></i>비우는 자리</span>
       </div>
       <div class="seat-setup setup">
         <label>책상 <input id="sRows" type="number" min="1" max="20" value="6"> 줄 ×
@@ -122,6 +122,7 @@ permalink: /lectures/exam-timer/
         <span class="hint">열 번호나 그 열의 책상을 클릭하면 열 전체가 앉는 자리/비우는 자리로 바뀝니다.</span>
       </div>
       <div id="seatMap"></div>
+      <div class="legend"><i class="sw on"></i>앉는 자리 <i class="sw off"></i>비우는 자리</div>
     </div>
   </section>
   <section class="right">
@@ -253,6 +254,7 @@ permalink: /lectures/exam-timer/
     var board = el("board", "칠판 (앞)");
     var grid = el("grid", "");
     grid.style.gridTemplateColumns = "repeat(" + st.cols + ", 1fr)";
+    grid.style.gridTemplateRows = "auto repeat(" + st.rows + ", 1fr)";
     for (var c = 1; c <= st.cols; c++) grid.appendChild(el("colh" + (colOn(c) ? " on" : ""), c + "열", { c: c }));
     var rows = [];
     for (var r = 1; r <= st.rows; r++) rows.push(r);             // row 1 = closest to the board
