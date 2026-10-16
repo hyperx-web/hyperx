@@ -23,6 +23,7 @@
     - authors: "H. Cho, D.-H. Jung*, and J. Choi*"
       title: "Rate-splitting multiple access with grouping for scalable satellite communication"
       venue: "submitted to IEEE Transactions on Wireless Communications, Aug. 2026"
+      research: 6g   # 6G 추천 논문
     - authors: "S. Jang, H. Cho, and D.-H. Jung*"
       title: "Decoupled near-field channel estimation for movable antenna-enabled wideband systems"
       venue: "submitted to IEEE Transactions on Wireless Communications, July 2026"
@@ -47,6 +48,7 @@
     - authors: "H. Cho, S. Lee, D.-H. Jung, D. J. Love, and J. Choi"
       title: "Leveraging beam squint for increased LEO coverage: An optimization approach"
       venue: "accepted to IEEE Transactions on Wireless Communications, Oct. 2026"
+      research: 6g   # 6G 추천 논문
     - authors: "M. Kim, H. Nam, B. Ko, H. Park, H. Kim, D.-H. Jung, and J. Choi"
       title: "Analysis of beam misalignment effect in inter-satellite FSO links"
       venue: "IEEE Transactions on Communications, vol. 74, pp. 14388-14401, Oct. 2026"
@@ -83,6 +85,7 @@
     - authors: "J. Seo and D.-H. Jung"
       title: "Energy beamforming for full-duplex wireless powered cooperative communications"
       venue: "Wireless Personal Communications, vol. 112, pp. 2275-2284, June 2020"
+      research: none   # Research 페이지 추천에서 제외
     - authors: "D.-H. Jung, M.-S. Shin, and J.-G. Ryu"
       title: "Fairness-based superframe design and resource allocation for dynamic rate adaptation in DVB-RCS2 satellite systems"
       venue: "IEEE Communications Letters, vol. 23, no. 11, pp. 2046-2049, Nov. 2019"

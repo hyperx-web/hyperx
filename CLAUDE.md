@@ -42,7 +42,7 @@ Always answer the user in Korean.
   - Professor row shows profile + link, no publication list.
 
 ## Research page (`_data/research.yml`)
-- Order: 6G → Satellite & Space → AI. Heading "Related Works" (max 5, auto by keywords; 6G excludes satellite papers).
+- Order: 6G → Satellite & Space → AI. Heading "Related Works" (max 6, auto by keywords; 6G excludes satellite papers).
 - Figures: white background, caption outside the figure (bold, centred), figure column 460px, click to enlarge.
 - Paper figures are vector SVGs animated with `tools/animate_figure.py <figure.pdf> <out.svg>`
   (signals flow along wires, continuous pulses every 0.9 s, merges arrive together, merged colours blend,

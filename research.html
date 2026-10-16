@@ -33,7 +33,7 @@ lead: "Our lab explores cutting-edge innovations in future communication systems
 
         {% assign shown = 0 %}{% assign out = "" %}
         {% for g in site.data.publications %}{% if g.category != "patent" %}{% for it in g.items %}
-          {% if shown < 5 %}
+          {% if shown < 6 %}
             {% assign t = it.title | downcase %}{% assign hit = false %}
             {% if it.research %}{% if it.research == r.id %}{% assign hit = true %}{% endif %}{% else %}
             {% for k in r.keywords %}{% if t contains k %}{% assign hit = true %}{% endif %}{% endfor %}
