@@ -42,7 +42,7 @@ Always answer the user in Korean.
   - Professor row shows profile + link, no publication list.
 
 ## Lectures
-- `/lectures/exam-timer/` = standalone exam timer (layout: null, white, projector-friendly): duration input, start/pause/reset,
+- `/lectures/exam-timer/` = standalone exam timer (layout: null, dark site theme, projector-friendly): duration input, start/pause/reset,
   start & end clock times, 10/5-min warnings, beep + red flash at the end, exam rules list with photos,
   seat map (rows × cols, board always on top, clicking a column number or any desk toggles the whole column, odd/even presets; saved in localStorage). Linked as a small button under the lecture cards.
 
