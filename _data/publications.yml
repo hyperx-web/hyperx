@@ -107,6 +107,7 @@
     - authors: "D.-H. Jung and C. G. Kang"
       title: "Networking the space data center: Requirements, use cases, and physical limits"
       venue: "International Conference on Information and Communication Technology Convergence (ICTC), Oct. 2026"
+      research: ai   # AI 분야 추천 논문 (space data center)
     - authors: "J.-S. Lee and D.-H. Jung"
       title: "Closed-form analysis of satellite visibility for LEO walker constellations"
       venue: "International Conference on Information and Communication Technology Convergence (ICTC), Oct. 2026"
