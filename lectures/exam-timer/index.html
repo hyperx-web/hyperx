@@ -63,6 +63,10 @@ permalink: /lectures/exam-timer/
   .banned .ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .banned .x { position: absolute; inset: 0; width: 100%; height: 100%; }
   .banned .x path { stroke: #ef4444; stroke-width: 9; stroke-linecap: round; fill: none; vector-effect: non-scaling-stroke; stroke-width: 12px; opacity: .9; }
+  .right { position: relative; }
+  .ta-btn { position: absolute; right: 16px; bottom: 14px; font-size: .75rem; font-weight: 600; padding: .3em .7em; opacity: .18; border-color: rgba(255,255,255,.12); }
+  .ta-btn:hover, .ta-btn.active { opacity: .9; }
+  ol.ta li b { color: var(--accent); }
   .credit { margin: 8px 0 0; font-size: .7rem; color: #5b6478; }
   .banned figcaption { margin-top: 4px; font-weight: 700; color: var(--danger); font-size: clamp(.95rem, 1.5vw, 1.2rem); }
   /* seat map */
@@ -133,6 +137,7 @@ permalink: /lectures/exam-timer/
     </div>
   </section>
   <section class="right">
+    <div id="rulesView">
     <h2>시험 주의사항</h2>
     <ol>
       <li>공평성을 위해서 시험 중에 <b>화장실을 제한</b>하니, 시험 보기 전에 화장실 꼭 다녀오세요.</li>
@@ -151,6 +156,16 @@ permalink: /lectures/exam-timer/
       </figure>
     </div>
     <p class="credit">Photo (right): Bhullargraphic, CC BY-SA 4.0 (Wikimedia Commons)</p>
+    </div>
+    <div id="taView" hidden>
+      <h2>조교 확인사항</h2>
+      <ol class="ta">
+        <li><b>부정행위</b> 감독</li>
+        <li>모든 학생들이 <b>시험지/답안지 둘 다 제출</b>하는지 확인</li>
+        <li>시험 종료 후 <b>개수 확인</b></li>
+      </ol>
+    </div>
+    <button id="taBtn" class="ta-btn" type="button" title="조교 확인사항">조교</button>
   </section>
 </main>
 <script>
@@ -311,6 +326,18 @@ permalink: /lectures/exam-timer/
     });
   });
   render();
+})();
+</script>
+<script>
+// TA checklist: inconspicuous button swaps the rules panel with the TA checklist
+(function () {
+  var btn = document.getElementById("taBtn"), rules = document.getElementById("rulesView"), ta = document.getElementById("taView");
+  btn.addEventListener("click", function () {
+    var show = ta.hidden;
+    ta.hidden = !show; rules.hidden = show;
+    btn.textContent = show ? "← 주의사항" : "조교";
+    btn.classList.toggle("active", show);
+  });
 })();
 </script>
 </body>
