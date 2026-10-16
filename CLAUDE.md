@@ -44,7 +44,7 @@ Always answer the user in Korean.
 ## Lectures
 - `/lectures/exam-timer/` = standalone exam timer (layout: null, dark site theme, projector-friendly): duration input, start/pause/reset,
   start & end clock times, 10/5-min warnings, beep + red flash at the end, exam rules list with photos,
-  hidden TA checklist (faint "조교" button bottom-right of the rules panel swaps rules ↔ checklist),
+  TA checklist ("조교 확인사항" button bottom-right of the rules panel swaps rules ↔ checklist; items hidden until clicked),
   seat map (rows × cols, board always on top, clicking a column number or any desk toggles the whole column, odd/even presets; saved in localStorage). Linked as a small button under the lecture cards.
 
 ## Research page (`_data/research.yml`)

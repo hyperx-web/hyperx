@@ -64,8 +64,7 @@ permalink: /lectures/exam-timer/
   .banned .x { position: absolute; inset: 0; width: 100%; height: 100%; }
   .banned .x path { stroke: #ef4444; stroke-width: 9; stroke-linecap: round; fill: none; vector-effect: non-scaling-stroke; stroke-width: 12px; opacity: .9; }
   .right { position: relative; }
-  .ta-btn { position: absolute; right: 16px; bottom: 14px; font-size: .75rem; font-weight: 600; padding: .3em .7em; opacity: .18; border-color: rgba(255,255,255,.12); }
-  .ta-btn:hover, .ta-btn.active { opacity: .9; }
+  .ta-btn { position: absolute; right: 22px; bottom: 18px; font-size: 1rem; font-weight: 700; padding: .6em 1.2em; }
   ol.ta li b { color: var(--accent); }
   .credit { margin: 8px 0 0; font-size: .7rem; color: #5b6478; }
   .banned figcaption { margin-top: 4px; font-weight: 700; color: var(--danger); font-size: clamp(.95rem, 1.5vw, 1.2rem); }
@@ -165,7 +164,7 @@ permalink: /lectures/exam-timer/
         <li>시험 종료 후 <b>개수 확인</b></li>
       </ol>
     </div>
-    <button id="taBtn" class="ta-btn" type="button" title="조교 확인사항">조교</button>
+    <button id="taBtn" class="ta-btn" type="button">조교 확인사항</button>
   </section>
 </main>
 <script>
@@ -335,8 +334,7 @@ permalink: /lectures/exam-timer/
   btn.addEventListener("click", function () {
     var show = ta.hidden;
     ta.hidden = !show; rules.hidden = show;
-    btn.textContent = show ? "← 주의사항" : "조교";
-    btn.classList.toggle("active", show);
+    btn.textContent = show ? "← 시험 주의사항" : "조교 확인사항";
   });
 })();
 </script>
