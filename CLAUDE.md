@@ -48,7 +48,7 @@ Always answer the user in Korean.
   seat map (rows × cols, board always on top, clicking a column number or any desk toggles the whole column, odd/even presets that also apply to columns added later; new rows follow their column; saved in localStorage). Linked as a small button under the lecture cards.
 
 ## Research page (`_data/research.yml`)
-- Order: 6G → Satellite & Space → AI. Heading "Related Works" (max 6, auto by keywords; no patents or domestic papers; 6G excludes satellite papers).
+- Order: AI → 6G → Satellite & Space (same order on the home research cards). Heading "Related Works" (max 6, auto by keywords; no patents or domestic papers; 6G excludes satellite papers).
 - Figures: white background, caption outside the figure (bold, centred), figure column 460px, click to enlarge.
 - Paper figures are vector SVGs animated with `tools/animate_figure.py <figure.pdf> <out.svg>`
   (signals flow along wires, continuous pulses every 0.9 s, merges arrive together, merged colours blend,

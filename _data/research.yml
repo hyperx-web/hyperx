@@ -1,4 +1,17 @@
 # 연구 분야 — keywords: 논문 제목에 이 단어(소문자)가 있으면 관련 논문으로 자동 표시
+- id: ai
+  title: AI Applications for Communications
+  image: ai-model.svg
+  images:   # 여러 그림 (있으면 image 대신 사용)
+    - { file: ai-concept-anim.svg, caption: "Beamspace transport + neural rebalancing warm start" }
+    - { file: ai-network-anim.svg, caption: "Permutation-equivariant rebalancing network" }
+  summary: Applying various machine learning models for intelligent communication systems.
+  topics:
+    - Reinforcement learning-based secure beamforming
+    - LLM-assisted optimization for beam hopping and cell association
+    - Neural warm start and agentic demand adaptation for RSMA
+  keywords: [learning, llm, neural, agentic, ai 기반]
+
 - id: 6g
   title: 6G Technologies
   image: 6g-model.svg
@@ -30,16 +43,3 @@
     - 3GPP NTN standardization and system-level simulation
     - Physical-layer security against satellite eavesdroppers
   keywords: [satellite, leo, geo, non-terrestrial, ntn, orbit, constellation]
-
-- id: ai
-  title: AI Applications for Communications
-  image: ai-model.svg
-  images:   # 여러 그림 (있으면 image 대신 사용)
-    - { file: ai-concept-anim.svg, caption: "Beamspace transport + neural rebalancing warm start" }
-    - { file: ai-network-anim.svg, caption: "Permutation-equivariant rebalancing network" }
-  summary: Applying various machine learning models for intelligent communication systems.
-  topics:
-    - Reinforcement learning-based secure beamforming
-    - LLM-assisted optimization for beam hopping and cell association
-    - Neural warm start and agentic demand adaptation for RSMA
-  keywords: [learning, llm, neural, agentic, ai 기반]
