@@ -14,16 +14,18 @@ offered = [                                 # offered rates per stage (offered /
     [0.622, 0.500, 0.557, 0.617],           # beta 0.624: min sat 0.617 (>= 0.98 beta)
     [0.622, 0.500, 0.557, 0.617],
 ]
+SPL = ';'.join(['0 0 1 1', '.4 0 .2 1'] * 3 + ['0 0 1 1'])
 minsat = [min(x / dd for x, dd in zip(off, d)) for off in offered]
-X0, BASE, SC, BW, GAP = 60, 400, 250, 46, 34
+X0, BASE, SC, BW, GAP = 60, 400, 250 / 0.62, 46, 34
+V0 = 0.40                                   # y-axis starts at 0.4 (zoomed so target changes are visible)
 
 
-def kt(vals):
+def kt(vals, ease=0.35):
     """Hold each stage value; change quickly right after each stage starts."""
     times, vs = [0.0], [vals[0]]
     for i in range(1, len(vals)):
         t0 = stages[i] / T
-        times += [t0, t0 + 0.35 / T]
+        times += [t0, t0 + ease / T]
         vs += [vals[i - 1], vals[i]]
     times += [1.0]
     vs += [vals[-1]]
@@ -50,22 +52,36 @@ o.append('<text x="40" y="34" font-size="19" font-weight="bold">Demand surge (τ
 o.append(f'<line x1="{X0 - 10}" y1="{BASE}" x2="{X0 + 4 * (BW + GAP)}" y2="{BASE}" stroke="#222" stroke-width="1.4"/>')
 for i, m in enumerate(msgs):
     x = X0 + i * (BW + GAP)
-    h = d[i] * SC
+    h = (d[i] - V0) * SC
     o.append(f'<rect x="{x}" y="{BASE - h:.1f}" width="{BW}" height="{h:.1f}" fill="none" stroke="#9aa1ab" '
              f'stroke-width="1.6" stroke-dasharray="5 4"/>')
-    hs = [off[i] * SC for off in offered]
+    hs = [(off[i] - V0) * SC for off in offered]
     k, hv = kt(hs)
     _, yv = kt([BASE - hh for hh in hs])
     col = "#7a3e8e" if m == "MC" else "#2f5aa8"
     o.append(f'<rect x="{x}" y="{BASE - hs[0]:.1f}" width="{BW}" height="{hs[0]:.1f}" fill="{col}" opacity=".85">'
              f'<animate attributeName="height" dur="{T}s" repeatCount="indefinite" keyTimes="{k}" values="{hv}"/>'
              f'<animate attributeName="y" dur="{T}s" repeatCount="indefinite" keyTimes="{k}" values="{yv}"/></rect>')
-    k2, y2 = kt([BASE - beta[s] * d[i] * SC for s in range(4)])
-    y0 = BASE - beta[0] * d[i] * SC
+    k2, y2 = kt(ease=1.0, vals=[BASE - (beta[s] * d[i] - V0) * SC for s in range(4)])
+    y0 = BASE - (beta[0] * d[i] - V0) * SC
+    for s in (1, 2):                         # ghost of the previous target
+        k, v = stage_visibility(s)
+        yp = BASE - (beta[s - 1] * d[i] - V0) * SC
+        o.append(f'<line x1="{x - 6}" x2="{x + BW + 6}" y1="{yp:.1f}" y2="{yp:.1f}" stroke="#d9480f" stroke-width="1.5" stroke-dasharray="4 3" opacity="0">'
+                 f'<animate attributeName="opacity" dur="{T}s" repeatCount="indefinite" calcMode="discrete" keyTimes="{k}" values="{v}"/></line>')
     o.append(f'<line x1="{x - 6}" x2="{x + BW + 6}" y1="{y0:.1f}" y2="{y0:.1f}" stroke="#d9480f" stroke-width="3">'
-             f'<animate attributeName="y1" dur="{T}s" repeatCount="indefinite" keyTimes="{k2}" values="{y2}"/>'
-             f'<animate attributeName="y2" dur="{T}s" repeatCount="indefinite" keyTimes="{k2}" values="{y2}"/></line>')
+             f'<animate attributeName="y1" dur="{T}s" repeatCount="indefinite" keyTimes="{k2}" values="{y2}" calcMode="spline" keySplines="{SPL}"/>'
+             f'<animate attributeName="y2" dur="{T}s" repeatCount="indefinite" keyTimes="{k2}" values="{y2}" calcMode="spline" keySplines="{SPL}"/></line>')
     o.append(f'<text x="{x + BW / 2}" y="{BASE + 22}" font-size="15" text-anchor="middle">{m}</text>')
+for v in (0.4, 0.6, 0.8, 1.0):
+    yy = BASE - (v - V0) * SC
+    o.append(f'<text x="{X0 - 16}" y="{yy + 4:.1f}" font-size="11" fill="#777" text-anchor="end">{v:.1f}</text>')
+o.append(f'<path d="M{X0 - 14} {BASE + 2} l6 -6 M{X0 - 9} {BASE + 2} l6 -6" stroke="#222" stroke-width="1.3"/>')
+for s_, lab in ((1, "target ↑ +8%"), (2, "target ↓ −3.7%")):
+    k, v = stage_visibility(s_)
+    o.append(f'<g opacity="0"><animate attributeName="opacity" dur="{T}s" repeatCount="indefinite" calcMode="discrete" keyTimes="{k}" values="{v}"/>'
+             f'<rect x="250" y="96" width="120" height="28" rx="14" fill="#d9480f"/>'
+             f'<text x="310" y="115" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">{lab}</text></g>')
 ly = 72
 o.append(f'<rect x="60" y="{ly - 11}" width="16" height="12" fill="none" stroke="#9aa1ab" stroke-dasharray="4 3"/>'
          f'<text x="82" y="{ly}" font-size="13">requested demand d</text>')
