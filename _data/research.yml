@@ -5,6 +5,7 @@
   images:   # 여러 그림 (있으면 image 대신 사용)
     - { file: ai-concept-anim.svg, caption: "Beamspace transport + neural rebalancing warm start" }
     - { file: ai-network-anim.svg, caption: "Permutation-equivariant rebalancing network" }
+    - { file: ai-agent-anim.svg, caption: "Solver agent for demand-surge adaptation (Act–Observe–Decide)" }
   summary: Applying various machine learning models for intelligent communication systems.
   topics:
     - Reinforcement learning-based secure beamforming
