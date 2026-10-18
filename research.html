@@ -20,9 +20,9 @@ lead: "Our lab explores cutting-edge innovations in future communication systems
         <figure class="research-fig"><div class="constellation-wrap"><canvas class="threebody" data-src="{{ '/assets/js/threebody.json' | relative_url }}" aria-label="Spacecraft trajectory in the Earth–Moon circular restricted three-body problem"></canvas></div><figcaption>Earth–Moon circular restricted three-body problem · Arenstorf periodic orbit (rotating frame) · <i>L</i><sub>1</sub>–<i>L</i><sub>5</sub></figcaption></figure>
         {% elsif r.images %}
           {% for im in r.images %}
-          <figure class="research-fig"><img src="{{ '/assets/img/research/' | append: im.file | relative_url }}" alt="{{ im.caption }}" loading="lazy"><figcaption>{{ im.caption }}</figcaption></figure>
+          <figure class="research-fig"><img src="{{ '/assets/img/research/' | append: im.file | relative_url }}?v={{ site.time | date: '%s' }}" alt="{{ im.caption }}" loading="lazy"><figcaption>{{ im.caption }}</figcaption></figure>
           {% endfor %}
-        {% else %}<img src="{{ '/assets/img/research/' | append: r.image | relative_url }}" alt="{{ r.title }}" loading="lazy">{% endif %}
+        {% else %}<img src="{{ '/assets/img/research/' | append: r.image | relative_url }}?v={{ site.time | date: '%s' }}" alt="{{ r.title }}" loading="lazy">{% endif %}
       </div>
       <div class="research-area-body">
         <span class="chip">0{{ forloop.index }}</span>
