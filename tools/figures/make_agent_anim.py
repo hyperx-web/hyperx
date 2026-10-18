@@ -16,8 +16,8 @@ offered = [                                 # offered rates per stage (offered /
 ]
 SPL = ';'.join(['0 0 1 1', '.4 0 .2 1'] * 3 + ['0 0 1 1'])
 minsat = [min(x / dd for x, dd in zip(off, d)) for off in offered]
-X0, BASE, SC, BW, GAP = 60, 400, 250 / 0.62, 46, 34
-V0 = 0.40                                   # y-axis starts at 0.4 (zoomed so target changes are visible)
+X0, BASE, SC, BW, GAP = 60, 400, 250 / 0.55, 46, 34
+V0 = 0.45                                   # y-axis starts at 0.45 (zoomed so target changes are visible)
 
 
 def kt(vals, ease=0.35):
@@ -73,7 +73,7 @@ for i, m in enumerate(msgs):
              f'<animate attributeName="y1" dur="{T}s" repeatCount="indefinite" keyTimes="{k2}" values="{y2}" calcMode="spline" keySplines="{SPL}"/>'
              f'<animate attributeName="y2" dur="{T}s" repeatCount="indefinite" keyTimes="{k2}" values="{y2}" calcMode="spline" keySplines="{SPL}"/></line>')
     o.append(f'<text x="{x + BW / 2}" y="{BASE + 22}" font-size="15" text-anchor="middle">{m}</text>')
-for v in (0.4, 0.6, 0.8, 1.0):
+for v in (0.5, 0.6, 0.8, 1.0):
     yy = BASE - (v - V0) * SC
     o.append(f'<text x="{X0 - 16}" y="{yy + 4:.1f}" font-size="11" fill="#777" text-anchor="end">{v:.1f}</text>')
 o.append(f'<path d="M{X0 - 14} {BASE + 2} l6 -6 M{X0 - 9} {BASE + 2} l6 -6" stroke="#222" stroke-width="1.3"/>')
