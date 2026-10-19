@@ -69,9 +69,9 @@ permalink: /lectures/exam-timer/
             color: #0b1220; background: var(--accent); border: 0; box-shadow: 0 6px 20px rgba(76,201,240,.25); }
   .ta-btn.alt { background: #fbbf24; box-shadow: 0 6px 20px rgba(251,191,36,.25); }
   .ta-btn.alt:hover:not(:disabled) { background: #fcd34d; }
-  .notice { margin: 0 0 22px; padding: 14px 18px; border: 2px solid rgba(251,191,36,.6); border-radius: 14px; background: rgba(251,191,36,.08); }
-  .notice h3 { margin: 0 0 8px; font-size: clamp(1.1rem, 1.8vw, 1.5rem); color: #fbbf24; }
-  .notice p { margin: 0; white-space: pre-wrap; font-size: clamp(1.1rem, 1.9vw, 1.6rem); line-height: 1.45; }
+  .notice { margin: 0 0 26px; padding: 0 0 22px; border-bottom: 1px solid var(--line); }   /* same look as the rules, divider below */
+  .notice h2 { margin: 0 0 14px; }
+  .notice p { margin: 0; white-space: pre-wrap; font-size: clamp(1.15rem, 2vw, 1.7rem); line-height: 1.45; }
   #noticeText { width: 100%; min-height: 220px; font: inherit; font-size: 1.2rem; line-height: 1.5; padding: .7em .8em; border-radius: 10px;
                 background: #0b1220; color: var(--fg, #e8ecf6); border: 1px solid var(--line); resize: vertical; }
   .notice-actions { display: flex; gap: 10px; margin-top: 12px; }
@@ -148,7 +148,7 @@ permalink: /lectures/exam-timer/
   </section>
   <section class="right">
     <div id="rulesView">
-    <div class="notice" id="noticeBox" hidden><h3>공지사항</h3><p id="noticeShow"></p></div>
+    <div class="notice" id="noticeBox" hidden><h2>공지사항</h2><p id="noticeShow"></p></div>
     <h2>시험 주의사항</h2>
     <ol>
       <li>공평성을 위해서 시험 중에 <b>화장실을 제한</b>하니, 시험 보기 전에 화장실 꼭 다녀오세요.</li>

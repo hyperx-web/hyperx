@@ -44,7 +44,7 @@ Always answer the user in Korean.
 ## Lectures
 - `/lectures/exam-timer/` = standalone exam timer (layout: null, dark site theme, projector-friendly): duration input, start/pause/reset,
   start & end clock times, 10/5-min warnings, beep + red flash at the end, exam rules list with photos,
-  TA checklist ("조교 확인사항" button bottom-right of the rules panel swaps rules ↔ checklist; items hidden until clicked), "공지사항 입력" button next to it opens a notice editor; the saved notice (localStorage hyperx-exam-notice) is shown in a yellow box at the top, above the rules,
+  TA checklist ("조교 확인사항" button bottom-right of the rules panel swaps rules ↔ checklist; items hidden until clicked), "공지사항 입력" button next to it opens a notice editor; the saved notice (localStorage hyperx-exam-notice) is shown at the top in the same style as the rules (heading + divider line),
   seat map (rows × cols, board always on top, clicking a column number or any desk toggles the whole column, odd/even presets that also apply to columns added later; new rows follow their column; saved in localStorage). Linked as a small button under the lecture cards.
 
 ## Research page (`_data/research.yml`)
