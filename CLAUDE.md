@@ -66,7 +66,7 @@ Always answer the user in Korean.
 ## Style
 - Fonts: Inter (English) + KoPub World Dotum (Korean, self-hosted woff2).
 - Eyebrow labels: 1.05rem, letter-spacing .06em. Members achievement headings and block titles (Education, Experience, …): letter-spacing 0. No rounded border on the home stats bar.
-- Gallery photos live in one folder per event `assets/img/gallery/<YYYY-MM-event>/01.jpg, 02.jpg…`;
+- Gallery photos live in one folder per event `assets/img/gallery/<YYYY-MM-event>/01.jpg, 02.jpg…` (resized to ≤2000 px); albums use `images: [...]` (first = cover, lightbox arrows); full-size originals stay local and gitignored (e.g. `2026-10-ICTC/`);
   `_data/gallery.yml` image = `YYYY-MM-event/01.jpg`.
 - Avoid flashy hover effects on images; don't crop photos (members 7:10, research square, gallery natural ratio).
 

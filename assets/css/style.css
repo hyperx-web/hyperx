@@ -307,7 +307,13 @@ mark { background: rgba(76,201,240,.3); color: #fff; border-radius: 3px; }
 .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 22px; align-items: start; }
 .gallery-item { margin: 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
 .gallery-open { display: block; width: 100%; padding: 0; border: 0; cursor: zoom-in; background: none; }
+.gallery-open { position: relative; }
 .gallery-open img { width: 100%; height: auto; }
+.gallery-count { position: absolute; right: 12px; bottom: 12px; padding: 4px 10px; border-radius: 999px; background: rgba(0,0,0,.65); color: #fff; font-size: .8rem; font-weight: 600; }
+.lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 52px; height: 52px; border-radius: 50%; border: 0; background: rgba(255,255,255,.12); color: #fff; font-size: 2rem; line-height: 1; cursor: pointer; }
+.lightbox-nav:hover { background: rgba(255,255,255,.25); }
+.lightbox-nav.prev { left: 24px; } .lightbox-nav.next { right: 24px; }
+.lightbox-nav[hidden] { display: none; }
 .gallery-item figcaption { padding: 16px 20px; display: flex; flex-direction: column; gap: 2px; }
 .gallery-item time { color: var(--muted); font-size: .85rem; }
 .lightbox { position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,.92); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; }

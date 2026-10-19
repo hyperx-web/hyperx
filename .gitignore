@@ -3,3 +3,7 @@ _site/
 .sass-cache/
 .omc/
 Gemfile.lock
+
+# original photos (full size + others) stay local; the published set is in assets/img/gallery/2026-10-ictc2026
+assets/img/gallery/2026-10-ICTC/
+tools/figures/__pycache__/

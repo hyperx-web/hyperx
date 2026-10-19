@@ -9,9 +9,11 @@ eyebrow: Life at HyperX
   <div class="container">
     <div class="gallery-grid">
       {% for g in site.data.gallery %}
+      {% if g.images %}{% assign cover = g.images[0] %}{% assign srcs = "" %}{% for im in g.images %}{% capture u %}{{ '/assets/img/gallery/' | append: im | relative_url }}{% endcapture %}{% if forloop.first %}{% assign srcs = u %}{% else %}{% assign srcs = srcs | append: "|" | append: u %}{% endif %}{% endfor %}{% else %}{% assign cover = g.image %}{% capture srcs %}{{ '/assets/img/gallery/' | append: g.image | relative_url }}{% endcapture %}{% endif %}
       <figure class="gallery-item reveal">
-        <button class="gallery-open" data-src="{{ '/assets/img/gallery/' | append: g.image | relative_url }}" data-caption="{{ g.caption }} ({{ g.date }})">
-          <img src="{{ '/assets/img/gallery/' | append: g.image | relative_url }}" alt="{{ g.caption }}" loading="lazy">
+        <button class="gallery-open" data-srcs="{{ srcs }}" data-caption="{{ g.caption }} ({{ g.date }})">
+          <img src="{{ '/assets/img/gallery/' | append: cover | relative_url }}" alt="{{ g.caption }}" loading="lazy">
+          {% if g.images %}<span class="gallery-count">{{ g.images | size }} photos</span>{% endif %}
         </button>
         <figcaption><b>{{ g.caption }}</b><time>{{ g.date }}</time></figcaption>
       </figure>
@@ -21,6 +23,8 @@ eyebrow: Life at HyperX
 </section>
 <div class="lightbox" hidden>
   <button class="lightbox-close" aria-label="Close">×</button>
+  <button class="lightbox-nav prev" aria-label="Previous">‹</button>
   <img alt="">
+  <button class="lightbox-nav next" aria-label="Next">›</button>
   <p></p>
 </div>

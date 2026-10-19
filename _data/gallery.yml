@@ -1,5 +1,7 @@
 # 갤러리 — 맨 위에 새 사진을 추가하세요.
+# 여러 장(앨범)은 images: [폴더/01.jpg, 폴더/02.jpg, ...] — 첫 사진이 표지, 클릭하면 좌우로 넘겨 봅니다.
 # 사진은 assets/img/gallery/<연-월-행사이름>/ 폴더에 넣고, image는 "폴더/파일명" (예: 2026-08-outing/01.jpg)
+- { images: [2026-10-ictc2026/08.jpg, 2026-10-ictc2026/01.jpg, 2026-10-ictc2026/02.jpg, 2026-10-ictc2026/03.jpg, 2026-10-ictc2026/04.jpg, 2026-10-ictc2026/05.jpg, 2026-10-ictc2026/06.jpg, 2026-10-ictc2026/07.jpg, 2026-10-ictc2026/09.jpg, 2026-10-ictc2026/10.jpg, 2026-10-ictc2026/11.jpg, 2026-10-ictc2026/12.jpg, 2026-10-ictc2026/13.jpg], caption: "We attended KICS ICTC 2026 in Jeju and presented our work", date: "Oct. 2026" }
 - { image: 2026-08-outing/01.jpg, caption: "We had a team outing", date: "Aug. 2026" }
 - { image: 2026-06-kics/01.jpg, caption: "We attended the KICS conference", date: "June 2026" }
 - { image: 2026-05-new-lab/01.jpg, caption: "We had lunch at our new lab after moving in", date: "May 2026" }
