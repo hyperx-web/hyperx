@@ -64,8 +64,17 @@ permalink: /lectures/exam-timer/
   .banned .x { position: absolute; inset: 0; width: 100%; height: 100%; }
   .banned .x path { stroke: #ef4444; stroke-width: 9; stroke-linecap: round; fill: none; vector-effect: non-scaling-stroke; stroke-width: 12px; opacity: .9; }
   .right { position: relative; }
-  .ta-btn { position: absolute; right: 22px; bottom: 18px; font-size: 1.15rem; font-weight: 800; padding: .7em 1.4em;
+  .panel-btns { position: absolute; right: 22px; bottom: 18px; display: flex; gap: 10px; }
+  .ta-btn { font-size: 1.15rem; font-weight: 800; padding: .7em 1.4em;
             color: #0b1220; background: var(--accent); border: 0; box-shadow: 0 6px 20px rgba(76,201,240,.25); }
+  .ta-btn.alt { background: #fbbf24; box-shadow: 0 6px 20px rgba(251,191,36,.25); }
+  .ta-btn.alt:hover:not(:disabled) { background: #fcd34d; }
+  .notice { margin: 4px 0 22px; padding: 14px 18px; border: 2px solid rgba(251,191,36,.6); border-radius: 14px; background: rgba(251,191,36,.08); }
+  .notice h3 { margin: 0 0 8px; font-size: clamp(1.1rem, 1.8vw, 1.5rem); color: #fbbf24; }
+  .notice p { margin: 0; white-space: pre-wrap; font-size: clamp(1.1rem, 1.9vw, 1.6rem); line-height: 1.45; }
+  #noticeText { width: 100%; min-height: 220px; font: inherit; font-size: 1.2rem; line-height: 1.5; padding: .7em .8em; border-radius: 10px;
+                background: #0b1220; color: var(--fg, #e8ecf6); border: 1px solid var(--line); resize: vertical; }
+  .notice-actions { display: flex; gap: 10px; margin-top: 12px; }
   .ta-btn:hover:not(:disabled) { background: #7dd8f5; }
   ol.ta li b { color: var(--accent); }
   .credit { margin: 8px 0 0; font-size: .7rem; color: #5b6478; }
@@ -146,6 +155,7 @@ permalink: /lectures/exam-timer/
       <li>휴대폰은 <b>전원을 종료</b>해서 가방에 넣으세요. (시험 중 휴대폰 소리가 나면 <b>부정행위로 간주</b>)</li>
       <li><b>스마트 글래스</b>를 포함한 <b>모든 전자기기(계산기 등) 사용 금지</b></li>
     </ol>
+    <div class="notice" id="noticeBox" hidden><h3>공지사항</h3><p id="noticeShow"></p></div>
     <div class="banned">
       <figure>
         <div class="ph"><img src="{{ '/assets/img/exam/smart-glasses.jpg' | relative_url }}" alt="스마트 글래스"><svg class="x" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M12 12 L88 88 M88 12 L12 88"/></svg></div>
@@ -166,7 +176,18 @@ permalink: /lectures/exam-timer/
         <li>시험 종료 후 <b>개수 확인</b></li>
       </ol>
     </div>
-    <button id="taBtn" class="ta-btn" type="button">조교 확인사항</button>
+    <div id="noticeView" hidden>
+      <h2>공지사항 입력</h2>
+      <textarea id="noticeText" placeholder="예) 3번 문제 (b)의 조건은 x &gt; 0 입니다."></textarea>
+      <div class="notice-actions">
+        <button id="noticeSave" class="primary" type="button">저장하고 표시</button>
+        <button id="noticeClear" type="button">공지 지우기</button>
+      </div>
+    </div>
+    <div class="panel-btns">
+      <button id="noticeBtn" class="ta-btn alt" type="button">공지사항 입력</button>
+      <button id="taBtn" class="ta-btn" type="button">조교 확인사항</button>
+    </div>
   </section>
 </main>
 <script>
@@ -335,14 +356,36 @@ permalink: /lectures/exam-timer/
 })();
 </script>
 <script>
-// TA checklist: inconspicuous button swaps the rules panel with the TA checklist
+// Right panel: rules (default) <-> TA checklist <-> notice editor. A saved notice is shown under the exam rules.
 (function () {
-  var btn = document.getElementById("taBtn"), rules = document.getElementById("rulesView"), ta = document.getElementById("taView");
-  btn.addEventListener("click", function () {
-    var show = ta.hidden;
-    ta.hidden = !show; rules.hidden = show;
-    btn.textContent = show ? "← 시험 주의사항" : "조교 확인사항";
+  var $ = function (id) { return document.getElementById(id); };
+  var views = { rules: $("rulesView"), ta: $("taView"), notice: $("noticeView") };
+  var taBtn = $("taBtn"), noBtn = $("noticeBtn"), KEY = "hyperx-exam-notice";
+  function show(name) {
+    Object.keys(views).forEach(function (k) { views[k].hidden = k !== name; });
+    taBtn.textContent = name === "ta" ? "← 시험 주의사항" : "조교 확인사항";
+    noBtn.textContent = name === "notice" ? "← 시험 주의사항" : "공지사항 입력";
+  }
+  function render() {
+    var t = "";
+    try { t = localStorage.getItem(KEY) || ""; } catch (e) {}
+    $("noticeShow").textContent = t;
+    $("noticeBox").hidden = !t.trim();
+    $("noticeText").value = t;
+  }
+  taBtn.addEventListener("click", function () { show(views.ta.hidden ? "ta" : "rules"); });
+  noBtn.addEventListener("click", function () {
+    if (views.notice.hidden) { render(); show("notice"); $("noticeText").focus(); } else show("rules");
   });
+  $("noticeSave").addEventListener("click", function () {
+    try { localStorage.setItem(KEY, $("noticeText").value); } catch (e) {}
+    render(); show("rules");
+  });
+  $("noticeClear").addEventListener("click", function () {
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    render(); show("rules");
+  });
+  render();
 })();
 </script>
 </body>
