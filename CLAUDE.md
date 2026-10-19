@@ -42,6 +42,7 @@ Always answer the user in Korean.
   - Professor row shows profile + link, no publication list.
 
 ## Lectures
+- `/recruit/` (recruit.html) = undergraduate research student notice; linked from the home "Position Available" card ("모집 공고 자세히 보기"). Update the term/text there when recruiting changes.
 - `/lectures/exam-timer/` = standalone exam timer (layout: null, dark site theme, projector-friendly): duration input, start/pause/reset,
   start & end clock times, 10/5-min warnings, beep + red flash at the end, exam rules list with photos,
   TA checklist ("조교 확인사항" button bottom-right of the rules panel swaps rules ↔ checklist; items hidden until clicked), "공지사항 입력" button next to it opens a notice editor; the saved notice (localStorage hyperx-exam-notice) is shown at the top in the same style as the rules (heading + divider line),

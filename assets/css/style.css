@@ -434,3 +434,15 @@ mark { background: rgba(76,201,240,.3); color: #fff; border-radius: 3px; }
 .constellation-wrap.zoomed { position: fixed; z-index: 201; top: 50%; left: 50%; transform: translate(-50%, -50%); width: min(92vw, 88vh); cursor: zoom-out; }
 .constellation-wrap.zoomed:has(.threebody), .constellation-wrap.zoomed:has(.efbeam) { width: min(94vw, 117vh); }
 .canvas-backdrop { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,.88); cursor: zoom-out; }
+/* recruiting notice page */
+.recruit-card { max-width: 860px; margin: 0 auto; padding: 36px 40px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); line-height: 1.75; }
+.recruit-card h2 { margin: 0 0 12px; font-size: clamp(1.35rem, 2.4vw, 1.8rem); }
+.recruit-card h3 { margin: 28px 0 8px; font-size: 1.12rem; color: var(--accent); letter-spacing: 0; }
+.recruit-card ul { margin: 0; padding-left: 1.2em; }
+.recruit-card li { margin: 4px 0; }
+.recruit-tags { display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 18px; }
+.recruit-tags span { font-size: .85rem; padding: 3px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface-2); }
+.recruit-end { margin-top: 28px; font-weight: 600; }
+.recruit-cta { margin-top: 18px; }
+.join-action .join-link { display: block; margin-top: 10px; }
+@media (max-width: 600px) { .recruit-card { padding: 24px 20px; } }
