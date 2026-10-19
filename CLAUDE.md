@@ -8,7 +8,7 @@ Always answer the user in Korean.
 - Content lives in `_data/*.yml`; pages only render it. Edit data, not templates, for content changes.
 - Local preview: no Ruby on this PC. `python -I tools/preview.py . <out>/_site` (python-liquid + pyyaml),
   then serve `<out>/_site` with `python -m http.server 8765`.
-- After every change: rebuild preview, `git commit` (with the Co-Authored-By line), `git push origin main`.
+- After every change: rebuild preview, show it in the local browser, then always `git commit` (with the Co-Authored-By line) and `git push origin main` right away (user: "항상 커밋" — do not wait for approval).
   Push uses the `hyperx-web` account via remote `https://hyperx-web@github.com/hyperx-web/hyperx.git`
   (do not switch the global credential; `dhjung-debug` has no access).
 - Pages build takes ~1 min. CSS/JS are cache-busted with `?v={{ site.time }}`.

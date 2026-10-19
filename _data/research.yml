@@ -1,6 +1,6 @@
 # 연구 분야 — keywords: 논문 제목에 이 단어(소문자)가 있으면 관련 논문으로 자동 표시
 - id: ai
-  title: AI Applications for Communications
+  title: AI for Wireless Communications
   image: ai-model.svg
   images:   # 여러 그림 (있으면 image 대신 사용)
     # (hidden, kept) - { file: ai-concept-anim.svg, caption: "Beamspace transport + neural rebalancing warm start" }

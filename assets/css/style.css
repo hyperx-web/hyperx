@@ -98,6 +98,7 @@ p { margin: 0 0 .8em; }
 .brand { display: flex; align-items: center; gap: .6rem; }
 .brand img { height: 34px; width: auto; }
 .brand-sub { color: var(--muted); font-family: var(--display); font-size: 1.05rem; font-weight: 600; }
+.brand-sub .at { position: relative; top: -.09em; }   /* "@" sits low (x-height centred) next to the caps of SSU */
 .site-nav { display: flex; gap: .3rem; }
 .site-nav a {
   color: var(--muted); font-size: .92rem; font-weight: 500; padding: .45em .9em; border-radius: 99px; transition: all .2s;
