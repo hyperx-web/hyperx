@@ -402,11 +402,12 @@ mark { background: rgba(76,201,240,.3); color: #fff; border-radius: 3px; }
 
 /* LEO constellation animation */
 .constellation-wrap { border-radius: 12px; overflow: hidden; background: #fff; padding: 10px; }
-.constellation { display: block; width: 100%; aspect-ratio: 1 / 1; }
+.constellation { display: block; width: 100%; aspect-ratio: 6 / 5; }
 .constellation-cap { margin: 0; padding: 8px 4px 0; font-size: .8rem; color: #555; border-top: 1px solid #e5e7eb; }
 .research-fig { margin: 0 0 16px; }
 .research-fig figcaption { font-size: .85rem; font-weight: 700; color: #c9d3ee; text-align: center; margin-top: 8px; }
-.threebody { display: block; width: 100%; aspect-ratio: 4 / 3; }
+.threebody { display: block; width: 100%; aspect-ratio: 3 / 2; }
+.efbeam { display: block; width: 100%; aspect-ratio: 4 / 3; }
 
 .research-fig img { cursor: zoom-in; }
 .fig-lightbox { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,.88); display: flex; align-items: center; justify-content: center; padding: 3vw; cursor: zoom-out; }
@@ -422,3 +423,7 @@ mark { background: rgba(76,201,240,.3); color: #fff; border-radius: 3px; }
 .lecture-extra { margin: 1.6rem 0 0; text-align: right; font-size: .85rem; }
 .lecture-extra a { color: var(--muted); border: 1px solid var(--border); border-radius: 99px; padding: .35em .9em; }
 .lecture-extra a:hover { color: #fff; border-color: rgba(76,201,240,.4); }
+.constellation-wrap { cursor: zoom-in; }
+.constellation-wrap.zoomed { position: fixed; z-index: 201; top: 50%; left: 50%; transform: translate(-50%, -50%); width: min(92vw, 88vh); cursor: zoom-out; }
+.constellation-wrap.zoomed:has(.threebody), .constellation-wrap.zoomed:has(.efbeam) { width: min(94vw, 117vh); }
+.canvas-backdrop { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,.88); cursor: zoom-out; }

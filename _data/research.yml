@@ -3,8 +3,10 @@
   title: AI Applications for Communications
   image: ai-model.svg
   images:   # 여러 그림 (있으면 image 대신 사용)
-    - { file: ai-concept-anim.svg, caption: "Beamspace transport + neural rebalancing warm start" }
-    - { file: ai-network-anim.svg, caption: "Permutation-equivariant rebalancing network" }
+    # (hidden, kept) - { file: ai-concept-anim.svg, caption: "Beamspace transport + neural rebalancing warm start" }
+    # (hidden, kept) - { file: ai-network-anim.svg, caption: "Permutation-equivariant rebalancing network" }
+    - { file: ai-rlbf-anim.svg, caption: "Reinforcement learning-based beamformer designs" }
+    - { file: ai-btnws-anim.svg, caption: "Neural warm start for sequential rate matching (BT-NWS-GPI)" }
     - { file: ai-agent-anim.svg, caption: "Solver agent for demand-surge adaptation (Act–Observe–Decide)" }
   summary: Applying various machine learning models for intelligent communication systems.
   topics:
@@ -17,7 +19,7 @@
   title: 6G Technologies
   image: 6g-model.svg
   images:
-    - { file: 6g-rsma-anim.svg, caption: "RSMA system model" }
+    - { file: 6g-rsma-anim.svg, caption: "RSMA system for unicast and multicast" }
     - { file: 6g-afdm-anim.svg, caption: "AFDM transceiver with delay–Doppler sensing" }
   summary: Investigating ultra-low latency, high-speed communication protocols for next-gen connectivity.
   topics:

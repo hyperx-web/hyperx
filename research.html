@@ -17,7 +17,8 @@ lead: "Our lab explores cutting-edge innovations in future communication systems
       <div class="research-area-img">
         {% if r.animation == "constellation" %}
         <figure class="research-fig"><div class="constellation-wrap"><canvas class="constellation" aria-label="Animated LEO mega-constellation (Walker-delta, 53° inclination)"></canvas></div><figcaption>Walker-delta LEO constellation · <i>i</i> = 53° · 24 planes × 22 satellites</figcaption></figure>
-        <figure class="research-fig"><div class="constellation-wrap"><canvas class="threebody" data-src="{{ '/assets/js/threebody.json' | relative_url }}" aria-label="Spacecraft trajectory in the Earth–Moon circular restricted three-body problem"></canvas></div><figcaption>Earth–Moon circular restricted three-body problem · Arenstorf periodic orbit (rotating frame) · <i>L</i><sub>1</sub>–<i>L</i><sub>5</sub></figcaption></figure>
+        <figure class="research-fig"><div class="constellation-wrap"><canvas class="efbeam" aria-label="Earth-fixed beams: 19 hexagonal cells steered as a LEO satellite passes overhead"></canvas></div><figcaption>Satellite beam distortion on the Earth's surface</figcaption></figure>
+        <figure class="research-fig"><div class="constellation-wrap"><canvas class="threebody" data-src="{{ '/assets/js/threebody.json' | relative_url }}" aria-label="Spacecraft trajectory in the Earth–Moon circular restricted three-body problem"></canvas></div><figcaption>Earth–Moon circular restricted three-body problem</figcaption></figure>
         {% elsif r.images %}
           {% for im in r.images %}
           <figure class="research-fig"><img src="{{ '/assets/img/research/' | append: im.file | relative_url }}?v={{ site.time | date: '%s' }}" alt="{{ im.caption }}" loading="lazy"><figcaption>{{ im.caption }}</figcaption></figure>

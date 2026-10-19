@@ -55,6 +55,10 @@ Always answer the user in Korean.
   stacked inputs of the same kind share one colour; dashed strokes = group boxes/control arrows, not signals). New block diagrams: draw in TikZ with the RSMA palette
   (`tools/figures/fig_afdm.tex`, `fig_rsma.tex` are the sources; both show multi-antenna Tx/Rx, panels
   labelled Transmitter / Receiver), compile with pdflatex, then animate. Edit .tex with the Edit tool (shell drops `\`).
+- AI figures (order: RL beamformer → BT-NWS-GPI → Solver agent; ai-concept/ai-network are hidden via `# (hidden, kept)` in research.yml):
+  `tools/figures/make_rlbf_anim.py` (PD-SAC agent diagram + beam-gain maps from the TWC sim code, read-only import),
+  `make_btnws_anim.py` (pipeline + embedded ai-network-anim.svg), `make_agent_anim.py`. Text in Arial, math via LaTeX
+  (`tools/figures/svgtex.py`, latex + dvisvgm, baseline-aligned). `ai-rlbf-2config-anim.svg` = saved older version (unused).
 - Satellite area: Walker-delta constellation canvas (no ISLs, 15° grid; Earth-fixed UE near the equator, starts at the left limb and
   rotates with the Earth; animation restarts when the UE goes behind the Earth; no rim on the globe): nearest visible satellite red + red link, 2nd–5th nearest grey dashed links) + Earth–Moon CR3BP Arenstorf orbit
   (`assets/js/threebody.json`, precomputed with scipy). Both on white.

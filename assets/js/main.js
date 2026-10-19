@@ -162,7 +162,7 @@
     function size() {
       w = cv.clientWidth; h = cv.clientHeight;
       cv.width = w * dpr; cv.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      R = Math.min(w, h) * 0.34; cx = w / 2; cy = h / 2;
+      R = Math.min(w * 0.34, h * 0.38); cx = w / 2; cy = h / 2;
     }
     // rotate around y (spin) then x (tilt), orthographic projection
     function proj(x, y, z, spin) {
@@ -230,6 +230,15 @@
         vis.push({ p: p, k: k, dist: Math.hypot(d[0], d[1], d[2]) });
       }
       vis.sort(function (a, b) { return a.dist - b.dist; });
+      // legend (bottom-left), scales with the canvas
+      var f = Math.max(11, w / 38), lx = f, ly = h - 2.6 * f;
+      ctx.font = "500 " + f + "px Inter, sans-serif"; ctx.textBaseline = "middle";
+      ctx.fillStyle = "#e03131"; ctx.beginPath(); ctx.arc(lx + f * .35, ly, f * .36, 0, 7); ctx.fill();
+      ctx.fillStyle = "#333"; ctx.fillText("Connected", lx + f * 1.2, ly);
+      ctx.fillStyle = "#ffd43b"; ctx.beginPath(); ctx.arc(lx + f * .35, ly + f * 1.5, f * .32, 0, 7); ctx.fill();
+      ctx.strokeStyle = "#a07800"; ctx.lineWidth = 1; ctx.stroke();
+      ctx.fillStyle = "#333"; ctx.fillText("Candidates", lx + f * 1.2, ly + f * 1.5);
+      ctx.textBaseline = "alphabetic";
       var u = proj(ut[0], ut[1], ut[2], spin);
       if (u[2] < 0) return false;                 // UE is on the far side of the Earth
       ctx.lineCap = "round";
@@ -239,7 +248,8 @@
         ctx.strokeStyle = "rgba(60,60,60,.32)"; ctx.lineWidth = 1; ctx.setLineDash([3, 3]);
         ctx.beginPath(); ctx.moveTo(u[0], u[1]); ctx.lineTo(s[0], s[1]); ctx.stroke();
         ctx.setLineDash([]);
-        ctx.fillStyle = "rgba(90,90,90,.85)"; ctx.beginPath(); ctx.arc(s[0], s[1], 2.4, 0, 7); ctx.fill();
+        ctx.fillStyle = "#ffd43b"; ctx.beginPath(); ctx.arc(s[0], s[1], 3.4, 0, 7); ctx.fill();   // candidate satellites: yellow
+        ctx.strokeStyle = "#a07800"; ctx.lineWidth = 1; ctx.stroke();
       }
       // serving satellite: red
       if (vis.length) {
@@ -297,7 +307,7 @@
       function size() {
         w = cv.clientWidth; h = cv.clientHeight;
         cv.width = w * dpr; cv.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        sc = Math.min(w / 3.0, h / 2.7); ox = w / 2 - 0.05 * sc; oy = h / 2;
+        sc = Math.min(w / 3.0, h / 2.35); ox = w / 2 - 0.05 * sc; oy = h / 2;
       }
       function X(p) { return ox + p[0] * sc; }
       function Y(p) { return oy - p[1] * sc; }
@@ -404,5 +414,158 @@
       }
       node.nodeValue = keep + t.replace(ownDagger ? /[*]/g : /[*†]/g, "");
     });
+  });
+})();
+
+// research canvases (constellation, three-body): click to enlarge the live animation
+(function () {
+  document.querySelectorAll(".research-fig .constellation-wrap").forEach(function (wrap) {
+    var holder = null, back = null;
+    function close() {
+      wrap.classList.remove("zoomed");
+      if (back) back.remove();
+      if (holder) holder.replaceWith(wrap);
+      back = holder = null;
+      window.dispatchEvent(new Event("resize"));
+    }
+    wrap.addEventListener("click", function () {
+      if (wrap.classList.contains("zoomed")) return close();
+      holder = document.createElement("div");
+      holder.style.height = wrap.offsetHeight + "px";
+      wrap.parentNode.insertBefore(holder, wrap);
+      document.body.appendChild(wrap);            // escape transformed ancestors so position:fixed is viewport-relative
+      back = document.createElement("div");
+      back.className = "canvas-backdrop";
+      back.addEventListener("click", close);
+      document.body.appendChild(back);
+      wrap.classList.add("zoomed");
+      window.dispatchEvent(new Event("resize"));
+    });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && wrap.classList.contains("zoomed")) close(); });
+  });
+})();
+
+// Earth-fixed beams (top-down view): 19 beams form a hexagonal lattice in the satellite's UV plane (u = sinθ cosφ, v = sinθ sinφ).
+// The lattice is steered so the centre beam stays on a fixed ground point on the ground track; on the ground the cells stretch as the satellite moves away.
+(function () {
+  var cvs = document.querySelectorAll("canvas.efbeam");
+  if (!cvs.length) return;
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var beams = [];
+  for (var q = -2; q <= 2; q++) for (var r = -2; r <= 2; r++) {
+    if (Math.abs(q + r) > 2) continue;
+    beams.push({ du: Math.sqrt(3) * (q + r / 2), dv: 1.5 * r, c: ((q - r) % 3 + 3) % 3, ring: Math.max(Math.abs(q), Math.abs(r), Math.abs(q + r)) });
+  }
+  var COL = [[76, 110, 245], [250, 82, 82], [18, 184, 134]];
+  var H = 10, L = 7.5, RHO = 0.084, PERIOD = 8000;
+  cvs.forEach(function (cv) {
+    var ctx = cv.getContext("2d"), dpr = Math.min(Math.max((window.devicePixelRatio || 1) * 1.5, 2), 3);
+    var w, h, s, cx, cy, t0 = performance.now();
+    function size() {
+      w = cv.clientWidth; h = cv.clientHeight;
+      cv.width = w * dpr; cv.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      s = Math.min(w / 19, h / 13); cx = w / 2; cy = h * 0.54;
+    }
+    function P(x, y) { return [cx + s * x, cy - s * y]; }
+    function ground(S, u, v) {
+      var n = Math.sqrt(Math.max(1e-4, 1 - u * u - v * v));
+      return [S[0] + H * u / n, S[1] + H * v / n];
+    }
+    function poly(v) { ctx.beginPath(); v.forEach(function (p, i) { i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); }); ctx.closePath(); }
+    function drawSat(X, Y, k) {
+      ctx.save(); ctx.translate(X, Y);
+      ctx.shadowColor = "rgba(0,0,0,.25)"; ctx.shadowBlur = k * 0.5; ctx.shadowOffsetY = k * 0.25;
+      var pw = k * 1.5, ph = k * 0.62;
+      [-1, 1].forEach(function (sg) {
+        var x0 = sg < 0 ? -k * 0.55 - pw : k * 0.55;
+        var g = ctx.createLinearGradient(x0, -ph / 2, x0 + pw, ph / 2);
+        g.addColorStop(0, "#1c3d8f"); g.addColorStop(1, "#3b6fd8");
+        ctx.fillStyle = g; ctx.fillRect(x0, -ph / 2, pw, ph);
+      });
+      ctx.shadowColor = "transparent";
+      [-1, 1].forEach(function (sg) {
+        var x0 = sg < 0 ? -k * 0.55 - pw : k * 0.55;
+        ctx.strokeStyle = "rgba(190,210,255,.8)"; ctx.lineWidth = 0.7;
+        for (var j = 1; j < 6; j++) { ctx.beginPath(); ctx.moveTo(x0 + pw * j / 6, -ph / 2); ctx.lineTo(x0 + pw * j / 6, ph / 2); ctx.stroke(); }
+        for (var j2 = 1; j2 < 3; j2++) { ctx.beginPath(); ctx.moveTo(x0, -ph / 2 + ph * j2 / 3); ctx.lineTo(x0 + pw, -ph / 2 + ph * j2 / 3); ctx.stroke(); }
+        ctx.strokeStyle = "#0f2560"; ctx.lineWidth = 1; ctx.strokeRect(x0, -ph / 2, pw, ph);
+        ctx.strokeStyle = "#6b7280"; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(sg * k * 0.4, 0); ctx.lineTo(sg * k * 0.55, 0); ctx.stroke();
+      });
+      var g2 = ctx.createLinearGradient(-k * 0.4, -k * 0.4, k * 0.4, k * 0.4);
+      g2.addColorStop(0, "#f8f9fa"); g2.addColorStop(1, "#adb5bd");
+      ctx.fillStyle = g2; ctx.strokeStyle = "#495057"; ctx.lineWidth = 1.2;
+      ctx.beginPath(); ctx.rect(-k * 0.4, -k * 0.4, k * 0.8, k * 0.8); ctx.fill(); ctx.stroke();
+      ctx.restore();
+    }
+    function frame(now) {
+      var ph = reduce ? 0.5 : (Math.max(0, now - t0) % PERIOD) / PERIOD;
+      var Sg = [-L + 2 * L * ph, 0];                          // sub-satellite point moves along the track through the centre beam
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, w, h);
+      var dx = -Sg[0], dy = -Sg[1], R = Math.hypot(dx, dy, H), u0 = dx / R, v0 = dy / R;
+      var foot = beams.map(function (b) {
+        var uc = u0 + RHO * b.du, vc = v0 + RHO * b.dv, v = [];
+        for (var i = 0; i < 24; i++) {                  // densely sampled edges so the stretched cells look smooth
+          var e = Math.floor(i / 4), f = (i % 4) / 4;
+          var a0 = Math.PI / 3 * e + Math.PI / 6, a1 = a0 + Math.PI / 3;
+          var pu = (1 - f) * Math.cos(a0) + f * Math.cos(a1), pv = (1 - f) * Math.sin(a0) + f * Math.sin(a1);
+          var g = ground(Sg, uc + RHO * pu, vc + RHO * pv);
+          v.push(P(g[0], g[1]));
+        }
+        var gc = ground(Sg, uc, vc);
+        return { b: b, v: v, c: P(gc[0], gc[1]) };
+      });
+      // ground track (travelled part solid)
+      var t1 = P(-12, 0), t2 = P(12, 0), Sp = P(Sg[0], Sg[1]);
+      ctx.strokeStyle = "rgba(73,80,87,.35)"; ctx.lineWidth = 1.5; ctx.setLineDash([7, 6]);
+      ctx.beginPath(); ctx.moveTo(t1[0], t1[1]); ctx.lineTo(t2[0], t2[1]); ctx.stroke(); ctx.setLineDash([]);
+      ctx.strokeStyle = "rgba(73,80,87,.75)"; ctx.lineWidth = 2.2;
+      ctx.beginPath(); ctx.moveTo(t1[0], t1[1]); ctx.lineTo(Sp[0], Sp[1]); ctx.stroke();
+      // cells
+      foot.forEach(function (f) {
+        var col = COL[f.b.c];
+        var g = ctx.createRadialGradient(f.c[0], f.c[1], 0, f.c[0], f.c[1], s * 1.6);
+        g.addColorStop(0, "rgba(" + col + ",.55)"); g.addColorStop(1, "rgba(" + col + ",.12)");
+        poly(f.v); ctx.fillStyle = g; ctx.fill();
+        ctx.strokeStyle = "#111"; ctx.lineWidth = 1; ctx.stroke();
+      });
+      // satellite -> beam centres
+      foot.forEach(function (f) {
+        ctx.strokeStyle = f.b.ring ? "rgba(33,37,41,.18)" : "rgba(224,49,49,.85)"; ctx.lineWidth = f.b.ring ? 0.8 : 2;
+        ctx.beginPath(); ctx.moveTo(Sp[0], Sp[1]); ctx.lineTo(f.c[0], f.c[1]); ctx.stroke();
+      });
+      foot.forEach(function (f) {
+        if (!f.b.ring) {
+          var pulse = 1 + 0.35 * Math.sin(now / 250);
+          ctx.strokeStyle = "rgba(224,49,49,.5)"; ctx.lineWidth = 1.5;
+          ctx.beginPath(); ctx.arc(f.c[0], f.c[1], s * 0.35 * pulse, 0, 7); ctx.stroke();
+          ctx.fillStyle = "#e03131"; ctx.beginPath(); ctx.arc(f.c[0], f.c[1], s * 0.16, 0, 7); ctx.fill();
+          ctx.strokeStyle = "#fff"; ctx.lineWidth = 1.5; ctx.stroke();
+        } else {
+          ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.arc(f.c[0], f.c[1], s * 0.09, 0, 7); ctx.fill();
+          ctx.strokeStyle = "#343a40"; ctx.lineWidth = 1.2; ctx.stroke();
+        }
+      });
+      drawSat(Sp[0], Sp[1], s * 0.85);
+      var th = Math.acos(H / R) * 180 / Math.PI, f = Math.max(11, w / 42);
+      ctx.font = "700 " + (f * 1.1) + "px Inter, sans-serif"; ctx.fillStyle = "#212529";
+      ctx.fillText("Off-nadir steering  " + th.toFixed(0) + "°", f, f * 1.7);
+      // elevation of the satellite seen from the centre-beam point (spherical Earth; H = 600 km -> R_E = 6371 km in scene units)
+      var RE = H * 6371 / 600, el = Math.acos(Math.min(1, (RE + H) / RE * Math.sin(th * Math.PI / 180))) * 180 / Math.PI;
+      ctx.fillText("Centre-beam elevation  " + el.toFixed(0) + "°", f, f * 3.1);
+      ctx.font = "500 " + (f * 0.85) + "px Inter, sans-serif"; ctx.fillStyle = "#495057";
+      ctx.fillText("Hexagonal in the UV plane → stretched on the ground", f, f * 4.4);
+      var ly = h - f * 1.1;
+      ctx.fillStyle = "#e03131"; ctx.beginPath(); ctx.arc(f * 1.3, ly - f * 0.3, f * 0.3, 0, 7); ctx.fill();
+      ctx.fillStyle = "#212529"; ctx.fillText("Earth-fixed centre beam", f * 2, ly);
+      ctx.fillStyle = "#fff"; ctx.strokeStyle = "#343a40"; ctx.lineWidth = 1.2;
+      ctx.beginPath(); ctx.arc(f * 13.6, ly - f * 0.3, f * 0.22, 0, 7); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = "#212529"; ctx.fillText("Beam centres", f * 14.2, ly);
+      ctx.strokeStyle = "rgba(73,80,87,.75)"; ctx.lineWidth = 2.2; ctx.beginPath(); ctx.moveTo(f * 21, ly - f * 0.3); ctx.lineTo(f * 22.6, ly - f * 0.3); ctx.stroke();
+      ctx.fillStyle = "#212529"; ctx.fillText("Ground track", f * 23, ly);
+      requestAnimationFrame(frame);
+    }
+    size(); window.addEventListener("resize", size);
+    requestAnimationFrame(frame);
   });
 })();
