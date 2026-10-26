@@ -1,7 +1,7 @@
 # HyperX Lab website — working rules
 
-Jekyll site published with GitHub Pages: https://hyperx-web.github.io/hyperx/
-(repo `hyperx-web/hyperx`, branch `main`; `baseurl: "/hyperx"`).
+Jekyll site published with GitHub Pages at the school domain https://hyperx.ssu.ac.kr
+(repo `hyperx-web/hyperx`, branch `main`; `CNAME` file = hyperx.ssu.ac.kr, `baseurl: ""`; the old hyperx-web.github.io/hyperx/ redirects).
 Always answer the user in Korean.
 
 ## Workflow
@@ -71,7 +71,6 @@ Always answer the user in Korean.
   `_data/gallery.yml` image = `YYYY-MM-event/01.jpg`.
 - Avoid flashy hover effects on images; don't crop photos (members 7:10, research square, gallery natural ratio).
 
-## School domain (pending)
-- Requested domain: `hyperx.ssu.ac.kr` (forms in `../domain/`), DNS: CNAME → `hyperx-web.github.io`.
-- When it is issued: add `CNAME` file (`hyperx.ssu.ac.kr`), set `baseurl: ""` and `url: "https://hyperx.ssu.ac.kr"`,
-  set the custom domain in repo Settings → Pages, and turn ON **Enforce HTTPS** once the certificate is issued (user decided).
+## School domain (live since 2026-10-26)
+- `hyperx.ssu.ac.kr`, DNS CNAME → `hyperx-web.github.io`; `CNAME` file in the repo; `baseurl: ""`, `url: "https://hyperx.ssu.ac.kr"`.
+- Keep **Enforce HTTPS** ON in repo Settings → Pages (user decided). Do not delete the `CNAME` file.
