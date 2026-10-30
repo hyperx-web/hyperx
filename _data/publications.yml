@@ -110,7 +110,7 @@
       venue: "International Conference on Information and Communication Technology Convergence (ICTC), Oct. 2026"
       research: ai   # AI 분야 추천 논문 (space data center)
     - authors: "J.-S. Lee and D.-H. Jung"
-      title: "Closed-form analysis of satellite visibility for LEO walker constellations"
+      title: "Closed-form analysis of satellite visibility for LEO Walker constellations"
       venue: "International Conference on Information and Communication Technology Convergence (ICTC), Oct. 2026"
     - authors: "T. H. Yoon, D.-H. Jung, and C. G. Kang"
       title: "A resource allocation framework for cell association and beam hopping with hybrid beamforming in dense multi-satellite LEO systems"
