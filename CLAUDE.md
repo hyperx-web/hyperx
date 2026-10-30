@@ -16,6 +16,7 @@ Always answer the user in Korean.
 - Shell heredocs/sed can drop backslashes: write regexes as JS regex literals and verify LaTeX `\\` after edits.
 
 ## Publications (`_data/publications.yml`)
+- Any paper change/addition must be reflected on all three: Publications (`publications.yml`), home News (`news.yml`, if the paper appears there) and Members achievements; check each page after the edit (user rule).
 - Groups: `Submitted / In Preparation`, `Published`, `Domestic Journals`, `International Conferences`,
   `Domestic Conferences`, `US Granted Patents`, `US Filed Patents`. Newest first inside each group.
 - Venue text: submitted → `submitted to <Journal>, <Mon. YYYY>`; accepted → `accepted to …`; in prep → `in preparation`.
