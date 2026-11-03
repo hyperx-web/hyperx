@@ -167,8 +167,7 @@ button:focus-visible,.chipbtn:focus-visible,.toggle input:focus-visible{outline:
       </div>
     </div>
     <div class="scroll"><div class="det-bars"><div class="mat" id="inMat"></div></div></div>
-    <p class="hint">정수, 소수, 분수(예: <kbd>3/4</kbd>, <kbd>-0.5</kbd>)를 입력할 수 있습니다. 빈 칸은 0으로 계산합니다. <kbd>Tab</kbd>으로 다음 칸 이동.</p>
-    <button class="chipbtn" id="go" style="justify-self:start;background:var(--accent);color:#fff;border-color:var(--accent);padding:9px 20px;font-size:14px">행렬식 계산</button>
+    <p class="hint">정수, 소수, 분수(예: <kbd>3/4</kbd>, <kbd>-0.5</kbd>)를 입력할 수 있습니다. 모든 칸을 채우면 자동으로 계산됩니다. <kbd>Tab</kbd>으로 다음 칸 이동.</p>
   </section>
 
   <section class="panel">
@@ -242,15 +241,15 @@ button:focus-visible,.chipbtn:focus-visible,.toggle input:focus-visible{outline:
       var inp = el("input", "cell-in"); inp.type = "text"; inp.inputMode = "decimal";
       inp.setAttribute("aria-label", "a" + (i + 1) + (j + 1));
       inp.value = old[i] && old[i][j] !== undefined ? old[i][j] : "";
-      (function (i, j, inp) { inp.addEventListener("input", function () { vals[i][j] = inp.value; inp.classList.toggle("err", parse(inp.value) === null); }); })(i, j, inp);
+      (function (i, j, inp) { inp.addEventListener("input", function () { vals[i][j] = inp.value; inp.classList.toggle("err", parse(inp.value) === null); auto(); }); })(i, j, inp);
       vals[i].push(inp.value); inMat.appendChild(inp);
     } }
   }
   function setMatrix(rows) { n = rows.length; vals = rows.map(function (r) { return r.map(String); }); build(); compute(); }
-  document.getElementById("dn").onclick = function () { if (n > 1) { n--; build(); } };
-  document.getElementById("up").onclick = function () { if (n < 8) { n++; build(); } };
+  document.getElementById("dn").onclick = function () { if (n > 1) { n--; build(); auto(); } };
+  document.getElementById("up").onclick = function () { if (n < 8) { n++; build(); auto(); } };
   document.querySelectorAll("[data-m]").forEach(function (bt) { bt.onclick = function () {
-    method = bt.dataset.m; document.querySelectorAll("[data-m]").forEach(function (x) { x.setAttribute("aria-pressed", x === bt); }); compute(); }; });
+    method = bt.dataset.m; document.querySelectorAll("[data-m]").forEach(function (x) { x.setAttribute("aria-pressed", x === bt); }); auto(); }; });
   var presets = {
     ex3: [[2, -3, 1], [2, 0, -1], [1, 4, 5]],
     ex4: [[1, 0, 2, -1], [3, 0, 0, 5], [2, 1, 4, -3], [1, 0, 5, 0]],
@@ -259,9 +258,8 @@ button:focus-visible,.chipbtn:focus-visible,.toggle input:focus-visible{outline:
   };
   document.querySelectorAll("[data-preset]").forEach(function (bt) { bt.onclick = function () {
     var p = presets[bt.dataset.preset];
-    if (!p) { vals = vals.map(function (r) { return r.map(function () { return ""; }); }); build(); clearOut(); return; }
+    if (!p) { vals = vals.map(function (r) { return r.map(function () { return ""; }); }); build(); auto(); return; }
     setMatrix(p); }; });
-  document.getElementById("go").onclick = compute;
 
   var res = document.getElementById("result"), steps = document.getElementById("steps");
   function clearOut() { [res, steps].forEach(function (e) { while (e.firstChild) e.removeChild(e.firstChild); }); }
@@ -274,6 +272,12 @@ button:focus-visible,.chipbtn:focus-visible,.toggle input:focus-visible{outline:
     res.appendChild(el("div", "msg note", note));
   }
 
+  // compute automatically once every cell is filled
+  function auto() {
+    var full = vals.every(function (r) { return r.every(function (v) { return String(v).trim() !== ""; }); });
+    if (full) { compute(); return; }
+    clearOut(); res.appendChild(el("div", "msg note", "모든 칸을 채우면 행렬식이 자동으로 계산됩니다."));
+  }
   function compute() {
     clearOut();
     var A = [];

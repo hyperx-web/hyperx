@@ -43,6 +43,7 @@ Always answer the user in Korean.
   - Professor row shows profile + link, no publication list.
 
 ## Lectures
+- Linear algebra tools (`lectures/linear-algebra/`): RREF, vector equation, solution set, determinant (auto-computes once every cell is filled, no button), eigen-calculator.html (exact rational eigenvalues/eigenvectors, surd/numeric fallback, eigenspace plot: 2×2 draggable x vs Ax, 3×3 rotatable 3-D, concept notes). Pages are standalone HTML sharing the determinant page head/logos.
 - `/recruit/` (recruit.html) = undergraduate research student notice; linked from the home "Position Available" card ("모집 공고 자세히 보기"). Update the term/text there when recruiting changes.
 - `/lectures/exam-timer/` = standalone exam timer (layout: null, dark site theme, projector-friendly): duration input, start/pause/reset,
   start & end clock times, 10/5-min warnings, beep + red flash at the end, exam rules list with photos,
