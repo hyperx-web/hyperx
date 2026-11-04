@@ -150,6 +150,7 @@ button:focus-visible,.chipbtn:focus-visible,.toggle input:focus-visible{outline:
     <button class="chipbtn" data-preset="ex3">3×3 예제</button>
     <button class="chipbtn" data-preset="ex4">4×4 예제</button>
     <button class="chipbtn" data-preset="sing">특이행렬 (det = 0)</button>
+    <button class="chipbtn" id="randBtn" title="손으로 풀어 볼 수 있는 정수 행렬을 무작위로 만듭니다">🎲 랜덤 행렬</button>
     <button class="chipbtn" data-preset="clear">모두 지우기</button>
   </div>
 </header>
@@ -255,6 +256,10 @@ button:focus-visible,.chipbtn:focus-visible,.toggle input:focus-visible{outline:
     ex4: [[1, 0, 2, -1], [3, 0, 0, 5], [2, 1, 4, -3], [1, 0, 5, 0]],
     sing: [[1, 2, 3], [4, 5, 6], [7, 8, 9]],
     clear: null
+  };
+  document.getElementById("randBtn").onclick = function () {
+    var r = []; for (var i = 0; i < n; i++) { r.push([]); for (var j = 0; j < n; j++) r[i].push(Math.floor(Math.random() * 11) - 5); }
+    setMatrix(r);
   };
   document.querySelectorAll("[data-preset]").forEach(function (bt) { bt.onclick = function () {
     var p = presets[bt.dataset.preset];

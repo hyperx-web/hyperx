@@ -175,6 +175,7 @@ button:focus-visible,.chipbtn:focus-visible,.toggle input:focus-visible{outline:
     <button class="chipbtn" data-preset="e3">무리수 고유값</button>
     <button class="chipbtn" data-preset="e4">회전 (복소 고유값)</button>
     <button class="chipbtn" data-preset="e5">3×3 예제 (평면 고유공간)</button>
+    <button class="chipbtn" id="randBtn" title="손으로 풀어 볼 수 있는 정수 행렬을 무작위로 만듭니다">🎲 랜덤 행렬</button>
     <button class="chipbtn" data-preset="clear">모두 지우기</button>
   </div>
 </header>
@@ -452,6 +453,25 @@ button:focus-visible,.chipbtn:focus-visible,.toggle input:focus-visible{outline:
     e5: [[4, -1, 6], [2, 1, 6], [2, -1, 8]],
     clear: null
   };
+  function rint(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
+  function randEigen(N) {
+    for (var t = 0; t < 500; t++) {
+      var P = [], Q = [], i, j, k;            // Q = P^-1, updated alongside P
+      for (i = 0; i < N; i++) { P.push([]); Q.push([]); for (j = 0; j < N; j++) { P[i].push(i === j ? 1 : 0); Q[i].push(i === j ? 1 : 0); } }
+      for (k = 0; k < 2 * N; k++) {
+        var r = rint(0, N - 1), s = rint(0, N - 1), f = rint(-2, 2) || 1; if (r === s) continue;
+        for (j = 0; j < N; j++) P[r][j] += f * P[s][j];        // P <- E P
+        for (i = 0; i < N; i++) Q[i][s] -= f * Q[i][r];        // Q <- Q E^-1
+      }
+      var d = []; for (i = 0; i < N; i++) d.push(i && Math.random() < .25 ? d[i - 1] : rint(-4, 5));
+      var A = [];
+      for (i = 0; i < N; i++) { A.push([]); for (j = 0; j < N; j++) { var v = 0; for (k = 0; k < N; k++) v += P[i][k] * d[k] * Q[k][j]; A[i].push(v); } }
+      var flat = [].concat.apply([], A).map(Math.abs);
+      if (Math.max.apply(null, flat) <= 12 && flat.filter(function (x) { return x; }).length > N) return A;
+    }
+    return A;
+  }
+  document.getElementById("randBtn").onclick = function () { vals = randEigen(n).map(function (r) { return r.map(String); }); build(); auto(); };
   document.querySelectorAll("[data-preset]").forEach(function (bt) { bt.onclick = function () {
     var p = presets[bt.dataset.preset];
     if (!p) { vals = vals.map(function (r) { return r.map(function () { return ""; }); }); build(); auto(); return; }

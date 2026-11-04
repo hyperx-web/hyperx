@@ -170,6 +170,7 @@ button:focus-visible,.chipbtn:focus-visible,input:focus-visible{outline:2px soli
       <button class="chipbtn" data-preset="plane" aria-pressed="false">예제 · 평면</button>
       <button class="chipbtn" data-preset="none" aria-pressed="false">예제 · 해 없음</button>
       <button class="chipbtn" data-preset="two" aria-pressed="false">예제 · 2차원</button>
+      <button class="chipbtn" id="randBtn" title="손으로 풀어 볼 수 있는 정수 행렬을 무작위로 만듭니다">🎲 랜덤 행렬</button>
     </div>
   </header>
 
@@ -327,6 +328,27 @@ function loadPreset(k){
   M=p.m;N=p.n;vals=p.rows.map(r=>r.slice());tv=[0,0,0];
   markPresets(k);resetView();rebuild();
 }
+
+/* ---------- random practice matrix ---------- */
+function rint(a,b){return a+Math.floor(Math.random()*(b-a+1))}
+// R×C integer matrix whose RREF has small integers; pivots only in the first maxPiv columns
+function niceMatrix(R,C,maxPiv){
+  let best=null;
+  for(let t=0;t<300;t++){
+    const full=Math.min(R,maxPiv),rank=Math.random()<.75?full:Math.max(1,full-1);
+    const cols=[...Array(maxPiv).keys()].sort(()=>Math.random()-.5).slice(0,rank).sort((a,b)=>a-b);
+    const M=[...Array(R)].map(()=>Array(C).fill(0));
+    cols.forEach((p,i)=>{M[i][p]=1;for(let c=p+1;c<C;c++)if(!cols.includes(c))M[i][c]=rint(-3,3)});
+    for(let k=0;k<3*R;k++){const i=rint(0,R-1),j=rint(0,R-1);if(i===j)continue;const f=rint(-2,2)||1;for(let c=0;c<C;c++)M[i][c]+=f*M[j][c]}
+    for(let i=R-1;i>0;i--){const j=rint(0,i);[M[i],M[j]]=[M[j],M[i]]}
+    const mx=Math.max(...M.flat().map(Math.abs));
+    const ok=M.every(r=>r.some(v=>v!==0))&&[...Array(C).keys()].every(c=>M.some(r=>r[c]!==0));
+    if(ok&&mx<=9)return M.map(r=>r.map(String));
+    if(!best)best=M;
+  }
+  return best.map(r=>r.map(String));
+}
+document.getElementById("randBtn").addEventListener("click",()=>{vals=niceMatrix(M,N+1,N);tv=[0,0,0];markPresets(null);resetView();rebuild()});
 function markPresets(k){document.querySelectorAll("[data-preset]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.preset===k?"true":"false"))}
 
 /* ---------- input grid ---------- */
