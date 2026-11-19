@@ -1,5 +1,8 @@
 # 최신 소식 — 맨 위에 새 항목을 추가하세요.
 # type: paper | award | lab | member
+- date: "Nov. 2026"
+  type: paper
+  text: 'Our paper "Challenge-response authentication for LEO satellite channels: Exploiting orbit-specific uniqueness" has been accepted for publication in <em>IEEE Wireless Communications Magazine</em>.'
 - date: "Oct. 2026"
   type: award
   text: 'Prof. Dong-Hyun Jung received the KICS Distinguished Service Award (한국통신학회 공로상). Congratulations!'

@@ -37,15 +37,15 @@
       title: "Joint rate and power allocation for secrecy in artificial noise-aided ambient IoT networks"
       venue: "submitted to IEEE Communications Letters, Apr. 2026"
       research: none   # Research 페이지 추천에서 제외
-    - authors: "J. Lee, S. Tomasin, and D.-H. Jung*"
-      title: "Challenge-response authentication for LEO satellite channels: Exploiting orbit-specific uniqueness"
-      venue: "submitted to IEEE Wireless Communications Magazine, Mar. 2026"
     - authors: "M. Lee†, D.-H. Jung†, S. Kim, H. Kim, and J. Choi"
       title: "System-level evaluation of LEO satellite communications under service-driven traffic dynamics"
       venue: "submitted to IEEE Wireless Communications Magazine, Jan. 2026"
 - category: journal
   group: "Published"
   items:
+    - authors: "J. Lee, S. Tomasin, and D.-H. Jung*"
+      title: "Challenge-response authentication for LEO satellite channels: Exploiting orbit-specific uniqueness"
+      venue: "accepted to IEEE Wireless Communications Magazine, Nov. 2026"
     - authors: "H. Cho, S. Lee, D.-H. Jung, D. J. Love, and J. Choi"
       title: "Leveraging beam squint for increased LEO coverage: An optimization approach"
       venue: "accepted to IEEE Transactions on Wireless Communications, Oct. 2026"
