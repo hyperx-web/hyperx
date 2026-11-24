@@ -242,7 +242,7 @@ button:focus-visible,.chipbtn:focus-visible,.toggle input:focus-visible{outline:
     { k: "e", sym: "e", nm: "이심률", en: "Eccentricity", unit: "", min: 0, max: 0.75, step: 0.005, c: "#7A3FA0", role: "궤도의 모양",
       txt: "타원이 얼마나 찌그러졌는지 나타냅니다. e = 0이면 원, 1에 가까울수록 길쭉한 타원입니다. 지구에 가장 가까운 점이 근지점, 가장 먼 점이 원지점입니다." },
     { k: "i", sym: "i", nm: "경사각", en: "Inclination", unit: "°", min: 0, max: 180, step: 0.5, c: "#C8102E", role: "궤도면의 기울기",
-      txt: "적도면과 궤도면 사이의 각도입니다. 0°는 적도궤도, 90°는 극궤도이고, 90°보다 크면 지구 자전과 반대 방향으로 도는 역행궤도입니다. 위성이 지나는 최대 위도가 i로 정해집니다." },
+      txt: "적도면과 궤도면 사이의 각도입니다. 0°는 적도궤도, 90°는 극궤도이고, i < 90°이면 지구 자전과 같은 방향(서→동)으로 도는 순행궤도(prograde orbit), i > 90°이면 반대 방향(동→서)으로 도는 역행궤도(retrograde orbit)입니다. 위성이 지나는 최대 위도가 i로 정해집니다." },
     { k: "O", sym: "Ω", nm: "승교점 적경", en: "RAAN", unit: "°", min: 0, max: 360, step: 0.5, c: "#1E7A4C", role: "궤도면의 방향",
       txt: "위성이 남쪽에서 북쪽으로 적도면을 통과하는 점(승교점)이 춘분점 방향(♈, x축)에서 동쪽으로 몇 도 떨어져 있는지입니다. 기울어진 궤도면을 지구 자전축 둘레로 돌리는 각도입니다." },
     { k: "w", sym: "ω", nm: "근지점 인수", en: "Argument of perigee", unit: "°", min: 0, max: 360, step: 0.5, c: "#9A5B00", role: "궤도면 안에서 타원의 방향",
@@ -303,6 +303,7 @@ button:focus-visible,.chipbtn:focus-visible,.toggle input:focus-visible{outline:
   function fmtV(d, x) {
     if (d.k === "a") return Math.round(x).toLocaleString() + " km";
     if (d.k === "e") return x.toFixed(3);
+    if (d.k === "i") return x.toFixed(1) + "° · " + (x < 90 ? "Prograde (순행)" : x > 90 ? "Retrograde (역행)" : "Polar (극궤도)");
     return x.toFixed(1) + "°";
   }
   function show() {
@@ -503,6 +504,7 @@ button:focus-visible,.chipbtn:focus-visible,.toggle input:focus-visible{outline:
     var kind = o.a * (1 - o.e) < RE + 2000 && o.a * (1 + o.e) < RE + 2000 ? "LEO (저궤도)" : Math.abs(o.a - 42164) < 300 && o.e < 0.01 ? (o.i < 1 ? "GEO (정지궤도)" : "GSO (지구동기궤도)") : o.e > 0.25 ? "HEO (고타원궤도)" : "MEO (중궤도)";
     while (stats.firstChild) stats.removeChild(stats.firstChild);
     stat("궤도 종류", kind);
+    stat("회전 방향", o.i < 90 ? "Prograde orbit (순행, i < 90°)" : o.i > 90 ? "Retrograde orbit (역행, i > 90°)" : "Polar orbit (극궤도, i = 90°)");
     stat("공전 주기 T", hms(T));
     stat("근지점 고도", Math.round(o.a * (1 - o.e) - RE).toLocaleString() + " km");
     stat("원지점 고도", Math.round(o.a * (1 + o.e) - RE).toLocaleString() + " km");
