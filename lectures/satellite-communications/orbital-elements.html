@@ -145,7 +145,7 @@ button:focus-visible,.chipbtn:focus-visible,.toggle input:focus-visible{outline:
 .orb-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:24px;align-items:start}
 @media (max-width:980px){.orb-grid{grid-template-columns:1fr}}
 .view{position:relative}
-.view canvas{display:block;width:100%;height:auto;aspect-ratio:1/0.82;background:#fff;border:1px solid var(--line);border-radius:12px;cursor:grab;touch-action:none}
+.view canvas{display:block;width:100%;height:auto;aspect-ratio:1/0.82;background:#03070F;border:1px solid var(--line);border-radius:12px;cursor:grab;touch-action:none}
 .view .tools{position:absolute;top:10px;left:10px;display:flex;gap:6px;flex-wrap:wrap}
 .view .tools .chipbtn{font-size:12px;padding:5px 10px;background:rgba(255,255,255,.92)}
 .view .tip{position:absolute;bottom:10px;right:12px;font-size:11.5px;color:var(--muted);background:rgba(255,255,255,.85);padding:2px 8px;border-radius:6px}
@@ -387,76 +387,111 @@ button:focus-visible,.chipbtn:focus-visible,.toggle input:focus-visible{outline:
     label(to, txt, color, 6, 4, 14);
   }
 
+  var STARS = []; (function () { var s = 7; function rnd() { s = (s * 16807) % 2147483647; return s / 2147483647; }
+    for (var k = 0; k < 420; k++) { var z = 2 * rnd() - 1, t = 2 * Math.PI * rnd(), q = Math.sqrt(1 - z * z); STARS.push([q * Math.cos(t), q * Math.sin(t), z, rnd() * 1.3 + .3, rnd()]); } })();
+  var SUN = [0.6, -0.55, 0.58];                         // fixed light direction (for shading only)
+  var trail = [];
+  function glowPath(pts, color, width, blur) { ctx.save(); ctx.shadowColor = color; ctx.shadowBlur = blur; path(pts, color, width); ctx.restore(); }
+
   function draw() {
     B = basis();
     var o = cur, f = frame(o), ra = o.a * (1 + o.e), rp = o.a * (1 - o.e);
-    var fit = Math.min(W, H) * 0.44 / Math.max(ra * 1.05, RE * 2.4);
-    scale = scale ? scale + (fit * zoom - scale) * 0.15 : fit * zoom;
-    ctx.clearRect(0, 0, W, H);
-    var EQ = Math.max(ra * 1.12, RE * 2.2), em = function (k) { return focus === k ? 3.4 : 2; };
+    var fixed = Math.min(W, H) * 0.13 / RE;           // Earth radius is fixed on screen; only the wheel zooms
+    scale = scale ? scale + (fixed * zoom - scale) * 0.2 : fixed * zoom;
+    var Rpx = RE * scale, em = function (k) { return focus === k ? 3.4 : 2; };
 
-    // equatorial plane
-    var eq = []; for (var k = 0; k <= 96; k++) { var t = k / 96 * 2 * Math.PI; eq.push([EQ * Math.cos(t), EQ * Math.sin(t), 0]); }
+    // space background + stars (they rotate with the view)
+    var bg = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, Math.max(W, H) * .75);
+    bg.addColorStop(0, "#0E1C33"); bg.addColorStop(1, "#03070F");
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+    STARS.forEach(function (s) { if (dot(s, B.v) < -0.05) return; var R = Math.max(W, H);
+      var x = W / 2 + dot(s, B.r) * R, y = H / 2 - dot(s, B.u) * R; if (x < 0 || y < 0 || x > W || y > H) return;
+      ctx.globalAlpha = .35 + .5 * s[4]; ctx.fillStyle = s[4] > .85 ? "#FFE9C4" : "#DCE8FF"; ctx.fillRect(x, y, s[3], s[3]); });
+    ctx.globalAlpha = 1;
+
+    var EQ = Math.max(ra * 1.12, RE * 2.4);
+    // equatorial reference plane: rings + radial spokes
+    var eq = []; for (var k = 0; k <= 120; k++) { var t = k / 120 * 2 * Math.PI; eq.push([EQ * Math.cos(t), EQ * Math.sin(t), 0]); }
     ctx.beginPath(); eq.forEach(function (p, j) { var q = P2(p); j ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); });
-    ctx.fillStyle = "rgba(0,95,134,0.05)"; ctx.fill(); ctx.strokeStyle = "rgba(0,95,134,0.25)"; ctx.lineWidth = 1; ctx.stroke();
+    ctx.fillStyle = "rgba(120,170,255,0.05)"; ctx.fill();
+    var step = RE * 2; for (var rr = step; rr < EQ; rr += step) { var ring = eq.map(function (p) { return mul(p, rr / EQ); }); path(ring, "rgba(170,200,255,.18)", 1, { noHide: false }); }
+    path(eq, "rgba(170,200,255,.35)", 1);
+    for (var sp = 0; sp < 12; sp++) { var t2 = sp * Math.PI / 6; path([[RE * Math.cos(t2), RE * Math.sin(t2), 0], [EQ * Math.cos(t2), EQ * Math.sin(t2), 0]], "rgba(170,200,255,.12)", 1); }
 
     // orbit plane fill
     var orb = []; for (var k2 = 0; k2 <= 240; k2++) orb.push(pos(o, f, k2 / 240 * 2 * Math.PI));
     if (document.getElementById("showPlane").checked) {
       ctx.beginPath(); orb.forEach(function (p, j) { var q = P2(p); j ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); });
-      ctx.fillStyle = focus === "i" || focus === "O" ? "rgba(200,16,46,0.10)" : "rgba(122,63,160,0.07)"; ctx.fill();
+      ctx.fillStyle = focus === "i" || focus === "O" ? "rgba(255,92,122,0.14)" : "rgba(61,220,151,0.10)"; ctx.fill();
     }
 
-    // Earth
-    var c = P2([0, 0, 0]), g = ctx.createRadialGradient(c[0] - RE * scale * .35, c[1] - RE * scale * .35, RE * scale * .1, c[0], c[1], RE * scale);
-    g.addColorStop(0, "#9CCBE6"); g.addColorStop(1, "#2D6F96");
-    ctx.beginPath(); ctx.arc(c[0], c[1], RE * scale, 0, 7); ctx.fillStyle = g; ctx.fill();
-    ctx.save(); ctx.beginPath(); ctx.arc(c[0], c[1], RE * scale, 0, 7); ctx.clip();
+    // Earth: atmosphere glow, ocean, day/night shading, lat/long grid
+    var c = P2([0, 0, 0]);
+    var at = ctx.createRadialGradient(c[0], c[1], Rpx * .95, c[0], c[1], Rpx * 1.25);
+    at.addColorStop(0, "rgba(110,180,255,.55)"); at.addColorStop(1, "rgba(110,180,255,0)");
+    ctx.fillStyle = at; ctx.beginPath(); ctx.arc(c[0], c[1], Rpx * 1.25, 0, 7); ctx.fill();
+    var ls = [dot(SUN, B.r), -dot(SUN, B.u)], lz = dot(SUN, B.v);
+    var g = ctx.createRadialGradient(c[0] + ls[0] * Rpx * .55, c[1] + ls[1] * Rpx * .55, Rpx * .05, c[0], c[1], Rpx * 1.02);
+    g.addColorStop(0, "#7CC4F5"); g.addColorStop(.45, "#2A78C2"); g.addColorStop(.85, lz > 0 ? "#0D2F5E" : "#081A36"); g.addColorStop(1, "#04112A");
+    ctx.beginPath(); ctx.arc(c[0], c[1], Rpx, 0, 7); ctx.fillStyle = g; ctx.fill();
+    ctx.save(); ctx.beginPath(); ctx.arc(c[0], c[1], Rpx, 0, 7); ctx.clip();
     function onSphere(pts, col, lw) { ctx.beginPath(); var on = false; pts.forEach(function (p) { var vis = dot(p, B.v) > 0; if (vis) { var q = P2(p); on ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); on = true; } else on = false; }); ctx.strokeStyle = col; ctx.lineWidth = lw; ctx.stroke(); }
-    for (var lat = -60; lat <= 60; lat += 30) { var pl = []; for (var k3 = 0; k3 <= 72; k3++) { var lo = k3 * 5 * D2R; pl.push([RE * Math.cos(lat * D2R) * Math.cos(lo), RE * Math.cos(lat * D2R) * Math.sin(lo), RE * Math.sin(lat * D2R)]); } onSphere(pl, lat === 0 ? "rgba(255,255,255,.9)" : "rgba(255,255,255,.35)", lat === 0 ? 1.6 : 1); }
-    for (var lon = 0; lon < 180; lon += 30) { var mr = []; for (var k4 = 0; k4 <= 72; k4++) { var la = k4 * 5 * D2R; mr.push([RE * Math.sin(la) * Math.cos(lon * D2R), RE * Math.sin(la) * Math.sin(lon * D2R), RE * Math.cos(la)]); } onSphere(mr, "rgba(255,255,255,.35)", 1); }
+    for (var lat = -75; lat <= 75; lat += 15) { var pl = []; for (var k3 = 0; k3 <= 72; k3++) { var lo = k3 * 5 * D2R; pl.push([RE * Math.cos(lat * D2R) * Math.cos(lo), RE * Math.cos(lat * D2R) * Math.sin(lo), RE * Math.sin(lat * D2R)]); } onSphere(pl, lat === 0 ? "rgba(255,230,140,.85)" : "rgba(255,255,255,.18)", lat === 0 ? 1.6 : .8); }
+    for (var lon = 0; lon < 180; lon += 15) { var mr = []; for (var k4 = 0; k4 <= 72; k4++) { var la = k4 * 5 * D2R; mr.push([RE * Math.sin(la) * Math.cos(lon * D2R), RE * Math.sin(la) * Math.sin(lon * D2R), RE * Math.cos(la)]); } onSphere(mr, lon === 0 ? "rgba(255,255,255,.45)" : "rgba(255,255,255,.18)", lon === 0 ? 1.2 : .8); }
     ctx.restore();
 
     // axes
-    var AX = EQ * 1.02;
-    arrow([RE, 0, 0], [AX, 0, 0], "#5A6B75", "x ♈");
-    arrow([0, RE, 0], [0, AX * .7, 0], "#8A99A3", "y");
-    arrow([0, 0, RE], [0, 0, Math.max(RE * 1.9, ra * .75)], "#5A6B75", "z (북극)");
+    var AX = EQ * 1.04;
+    arrow([RE, 0, 0], [AX, 0, 0], "#C9D6E8", "x ♈");
+    arrow([0, RE, 0], [0, AX * .7, 0], "#8EA0B8", "y");
+    arrow([0, 0, RE], [0, 0, Math.max(RE * 2.2, ra * .75)], "#C9D6E8", "z (북극)");
 
     // line of nodes and apsides
     var rN = o.a * (1 - o.e * o.e) / (1 + o.e * Math.cos(-o.w * D2R)), rD = o.a * (1 - o.e * o.e) / (1 + o.e * Math.cos(Math.PI - o.w * D2R));
     var nodeA = mul(f.N, rN), nodeD = mul(f.N, -rD);
-    path([nodeD, nodeA], "#1E7A4C", focus === "O" ? 2 : 1.2, { dash: true, alpha: .8 });
-    path([mul(f.P, rp), mul(f.P, -ra)], "#9A5B00", focus === "w" || focus === "e" ? 2 : 1.2, { dash: true, alpha: .7 });
+    path([nodeD, nodeA], "#FF7EB6", focus === "O" ? 2.2 : 1.3, { dash: true, alpha: .9 });
+    path([mul(f.P, rp), mul(f.P, -ra)], "#FFB547", focus === "w" || focus === "e" ? 2.2 : 1.3, { dash: true, alpha: .85 });
 
-    // orbit
-    path(orb, focus === "a" ? "#005F86" : focus === "e" ? "#7A3FA0" : "#14212A", focus === "a" || focus === "e" ? 3.2 : 2.2);
+    // orbit (glowing)
+    var oc = focus === "a" ? "#4FC3F7" : focus === "e" ? "#C792EA" : "#E6F4FF";
+    glowPath(orb, oc, focus === "a" || focus === "e" ? 3.2 : 2.2, 10);
 
     // angles
     if (document.getElementById("showArcs").checked) {
-      var Rarc = RE * 1.35;
-      arc([0, 0, 0], [1, 0, 0], [0, 1, 0], o.O * D2R, Rarc, "#1E7A4C", em("O"));
-      label(mul([Math.cos(o.O * D2R / 2), Math.sin(o.O * D2R / 2), 0], Rarc * 1.08), "Ω", "#1E7A4C");
+      var Rarc = RE * 1.45;
+      arc([0, 0, 0], [1, 0, 0], [0, 1, 0], o.O * D2R, Rarc, "#FF7EB6", em("O"));
+      label(mul([Math.cos(o.O * D2R / 2), Math.sin(o.O * D2R / 2), 0], Rarc * 1.1), "Ω", "#FF7EB6");
       var E1 = [-f.N[1], f.N[0], 0], ri = Math.max(RE * .55, rN * .25);
-      arc(nodeA, E1, [0, 0, 1], o.i * D2R, ri, "#C8102E", em("i"));
-      path([nodeA, add(nodeA, mul(E1, ri * 1.5))], "#C8102E", 1, { alpha: .6 });
-      label(add(nodeA, mul(add(mul(E1, Math.cos(o.i * D2R / 2)), [0, 0, Math.sin(o.i * D2R / 2)]), ri * 1.15)), "i", "#C8102E");
-      var M2 = [f.H[1] * f.N[2] - f.H[2] * f.N[1], f.H[2] * f.N[0] - f.H[0] * f.N[2], f.H[0] * f.N[1] - f.H[1] * f.N[0]], Rw = RE * 1.7;
-      arc([0, 0, 0], f.N, M2, o.w * D2R, Rw, "#9A5B00", em("w"));
-      var hw = o.w * D2R / 2; label(add(mul(f.N, Rw * 1.08 * Math.cos(hw)), mul(M2, Rw * 1.08 * Math.sin(hw))), "ω", "#9A5B00");
-      var Rn = RE * 2.05;
-      arc([0, 0, 0], f.P, f.Q, o.nu * D2R, Rn, "#D4572A", em("nu"));
-      var hn = o.nu * D2R / 2; label(add(mul(f.P, Rn * 1.08 * Math.cos(hn)), mul(f.Q, Rn * 1.08 * Math.sin(hn))), "ν", "#D4572A");
+      arc(nodeA, E1, [0, 0, 1], o.i * D2R, ri, "#FF5C7A", em("i"));
+      path([nodeA, add(nodeA, mul(E1, ri * 1.5))], "#FF5C7A", 1, { alpha: .6 });
+      label(add(nodeA, mul(add(mul(E1, Math.cos(o.i * D2R / 2)), [0, 0, Math.sin(o.i * D2R / 2)]), ri * 1.15)), "i", "#FF5C7A");
+      var M2 = [f.H[1] * f.N[2] - f.H[2] * f.N[1], f.H[2] * f.N[0] - f.H[0] * f.N[2], f.H[0] * f.N[1] - f.H[1] * f.N[0]], Rw = RE * 1.8;
+      arc([0, 0, 0], f.N, M2, o.w * D2R, Rw, "#FFB547", em("w"));
+      var hw = o.w * D2R / 2; label(add(mul(f.N, Rw * 1.1 * Math.cos(hw)), mul(M2, Rw * 1.1 * Math.sin(hw))), "ω", "#FFB547");
+      var Rn = RE * 2.15;
+      arc([0, 0, 0], f.P, f.Q, o.nu * D2R, Rn, "#5EEAD4", em("nu"));
+      var hn = o.nu * D2R / 2; label(add(mul(f.P, Rn * 1.1 * Math.cos(hn)), mul(f.Q, Rn * 1.1 * Math.sin(hn))), "ν", "#5EEAD4");
     }
 
-    // markers
-    dotAt(nodeA, "#1E7A4C", focus === "O" ? 6 : 4.5); label(nodeA, "승교점", "#1E7A4C", 8, 16, 12.5);
-    dotAt(mul(f.P, rp), "#9A5B00", 4.5); label(mul(f.P, rp), "근지점", "#9A5B00", 8, -8, 12.5);
-    if (o.e > 0.02) { dotAt(mul(f.P, -ra), "#7A3FA0", 4); label(mul(f.P, -ra), "원지점", "#7A3FA0", 8, -8, 12.5); }
+    // satellite trail
     var sat = pos(o, f, o.nu * D2R);
-    path([[0, 0, 0], sat], "#D4572A", 1.3, { alpha: .8 });
-    dotAt(sat, "#D4572A", 7); label(sat, "위성", "#D4572A", 10, -10, 13);
-    if (focus === "a") { path([[0, 0, 0], mul(f.P, -ra)], "#005F86", 3); }
+    trail.push(sat); if (trail.length > 70) trail.shift();
+    for (var tk = 1; tk < trail.length; tk++) { ctx.save(); ctx.globalAlpha = tk / trail.length; path([trail[tk - 1], trail[tk]], "#FFD166", 3.5 * tk / trail.length + .5); ctx.restore(); }
+
+    // markers
+    dotAt(nodeA, "#FF7EB6", focus === "O" ? 6.5 : 5); label(nodeA, "승교점", "#FF7EB6", 8, 16, 12.5);
+    dotAt(mul(f.P, rp), "#FFB547", 5); label(mul(f.P, rp), "근지점", "#FFB547", 8, -8, 12.5);
+    if (o.e > 0.02) { dotAt(mul(f.P, -ra), "#C792EA", 4.5); label(mul(f.P, -ra), "원지점", "#C792EA", 8, -8, 12.5); }
+    path([[0, 0, 0], sat], "#5EEAD4", 1.3, { alpha: .8 });
+    // velocity direction at the satellite
+    var nu = o.nu * D2R, vdir = add(mul(f.P, -Math.sin(nu)), mul(f.Q, o.e + Math.cos(nu))), vn = Math.sqrt(dot(vdir, vdir));
+    var vlen = RE * 0.9 * Math.sqrt((2 / (dot(sat, sat) ** .5) - 1 / o.a) * 6778);
+    arrow(sat, add(sat, mul(vdir, vlen / vn)), "#FFD166", "v");
+    var sq = P2(sat), sh = hidden(sat);
+    ctx.save(); ctx.globalAlpha = sh ? .35 : 1; ctx.shadowColor = "#FFD166"; ctx.shadowBlur = 18;
+    ctx.beginPath(); ctx.arc(sq[0], sq[1], 6.5, 0, 7); ctx.fillStyle = "#FFF3C4"; ctx.fill(); ctx.restore();
+    label(sat, "위성", "#FFE08A", 10, -10, 13);
+    if (focus === "a") { path([[0, 0, 0], mul(f.P, -ra)], "#4FC3F7", 3); }
   }
 
   // ---------- stats ----------
@@ -502,7 +537,7 @@ button:focus-visible,.chipbtn:focus-visible,.toggle input:focus-visible{outline:
     yaw -= (e.clientX - drag[0]) * 0.008; pitch = Math.max(-1.5, Math.min(1.5, pitch + (e.clientY - drag[1]) * 0.008)); drag = [e.clientX, e.clientY];
   });
   cv.addEventListener("pointerup", function () { drag = null; cv.style.cursor = "grab"; });
-  cv.addEventListener("wheel", function (e) { e.preventDefault(); zoom = Math.max(0.4, Math.min(4, zoom * Math.exp(-e.deltaY * 0.0012))); }, { passive: false });
+  cv.addEventListener("wheel", function (e) { e.preventDefault(); zoom = Math.max(0.3, Math.min(6, zoom * Math.exp(-e.deltaY * 0.0012))); }, { passive: false });
   function nearest(a, t) { return a + (((t - a) % (2 * Math.PI)) + 3 * Math.PI) % (2 * Math.PI) - Math.PI; }
   document.getElementById("vIso").onclick = function () { vt = [nearest(yaw, 0.5), 0.42]; zoom = 1; };
   document.getElementById("vTop").onclick = function () { vt = [nearest(yaw, -Math.PI / 2), 1.5]; zoom = 1; };
