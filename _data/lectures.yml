@@ -3,5 +3,5 @@
 - { title: "Digital Communications", terms: "Spring 2026, Spring 2025" }
 - { title: "Engineering Mathematics", terms: "Spring 2026, Spring 2025" }
 - { title: "Advanced Engineering Mathematics", terms: "Fall 2025" }
-- { title: "Introduction to Satellite Communications", level: Graduate, terms: "Spring 2026" }
+- { title: "Introduction to Satellite Communications", level: Graduate, terms: "Spring 2026", page: /lectures/satellite-communications/ }
 - { title: "Introduction to Information and Communication Engineering", level: Graduate, terms: "Fall 2026" }
