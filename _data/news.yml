@@ -2,6 +2,9 @@
 # type: paper | award | lab | member
 - date: "Nov. 2026"
   type: award
+  text: '🏆 <strong>Seung-Eun Lee</strong> and <strong>So-Hyeon Choi</strong> received the <strong>Dean''s Award (학부장상)</strong> at the School of Electronic Engineering Capstone Design Competition (졸업작품 경진대회). Congratulations! 🎉'
+- date: "Nov. 2026"
+  type: award
   text: '🏆 <strong>Seung-Eun Lee</strong> won the <strong>Best Undergraduate Paper Award (최우수 학부논문상)</strong> at the KICS Fall Conference 2026, ranking <strong>1st out of 145</strong> undergraduate papers, for the paper "차량 군집 이동 예측을 이용한 동적 위성 빔 자원 할당 시스템". Congratulations! 🎉'
 - date: "Nov. 2026"
   type: paper
