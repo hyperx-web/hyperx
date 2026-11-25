@@ -399,7 +399,10 @@
 (function () {
   var re = /^((?:submitted to|accepted to)\s+)?(.+?)(?=,\s*(?:vol\.|pp\.|no\.|(?:Jan|Feb|Mar|Apr|May|June?|July?|Aug|Sep|Oct|Nov|Dec)\b|\d{4})|$)/i;
   document.querySelectorAll(".pub-venue").forEach(function (el) {
+    var award = el.querySelector(".pub-award");
+    if (award) { award.remove(); }
     var t = el.textContent.trim();
+    if (award) { setTimeout(function () { el.appendChild(document.createTextNode(" ")); el.appendChild(award); }, 0); }
     if (/^in preparation$/i.test(t)) return;
     var m = t.match(re);
     if (!m || !m[2]) return;

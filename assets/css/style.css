@@ -277,6 +277,7 @@ p { margin: 0 0 .8em; }
 .pub-legend { margin: 0; font-size: .85rem; color: var(--muted); flex-basis: 100%; order: 3; }
 .pub-legend b { color: #fff; }
 .pub-venue { color: var(--muted); font-size: .88rem; font-style: italic; }
+.pub-award { display: inline-block; margin-left: .6em; padding: .15em .7em; border-radius: 6px; font-style: normal; font-weight: 800; font-size: .82rem; background: #ffc93c; color: #1a1400; box-shadow: 0 0 12px rgba(255,201,60,.35); }
 .pub-item.hidden, .pub-group.hidden { display: none; }
 mark { background: rgba(76,201,240,.3); color: #fff; border-radius: 3px; }
 

@@ -173,6 +173,13 @@
 - category: conference
   group: "Domestic Conferences"
   items:
+    - authors: "이승은, 정동현"
+      title: "차량 군집 이동 예측을 이용한 동적 위성 빔 자원 할당 시스템"
+      venue: "한국통신학회 추계종합학술발표회, Nov. 2026"
+      award: "최우수 학부논문상"
+    - authors: "최소현, 정동현"
+      title: "도심 V2X 환경에서 트래픽 밀도 및 전파 차폐를 고려한 UAV 기지국 3차원 배치 및 궤적 최적화"
+      venue: "한국통신학회 추계종합학술발표회, Nov. 2026"
     - authors: "이지석, 정동현"
       title: "Walker Constellation 기반 위성망의 시스템 성능 평가를 위한 위성 가시성 분석에 관한 연구"
       venue: "한국통신학회 하계종합학술대회, June 2026"
