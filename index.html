@@ -112,7 +112,7 @@ slug: home
       <li class="news-item reveal">
         <time>{{ n.date }}</time>
         <span class="news-type type-{{ n.type }}">{% case n.type %}{% when "award" %}Award{% when "lab" %}Lab{% when "member" %}Member{% else %}Paper{% endcase %}</span>
-        <p>{{ n.text }}</p>
+        <p>{{ n.text }}{% if n.jci %} <span class="jci-badge" title="JCI 백분위 (2024 JCR, 분야 내 상위)">JCI Top {{ n.jci }}%</span>{% endif %}</p>
       </li>
       {% endfor %}
     </ol>

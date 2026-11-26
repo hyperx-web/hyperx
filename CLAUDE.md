@@ -32,7 +32,8 @@ Always answer the user in Korean.
 ## Display rules
 - Publications page: lab members underlined (same colour as other authors; underline the name only,
   not commas/`*`/`†`); journal/conference name bold in accent blue (detected automatically).
-- Home news: journal names wrapped in `<em>` → bold accent blue. News types: paper | award | lab | member.
+- Home news: journal names wrapped in `<em>` → bold accent blue.
+  Journal papers published from 2026 on carry `jci: <best JCI % across categories>` (only if ≤ 10%), shown as a red "JCI Top x%" badge. Source: OneDrive/02_SSU/01_메뉴얼/08_업적평가 "국제저명논문 등급.xlsx" (JCI(%) column, 2024 JCR; WCM 1.7, TWC 3.1, TCOM 5.6, WCL 14.8 = no badge). News types: paper | award | lab | member.
   Add a "<strong>Name</strong> joined HyperX … Welcome aboard! 🎉" news item (type member, name in bold) when someone joins.
 - Members page (student achievements):
   - Submitted + Published are merged under **International Journals**; venue prefix shown as `Submitted to …` / `Accepted to …`.

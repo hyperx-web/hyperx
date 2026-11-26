@@ -9,12 +9,14 @@
 - date: "Nov. 2026"
   type: paper
   text: 'Our paper "Challenge-response authentication for LEO satellite channels: Exploiting orbit-specific uniqueness" has been accepted for publication in <em>IEEE Wireless Communications Magazine</em>.'
+  jci: 1.7
 - date: "Oct. 2026"
   type: award
   text: '<strong>Prof. Dong-Hyun Jung</strong> received the KICS Distinguished Service Award (한국통신학회 공로상). Congratulations!'
 - date: "Oct. 2026"
   type: paper
   text: 'Our paper "Leveraging beam squint for increased LEO coverage: An optimization approach" has been accepted for publication in <em>IEEE Transactions on Wireless Communications</em>.'
+  jci: 3.1
 - date: "Oct. 2026"
   type: paper
   text: 'Our paper "Topology-induced heterogeneous phase errors in distributed MIMO over networked LEO satellites downlink analysis and phase-error-aware power allocation" has been accepted for publication in <em>IEEE Consumer Communications &amp; Networking Conference</em>.'
@@ -30,6 +32,7 @@
 - date: "Sep. 2026"
   type: paper
   text: 'Our paper "Analysis of beam misalignment effect in inter-satellite FSO links" has been accepted for publication in <em>IEEE Transactions on Communications</em>.'
+  jci: 5.6
 - date: "July 2026"
   type: member
   text: '<strong>Gun-Goo Lee</strong> joined HyperX as a Ph.D. student. Welcome aboard! 🎉'
