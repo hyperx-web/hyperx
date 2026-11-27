@@ -88,6 +88,8 @@
 - date: "Sep. 2023"
   type: paper
   text: 'Our paper "Satellite clustering for non-terrestrial networks: Concept, architectures, and applications" has been published in <em>IEEE Vehicular Technology Magazine</em>.'
+  jci: 0.7
+  jci_year: 2021
 - date: "Aug. 2022"
   type: paper
   text: 'Our paper "When satellites work as eavesdroppers" has been published in <em>IEEE Transactions on Information Forensics and Security</em>.'

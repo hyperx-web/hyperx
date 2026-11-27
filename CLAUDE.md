@@ -33,7 +33,7 @@ Always answer the user in Korean.
 - Publications page: lab members underlined (same colour as other authors; underline the name only,
   not commas/`*`/`†`); journal/conference name bold in accent blue (detected automatically).
 - Home news: journal names wrapped in `<em>` → bold accent blue. Award names are wrapped in `<strong>`.
-  Journal papers published from 2026 on carry `jci: <best JCI % across categories>` (only if ≤ 10%), plus `jci_year` (JCR year of the 업적평가 list of the publication year: 2026 papers → 2024 (default), 2025 papers → 2023 from 과년도/2025학년도 file), shown as a red "JCI <year> Top x%" badge. Papers before 2025: no local JCR list yet. Source: OneDrive/02_SSU/01_메뉴얼/08_업적평가 "국제저명논문 등급.xlsx" (JCI(%) column, 2024 JCR; WCM 1.7, TWC 3.1, TCOM 5.6, WCL 14.8 = no badge). News types: paper | award | lab | member.
+  Journal papers published from 2026 on carry `jci: <best JCI % across categories>` (only if ≤ 10%), plus `jci_year` (JCR year of the 업적평가 list of the publication year: 2026 papers → 2024 (default), 2025 papers → 2023 from 과년도/2025학년도 file), shown as a red "JCI <year> Top x%" badge. Older papers: JCR prints in OneDrive/10_수상지원/# 출판 저널 IF 정보 (JCI rank tables only for VTM, WCL, CL, WPC; % = 100 - JCI percentile). Source: OneDrive/02_SSU/01_메뉴얼/08_업적평가 "국제저명논문 등급.xlsx" (JCI(%) column, 2024 JCR; WCM 1.7, TWC 3.1, TCOM 5.6, WCL 14.8 = no badge). News types: paper | award | lab | member.
   Add a "<strong>Name</strong> joined HyperX … Welcome aboard! 🎉" news item (type member, name in bold) when someone joins.
 - Members page (student achievements):
   - Submitted + Published are merged under **International Journals**; venue prefix shown as `Submitted to …` / `Accepted to …`.
