@@ -63,12 +63,16 @@
 - date: "Apr. 2025"
   type: paper
   text: 'Our paper "Analyzing downlink coverage in clustered low Earth orbit satellite constellations: A stochastic geometry approach" has been accepted for publication in <em>IEEE Transactions on Communications</em>.'
+  jci: 7.2
+  jci_year: 2023
 - date: "Mar. 2025"
   type: lab
   text: 'HyperX has embarked on a new journey at Soongsil University 🎉 Looking forward to the future!'
 - date: "Jan. 2025"
   type: paper
   text: 'Our paper "Rate-splitting for joint unicast and multicast transmission in LEO satellite networks with non-uniform traffic demand" has been published in <em>IEEE Journal on Selected Areas in Communications</em>.'
+  jci: 1.0
+  jci_year: 2023
 - date: "Dec. 2024"
   type: award
   text: '<strong>Prof. Dong-Hyun Jung</strong> received the KICS Haedong Young Engineer Award (한국통신학회 해동젊은공학인상).'
