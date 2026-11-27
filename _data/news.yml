@@ -12,7 +12,7 @@
   jci: 1.7
 - date: "Oct. 2026"
   type: award
-  text: '<strong>Prof. Dong-Hyun Jung</strong> received the KICS Distinguished Service Award (한국통신학회 공로상). Congratulations!'
+  text: '<strong>Prof. Dong-Hyun Jung</strong> received the <strong>KICS Distinguished Service Award (한국통신학회 공로상)</strong>. Congratulations!'
 - date: "Oct. 2026"
   type: paper
   text: 'Our paper "Leveraging beam squint for increased LEO coverage: An optimization approach" has been accepted for publication in <em>IEEE Transactions on Wireless Communications</em>.'
@@ -75,13 +75,13 @@
   jci_year: 2023
 - date: "Dec. 2024"
   type: award
-  text: '<strong>Prof. Dong-Hyun Jung</strong> received the KICS Haedong Young Engineer Award (한국통신학회 해동젊은공학인상).'
+  text: '<strong>Prof. Dong-Hyun Jung</strong> received the <strong>KICS Haedong Young Engineer Award (한국통신학회 해동젊은공학인상)</strong>.'
 - date: "Nov. 2024"
   type: paper
   text: 'Our paper "Modeling and analysis of GEO satellite networks" has been published in <em>IEEE Transactions on Wireless Communications</em>.'
 - date: "Oct. 2024"
   type: award
-  text: '<strong>Prof. Dong-Hyun Jung</strong> was awarded the ICTC Best Paper Award.'
+  text: '<strong>Prof. Dong-Hyun Jung</strong> was awarded the <strong>ICTC Best Paper Award</strong>.'
 - date: "Feb. 2024"
   type: paper
   text: 'Our paper "Satellite clustering for non-terrestrial networks: Orbital configuration-dependent outage analysis" has been published in <em>IEEE Wireless Communications Letters</em>.'
